@@ -906,14 +906,14 @@ h3,.h3{font-size:clamp(20px,1.9vw,25px);font-weight:750;line-height:1.34;letter-
           리포트
         </button>
         <button class="seg-btn" role="tab" aria-selected="false" aria-controls="hero-screen" id="tab-workbook" tabindex="-1"
-          data-src="assets/workbook-app.webp" data-url="epl-lab.app/workbook"
+          data-src="assets/workbook-app.webp" data-url="epl-lab.app/workbook" data-pos="left top"
           data-cap="워크북 · 워크시트 출제기 · 권 번호로 바로 인쇄"
           data-note="출제 8분 → 40초" data-sub="인쇄 미리보기까지 한 화면">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v18H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M8 3v18M11.5 8h4M11.5 12h4"/></svg>
           워크북
         </button>
         <button class="seg-btn" role="tab" aria-selected="false" aria-controls="hero-screen" id="tab-monster" tabindex="-1"
-          data-src="assets/monster-approve.webp" data-url="epl-lab.app/monster/teacher"
+          data-src="assets/monster-approve.webp" data-url="epl-lab.app/monster/teacher" data-pos="left top"
           data-cap="MONSTER WORLD · 선생님 승인 화면"
           data-note="오늘 승인 12건" data-sub="승인된 기록만 XP가 됩니다">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="4"/><path d="M7.5 11.5v.01M16.5 11.5v.01M9 15.5h6"/></svg>
@@ -1539,6 +1539,7 @@ h3,.h3{font-size:clamp(20px,1.9vw,25px);font-weight:750;line-height:1.34;letter-
         pre.onload = () => { img.src = next; img.classList.add('is-on'); img.classList.remove('is-off'); };
         pre.src = next;
       }
+      img.style.objectPosition = btn.dataset.pos || 'top center';
       url.textContent = btn.dataset.url;
       cap.textContent = btn.dataset.cap;
       note.textContent = btn.dataset.note;
