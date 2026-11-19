@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EPL LAB — 학원 운영 도구 모음</title>
+<meta name="description" content="출제부터 수업 기록, 확인, 성적표까지. 원장이 자기 학원에서 쓰려고 만든 도구를 한 곳에 모았습니다. MONSTER WORLD · 성취테스트 리포트 생성기 · 원서 워크북 출제기 · 로직 라이팅.">
+<meta name="theme-color" content="#F0FAF7">
+<meta property="og:title" content="EPL LAB — 학원 운영 도구 모음">
+<meta property="og:description" content="출제부터 수업 기록, 확인, 성적표까지 한 줄로 이어지는 학원 운영 도구.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2312B886'/%3E%3Cpath d='M22 18h22v7H30v6h12v7H30v6h14v7H22z' fill='%23fff'/%3E%3C/svg%3E">
+
+<!-- ══════════════════════════════════════════════════════════════
+     브랜드 설정 — 여기만 바꾸면 헤더·푸터·타이틀에 모두 반영됩니다.
+     (브랜드 가칭: EPL LAB / ClassPoint Studio 중 원하는 이름으로)
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+  const BRAND = {
+    name: "EPL LAB",
+    tagline: "원장이 만든 학원 운영 도구",
+    instagram: "ahyoung.notes",
+    dm: "https://ig.me/m/ahyoung.notes"
+  };
+</script>
+
+<style>
+/* ───────────────────────────────────────────────
+   1. 디자인 토큰
+   ─────────────────────────────────────────────── */
+@font-face{
+  font-family:"Pretendard";
+  src:url("assets/fonts/PretendardVariable.woff2") format("woff2-variations");
+  font-weight:45 920;
+  font-style:normal;
+  font-display:swap;
+}
+:root{
+  --mint:#12B886;
+  --mint-600:#0EA672;
+  --mint-100:#DCF6EC;
+  --mint-050:#F0FAF7;
+  --hl:#8DECD1;
+  --ink:#111827;
+  --ink-700:#374151;
+  --ink-500:#6B7280;
+  --ink-400:#9CA3AF;
+  --line:#E4EEE9;
+  --white:#fff;
+  --dark:#0B1220;
+  --radius:26px;
+  --radius-sm:16px;
+  --shadow:0 24px 60px -34px rgba(16,24,40,.35);
+  --shadow-soft:0 10px 30px -20px rgba(16,24,40,.28);
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--mint-050);color:var(--ink);
+  font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  font-weight:450;line-height:1.7;letter-spacing:-.011em;
+  word-break:keep-all;overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4,p{margin:0}
+mark{
+  background:none;color:inherit;padding:0 .06em;
+  background-image:linear-gradient(180deg,transparent 56%,var(--hl) 56%,var(--hl) 93%,transparent 93%);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+::selection{background:var(--hl);color:var(--ink)}
+:focus-visible{outline:3px solid var(--mint);outline-offset:3px;border-radius:6px}
+
+/* ───────────────────────────────────────────────
+   2. 공통 레이아웃
+   ─────────────────────────────────────────────── */
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.section{padding:112px 0}
+.section--tight{padding:80px 0}
+.label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);
+}
+.label::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--mint)}
+.h2{
+  font-size:clamp(27px,3.4vw,42px);font-weight:800;line-height:1.32;
+  letter-spacing:-.035em;margin-top:18px;word-break:keep-all;
+}
+.lede{margin-top:18px;font-size:clamp(15px,1.35vw,17px);color:var(--ink-700);line-height:1.8;max-width:62ch}
+.section-head{max-width:760px}
+.section-head--center{margin:0 auto;text-align:center}
+.section-head--center .lede{margin-left:auto;margin-right:auto}
+
+/* 버튼 */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 26px;border-radius:999px;font-weight:750;font-size:15px;letter-spacing:-.02em;
+  transition:transform .18s var(--ease),background .18s,color .18s,box-shadow .18s,border-color .18s;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-dark{background:var(--ink);color:#fff;box-shadow:0 12px 26px -16px rgba(17,24,39,.8)}
+.btn-dark:hover{background:#000}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-mint{background:var(--mint);color:#fff;box-shadow:0 12px 26px -16px rgba(18,184,134,.9)}
+.btn-mint:hover{background:var(--mint-600)}
+.btn-sm{padding:11px 18px;font-size:13.5px}
+.btn .arw{transition:transform .2s var(--ease)}
+.btn:hover .arw{transform:translateX(3px)}
+
+/* 칩 */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);
+  font-size:13px;font-weight:600;color:var(--ink-700);letter-spacing:-.015em;
+}
+.chip--mint{background:var(--mint-100);border-color:transparent;color:#067A55;font-weight:800}
+.chip--dark{background:var(--ink);border-color:transparent;color:#fff}
+
+/* 스크롤 등장 */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn:hover{transform:none}
+}
+
+/* ───────────────────────────────────────────────
+   3. 헤더
+   ─────────────────────────────────────────────── */
+.hdr{
+  position:fixed;inset:0 0 auto 0;z-index:80;
+  background:rgba(240,250,247,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:background .25s,border-color .25s,box-shadow .25s;
+}
+.hdr.is-stuck{background:rgba(255,255,255,.9);border-bottom-color:var(--line);box-shadow:0 8px 30px -26px rgba(16,24,40,.6)}
+.hdr-in{display:flex;align-items:center;gap:20px;height:72px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:19px;letter-spacing:-.04em}
+.brand-mark{
+  width:34px;height:34px;border-radius:11px;background:var(--mint);display:grid;place-items:center;
+  box-shadow:0 8px 18px -10px rgba(18,184,134,.9);flex:none;
+}
+.brand-mark svg{width:18px;height:18px;display:block}
+.brand small{display:block;font-size:10.5px;font-weight:650;color:var(--ink-500);letter-spacing:.02em;line-height:1.3;margin-top:1px}
+.nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav a{padding:9px 14px;border-radius:999px;font-size:14.5px;font-weight:650;color:var(--ink-700);transition:background .18s,color .18s}
+.nav a:hover{background:#fff;color:var(--ink)}
+.hdr-cta{display:flex;align-items:center;gap:8px}
+.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;place-items:center}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;position:relative;transition:.2s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+body.menu-open .burger span{background:transparent}
+body.menu-open .burger span::before{top:0;transform:rotate(45deg)}
+body.menu-open .burger span::after{top:0;transform:rotate(-45deg)}
+.mobile-menu{
+  position:fixed;inset:72px 0 auto 0;z-index:79;background:#fff;border-bottom:1px solid var(--line);
+  padding:12px 20px 22px;display:none;box-shadow:0 30px 60px -40px rgba(16,24,40,.5);
+}
+body.menu-open .mobile-menu{display:block}
+.mobile-menu a{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;font-size:16px;font-weight:700;border-bottom:1px solid #F1F6F4}
+.mobile-menu a:last-of-type{border-bottom:0}
+.mobile-menu .btn{width:100%;margin-top:12px}
+
+/* ───────────────────────────────────────────────
+   4. 히어로
+   ─────────────────────────────────────────────── */
+.hero{
+  position:relative;padding:132px 0 88px;
+  background:
+    radial-gradient(1100px 560px at 82% -12%,#D6F7EA 0%,rgba(214,247,234,0) 62%),
+    radial-gradient(820px 500px at -8% 18%,#E6FBF3 0%,rgba(230,251,243,0) 58%),
+    var(--mint-050);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:radial-gradient(rgba(18,184,134,.16) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(760px 420px at 78% 8%,#000 0%,transparent 72%);
+  mask-image:radial-gradient(760px 420px at 78% 8%,#000 0%,transparent 72%);
+}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border-radius:999px;
+  background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);
+  font-size:12.5px;font-weight:700;color:var(--ink-700);
+}
+.hero-badge b{background:var(--mint);color:#fff;font-size:10.5px;font-weight:850;letter-spacing:.08em;padding:4px 8px;border-radius:999px}
+.hero h1{
+  font-size:clamp(32px,3.75vw,50px);font-weight:850;line-height:1.24;letter-spacing:-.045em;margin-top:22px;
+  word-break:keep-all;
+}
+.hero p.lede{margin-top:22px;font-size:clamp(15px,1.4vw,17.5px);max-width:34em}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.hero-note{display:flex;align-items:center;gap:8px;margin-top:20px;font-size:13px;color:var(--ink-500);font-weight:600}
+.hero-note svg{flex:none;color:var(--mint)}
+.hero-stats{display:flex;gap:34px;margin-top:38px;padding-top:26px;border-top:1px solid rgba(17,24,39,.09);flex-wrap:wrap}
+.hero-stats div b{display:block;font-size:26px;font-weight:850;letter-spacing:-.04em;line-height:1.1}
+.hero-stats div span{font-size:12.5px;color:var(--ink-500);font-weight:650}
+
+/* 슬라이더 */
+.slider{position:relative}
+.slider-card{
+  background:#fff;border:1px solid var(--line);border-radius:30px;padding:26px 26px 22px;
+  box-shadow:0 40px 90px -50px rgba(16,24,40,.5),0 2px 0 rgba(255,255,255,.9) inset;
+}
+.slide-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.counter{
+  display:inline-flex;align-items:baseline;gap:4px;background:var(--ink);color:#fff;
+  border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:.02em;
+}
+.counter b{color:var(--hl);font-size:13px;font-weight:850}
+.slide-tag{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+.slides{position:relative;margin-top:18px}
+.slide{display:none;flex-direction:column}
+.slide.is-active{display:flex;animation:slideIn .45s var(--ease) both}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.slide h3{font-size:clamp(21px,2.1vw,26px);font-weight:820;line-height:1.42;letter-spacing:-.038em}
+.slide p{margin-top:11px;font-size:14.5px;color:var(--ink-700);line-height:1.75;min-height:4.6em}
+.slide-media{
+  margin-top:16px;border-radius:18px;overflow:hidden;background:#F7FAF9;border:1px solid #EDF4F1;
+  height:clamp(190px,26vh,268px);position:relative;
+}
+.slide-media img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.slide-media img.monster{object-position:50% 22%}
+.slide-media img.doc{object-position:top left}
+.slide-media--paper{background:linear-gradient(160deg,#F3FBF8,#E9F6F1)}
+.slide-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.slide-actions .btn{flex:1 1 auto;min-width:0;padding:12px 16px;font-size:13.5px}
+.slide .chips{margin-top:14px}
+.slide .chip{font-size:11.5px;padding:6px 11px;background:var(--mint-050);border-color:#E2F1EB}
+
+/* 로직 라이팅 슬라이드 아트 */
+.art{height:100%;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.art-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #DDEBE5;padding-bottom:8px}
+.art-head span{font-size:9.5px;font-weight:850;letter-spacing:.16em;color:#0E7C60}
+.art-head em{font-style:normal;font-size:9.5px;color:#8AA69C;font-weight:700}
+.art-row{display:flex;align-items:center;gap:9px;font-size:11.5px;color:#2C4740;font-weight:650}
+.art-row i{
+  font-style:normal;width:19px;height:19px;border-radius:6px;background:#fff;border:1px solid #DCEBE5;
+  display:grid;place-items:center;font-size:9px;font-weight:850;color:#0E7C60;flex:none;
+}
+.art-row:first-of-type i,.art-row:hover i{background:var(--mint);border-color:var(--mint);color:#fff}
+.art-foot{margin-top:auto;display:flex;align-items:center;gap:8px;font-size:10px;color:#7C9A90;font-weight:700}
+.art-stamp{
+  margin-left:auto;width:34px;height:34px;border-radius:50%;border:1.5px dashed var(--mint);
+  display:grid;place-items:center;font-weight:850;color:var(--mint);font-size:14px;transform:rotate(-8deg);
+}
+
+/* 슬라이드 컨트롤 */
+.slider-ctrl{display:flex;align-items:center;gap:12px;margin-top:18px}
+.dots{display:flex;gap:7px;margin:0 auto}
+.dot{width:7px;height:7px;border-radius:999px;background:#CFE3DC;transition:.25s var(--ease);padding:0}
+.dot.on{width:22px;background:var(--ink)}
+.slider-nav{display:flex;gap:6px}
+.slider-nav button{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;
+  display:grid;place-items:center;transition:.18s;color:var(--ink)
+}
+.slider-nav button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.slider-hint{margin-top:6px;text-align:center;font-size:11.5px;color:var(--ink-400);font-weight:600;display:none}
+@media (hover:none){.slider-hint{display:block}}
+
+/* ───────────────────────────────────────────────
+   5. ACADEMY SYSTEM
+   ─────────────────────────────────────────────── */
+.system{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px;position:relative}
+.step{
+  background:var(--mint-050);border:1px solid #E2F1EB;border-radius:var(--radius);padding:26px 22px 24px;
+  position:relative;transition:transform .25s var(--ease),box-shadow .25s,background .25s;
+}
+.step:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft);background:#fff}
+.step-no{
+  font-size:12px;font-weight:850;letter-spacing:.1em;color:var(--mint);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.step-no::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--mint-100),transparent)}
+.step h3{font-size:17.5px;font-weight:800;letter-spacing:-.03em;margin-top:10px}
+.step .tool{display:inline-block;margin-top:8px;font-size:11.5px;font-weight:750;color:#0E7C60;background:var(--mint-100);border-radius:999px;padding:4px 9px}
+.step p{margin-top:11px;font-size:13.5px;color:var(--ink-700);line-height:1.7}
+.week{
+  margin-top:20px;background:var(--dark);color:#fff;border-radius:var(--radius);padding:28px 30px;
+  display:grid;grid-template-columns:1.1fr 2fr;gap:28px;align-items:center;
+}
+.week h3{font-size:19px;font-weight:800;letter-spacing:-.03em;color:#fff}
+.week h3 span{color:var(--hl)}
+.week p{margin-top:8px;font-size:13.5px;color:#9FB3AE;line-height:1.7}
+.week-line{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.week-item{border-left:1px solid rgba(255,255,255,.14);padding-left:14px}
+.week-item b{display:block;font-size:12px;color:var(--hl);font-weight:800;letter-spacing:.04em}
+.week-item span{display:block;font-size:13px;color:#D8E5E1;margin-top:5px;line-height:1.5}
+
+/* ───────────────────────────────────────────────
+   6. 리포트 프리뷰
+   ─────────────────────────────────────────────── */
+.report{background:linear-gradient(180deg,var(--mint-050),#fff 60%)}
+.report-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;align-items:center;margin-top:16px}
+.report-copy ul{margin-top:26px;display:grid;gap:14px}
+.report-copy li{display:flex;gap:12px;font-size:14.5px;color:var(--ink-700);line-height:1.65}
+.report-copy li b{color:var(--ink);font-weight:750}
+.tick{flex:none;width:22px;height:22px;border-radius:7px;background:var(--mint-100);display:grid;place-items:center;margin-top:2px}
+.tick svg{width:12px;height:12px;color:#0E7C60}
+.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.privacy-note{
+  margin-top:20px;display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--ink-500);
+  background:#fff;border:1px dashed #CFE3DC;border-radius:14px;padding:12px 14px;line-height:1.6;font-weight:600;
+}
+.privacy-note svg{flex:none;margin-top:2px;color:var(--mint)}
+.paper-stack{position:relative;padding:10px 10px 0 0}
+.paper-stack::before{
+  content:"";position:absolute;inset:26px -6px 30px 30px;background:#fff;border:1px solid var(--line);
+  border-radius:18px;transform:rotate(2.4deg);box-shadow:var(--shadow-soft);
+}
+.paper{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow);cursor:zoom-in;
+}
+.paper::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,0),#fff 82%);
+}
+.paper img{width:100%;height:clamp(380px,52vh,560px);object-fit:cover;object-position:top center;transition:transform .5s var(--ease)}
+.paper:hover img{transform:scale(1.015)}
+.paper-badge{
+  position:absolute;left:16px;bottom:16px;z-index:2;background:var(--ink);color:#fff;border-radius:999px;
+  padding:8px 14px;font-size:12px;font-weight:750;display:flex;align-items:center;gap:7px;
+}
+.paper-badge svg{color:var(--hl)}
+
+/* ───────────────────────────────────────────────
+   7. MONSTER WORLD
+   ─────────────────────────────────────────────── */
+.monster{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+.monster::before{
+  content:"";position:absolute;width:760px;height:760px;right:-260px;top:-320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(18,184,134,.28),transparent 62%);
+}
+.monster .wrap{position:relative}
+.monster .label{color:var(--hl)}
+.monster .label::before{background:var(--hl)}
+.monster .h2{color:#fff}
+.monster .h2 mark{background-image:linear-gradient(180deg,transparent 56%,rgba(141,236,209,.35) 56%,rgba(141,236,209,.35) 93%,transparent 93%)}
+.monster .lede{color:#9FB3AE}
+.monster-shots{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:16px;margin-top:48px;align-items:stretch}
+.shot{
+  border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#151E30;
+  transition:transform .3s var(--ease),border-color .3s;display:flex;flex-direction:column;
+}
+.shot:hover{transform:translateY(-6px);border-color:rgba(141,236,209,.4)}
+.shot img{width:100%;height:360px;object-fit:cover;object-position:top center}
+.shot--tall img{object-position:50% 16%}
+.shot figcaption{padding:13px 16px 15px;font-size:12.5px;color:#A9BDB8;font-weight:600;border-top:1px solid rgba(255,255,255,.08);margin-top:auto}
+.shot figcaption b{display:block;color:#fff;font-size:13.5px;font-weight:750;margin-bottom:2px}
+.monster-points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.mpoint{border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:20px 20px 22px;background:rgba(255,255,255,.03)}
+.mpoint b{display:block;font-size:15px;font-weight:800;letter-spacing:-.02em;color:#fff}
+.mpoint p{margin-top:7px;font-size:13px;color:#9FB3AE;line-height:1.65}
+.mpoint .chip--mint{margin-bottom:10px}
+.monster-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px;align-items:center}
+.monster-actions .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.monster-actions .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+.safety{
+  margin-top:34px;border-radius:22px;padding:24px 26px;background:rgba(18,184,134,.09);
+  border:1px solid rgba(141,236,209,.22);display:grid;grid-template-columns:auto 1fr 1fr;gap:24px;align-items:start;
+}
+.safety h4{font-size:13px;font-weight:800;color:var(--hl);letter-spacing:.06em;text-transform:uppercase}
+.safety ul li{font-size:13px;color:#C7D8D3;line-height:1.7;display:flex;gap:8px}
+.safety ul li::before{content:"·";color:var(--hl);font-weight:900}
+.safety ul li.no::before{content:"×";color:#F08C8C;font-weight:700}
+
+/* ───────────────────────────────────────────────
+   8. 도구 그리드
+   ─────────────────────────────────────────────── */
+.tools{background:#fff;border-top:1px solid var(--line)}
+.tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:48px}
+.tool{
+  border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 24px;background:#fff;
+  transition:transform .25s var(--ease),box-shadow .25s,border-color .25s;
+}
+.tool:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft);border-color:#CFE9DF}
+.tool-top{display:flex;align-items:center;gap:12px}
+.tool-ico{width:42px;height:42px;border-radius:13px;background:var(--mint-050);border:1px solid #E2F1EB;display:grid;place-items:center;color:var(--mint-600);flex:none}
+.tool h3{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.tool .sub{font-size:12px;color:var(--ink-400);font-weight:700;letter-spacing:.02em;margin-top:2px}
+.tool p{margin-top:14px;font-size:13.5px;color:var(--ink-700);line-height:1.72}
+.tool .chips{margin-top:16px}
+.tool .chip{font-size:11.5px;padding:6px 11px}
+
+/* ───────────────────────────────────────────────
+   9. 요금제
+   ─────────────────────────────────────────────── */
+.pricing{background:var(--mint-050)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.plan{
+  position:relative;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:28px 24px 26px;
+  display:flex;flex-direction:column;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s;
+}
+.plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
+.plan--pick{border-color:var(--mint);box-shadow:0 30px 70px -46px rgba(18,184,134,.9)}
+.plan-flag{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--mint);color:#fff;
+  font-size:11px;font-weight:850;letter-spacing:.06em;padding:6px 12px;border-radius:999px;white-space:nowrap;
+}
+.plan-name{font-size:15px;font-weight:800;letter-spacing:-.02em}
+.plan-cap{font-size:12.5px;color:var(--ink-500);font-weight:700;margin-top:3px}
+.plan-price{margin-top:20px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.plan-price .now{font-size:34px;font-weight:850;letter-spacing:-.05em;line-height:1}
+.plan-price .now small{font-size:15px;font-weight:700;letter-spacing:-.02em;margin-left:1px}
+.plan-price .per{font-size:13px;color:var(--ink-500);font-weight:700}
+.plan-was{margin-top:7px;font-size:12px;color:var(--ink-400);font-weight:650}
+.plan-was s{margin-left:5px;color:#9CA3AF}
+.plan-beta{margin-top:9px;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:#067A55;background:var(--mint-100);padding:5px 10px;border-radius:999px;align-self:flex-start}
+.plan ul{margin-top:22px;display:grid;gap:9px}
+.plan li{display:flex;gap:9px;font-size:13px;color:var(--ink-700);line-height:1.6}
+.plan li svg{flex:none;margin-top:3px;color:var(--mint)}
+.plan .btn{margin-top:22px;width:100%}
+.plan-note{margin-top:9px;font-size:11.5px;color:var(--ink-400);text-align:center;font-weight:600}
+.pricing-foot{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:18px}
+.single{
+  background:var(--dark);color:#fff;border-radius:var(--radius);padding:30px 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+}
+.single .single-side{display:flex;flex-direction:column;align-items:flex-end;gap:12px;margin-left:auto}
+.single h3{font-size:18px;font-weight:800;letter-spacing:-.03em}
+.single p{margin-top:7px;font-size:13px;color:#9FB3AE;line-height:1.65;max-width:40ch}
+.single .price{font-size:28px;font-weight:850;letter-spacing:-.04em;color:#fff;white-space:nowrap;line-height:1}
+.single .price small{font-size:12px;color:#9FB3AE;font-weight:600;display:block;letter-spacing:0;margin-top:6px}
+.taxnote{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px;
+  display:flex;flex-direction:column;justify-content:center;gap:12px;
+}
+.taxnote li{font-size:12.5px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;font-weight:600}
+.taxnote li::before{content:"✓";color:var(--mint);font-weight:900}
+
+/* ───────────────────────────────────────────────
+   10. 문의
+   ─────────────────────────────────────────────── */
+.contact{background:#fff;border-top:1px solid var(--line)}
+.contact-card{
+  margin-top:44px;background:linear-gradient(150deg,#0B1220,#12312A 130%);border-radius:32px;padding:52px;
+  color:#fff;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;position:relative;overflow:hidden;
+}
+.contact-card::after{
+  content:"";position:absolute;width:520px;height:520px;right:-160px;bottom:-260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(18,184,134,.35),transparent 62%);
+}
+.contact-card>*{position:relative;z-index:1}
+.contact-card h2{font-size:clamp(24px,3vw,36px);font-weight:850;letter-spacing:-.04em;line-height:1.34}
+.contact-card h2 span{color:var(--hl)}
+.contact-card p{margin-top:14px;font-size:14px;color:#A9BDB8;line-height:1.75;max-width:38ch}
+.contact-actions{display:flex;flex-direction:column;gap:10px}
+.contact-actions .btn{justify-content:space-between;width:100%;padding:18px 22px;font-size:14.5px;border-radius:18px}
+.contact-actions .btn-dark{background:#fff;color:var(--ink)}
+.contact-actions .btn-dark:hover{background:var(--hl);color:var(--ink)}
+.contact-actions .btn-ghost{background:transparent;border-color:rgba(255,255,255,.3);color:#fff}
+.contact-actions .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.contact-actions small{font-size:11.5px;color:#7E9490;text-align:center;margin-top:2px}
+
+/* FAQ */
+.faq{margin-top:72px;display:grid;gap:10px;max-width:900px;margin-left:auto;margin-right:auto}
+details.q{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+details.q[open]{border-color:#CFE9DF;box-shadow:var(--shadow-soft)}
+details.q summary{
+  list-style:none;cursor:pointer;padding:20px 22px;font-size:15px;font-weight:750;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:12px;
+}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{
+  content:"";width:9px;height:9px;border-right:2px solid var(--ink-400);border-bottom:2px solid var(--ink-400);
+  transform:rotate(45deg);margin-left:auto;transition:.2s;flex:none;
+}
+details.q[open] summary::after{transform:rotate(-135deg);border-color:var(--mint)}
+details.q .a{padding:0 22px 22px;font-size:13.5px;color:var(--ink-700);line-height:1.8}
+details.q .a b{color:var(--ink)}
+
+/* ───────────────────────────────────────────────
+   11. 푸터
+   ─────────────────────────────────────────────── */
+.ftr{background:var(--mint-050);border-top:1px solid var(--line);padding:52px 0 40px}
+.ftr-in{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-start}
+.ftr p{margin-top:14px;font-size:12.5px;color:var(--ink-500);line-height:1.7;max-width:44ch}
+.ftr-links{display:flex;gap:8px;flex-wrap:wrap}
+.ftr-links a{padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12.5px;font-weight:700;color:var(--ink-700)}
+.ftr-links a:hover{border-color:var(--mint);color:var(--mint-600)}
+.ftr-bottom{margin-top:34px;padding-top:20px;border-top:1px solid rgba(17,24,39,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-400);font-weight:600}
+
+/* 모바일 하단 고정 CTA */
+.mobile-bar{
+  display:none;position:fixed;left:0;right:0;bottom:0;z-index:70;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  gap:8px;
+}
+.mobile-bar .btn{flex:1;padding:14px 12px;font-size:14px}
+
+/* ───────────────────────────────────────────────
+   12. 모달
+   ─────────────────────────────────────────────── */
+.modal{
+  position:fixed;inset:0;z-index:120;display:none;
+  align-items:center;justify-content:center;padding:24px;
+}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(9,14,23,.62);backdrop-filter:blur(6px);animation:fade .25s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal-box{
+  position:relative;background:#fff;border-radius:24px;width:100%;max-width:920px;max-height:calc(100vh - 48px);
+  display:flex;flex-direction:column;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.6);
+  animation:pop .3s var(--ease) both;
+}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.modal-box--sm{max-width:560px}
+.modal-head{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--line);flex:none}
+.modal-head h3{font-size:16px;font-weight:800;letter-spacing:-.03em}
+.modal-head .sub{font-size:12px;color:var(--ink-500);font-weight:650;margin-top:1px}
+.modal-x{
+  margin-left:auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;background:#fff;transition:.18s;flex:none;
+}
+.modal-x:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.modal-body{padding:22px;overflow:auto;-webkit-overflow-scrolling:touch}
+.modal-body--flush{padding:0;background:#F4F7F6}
+.modal-body--flush img{width:100%;height:auto;display:block}
+.modal-foot{padding:16px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex:none;flex-wrap:wrap}
+.modal-foot .btn{padding:12px 20px;font-size:13.5px}
+
+/* 갤러리 */
+.gal{display:grid;grid-template-columns:96px 1fr;gap:16px}
+.gal-thumbs{display:flex;flex-direction:column;gap:8px}
+.gal-thumbs button{
+  border-radius:12px;overflow:hidden;border:2px solid transparent;background:#fff;padding:0;line-height:0;
+  opacity:.62;transition:.18s;
+}
+.gal-thumbs button.on{border-color:var(--mint);opacity:1}
+.gal-thumbs button:hover{opacity:1}
+.gal-thumbs img{width:100%;height:64px;object-fit:cover;object-position:top}
+.gal-main{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;min-height:300px;display:grid;place-items:center}
+.gal-main img{width:100%;max-height:56vh;object-fit:contain}
+.gal-cap{margin-top:12px;font-size:12.5px;color:var(--ink-700);line-height:1.65}
+.gal-cap b{display:block;font-size:13.5px;color:var(--ink);margin-bottom:3px}
+
+/* 폼 */
+.form{display:grid;gap:14px}
+.field{display:grid;gap:6px}
+.field label{font-size:12.5px;font-weight:750;color:var(--ink-700)}
+.field input,.field textarea,.field select{
+  width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#FBFDFC;
+  font:inherit;font-size:14px;color:var(--ink);transition:border-color .18s,background .18s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--mint);background:#fff}
+.field textarea{resize:vertical;min-height:92px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check-row{display:flex;flex-wrap:wrap;gap:8px}
+.check-row label{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border:1.5px solid var(--line);
+  border-radius:999px;font-size:12.5px;font-weight:700;color:var(--ink-700);cursor:pointer;background:#fff;
+}
+.check-row input{accent-color:var(--mint);width:15px;height:15px}
+.check-row label:has(input:checked){border-color:var(--mint);background:var(--mint-050);color:#067A55}
+.form-note{font-size:11.5px;color:var(--ink-400);line-height:1.6}
+.copy-box{
+  display:none;margin-top:4px;background:var(--mint-050);border:1px solid #CFE9DF;border-radius:14px;padding:14px;
+}
+.copy-box.show{display:block;animation:pop .3s var(--ease) both}
+.copy-box .h{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:#067A55;margin-bottom:8px}
+.copy-box pre{
+  margin:0;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:12.5px;color:var(--ink-700);
+  background:#fff;border-radius:10px;padding:12px;line-height:1.7;max-height:180px;overflow:auto;border:1px solid var(--line);
+}
+
+/* ───────────────────────────────────────────────
+   13. 반응형
+   ─────────────────────────────────────────────── */
+@media (max-width:1080px){
+  .hero-grid{gap:36px}
+  .report-grid{gap:36px}
+  .contact-card{padding:40px}
+}
+@media (max-width:920px){
+  .nav,.hdr-cta .btn{display:none}
+  .burger{display:grid;margin-left:auto}
+  .hero{padding:108px 0 64px}
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .hero p.lede{max-width:none}
+  .hero-stats{gap:22px;margin-top:28px}
+  .hero-stats div b{font-size:22px}
+  .section{padding:82px 0}
+  .steps{grid-template-columns:1fr 1fr}
+  .week{grid-template-columns:1fr;gap:20px}
+  .week-line{grid-template-columns:1fr 1fr;gap:14px}
+  .report-grid{grid-template-columns:1fr}
+  .paper-stack{order:-1}
+  .monster-shots{grid-template-columns:1fr 1fr}
+  .shot--tall{grid-column:span 2}
+  .shot img{height:300px}
+  .shot--tall img{height:clamp(280px,44vh,400px)}
+  .monster-points{grid-template-columns:1fr}
+  .safety{grid-template-columns:1fr;gap:16px}
+  .plans{grid-template-columns:1fr;gap:14px}
+  .pricing-foot{grid-template-columns:1fr}
+  .contact-card{grid-template-columns:1fr;gap:30px;padding:34px 28px}
+  .tool-grid{grid-template-columns:1fr}
+  .mobile-bar{display:flex}
+  body{padding-bottom:76px}
+}
+@media (max-width:600px){
+  .wrap{padding:0 20px}
+  .hero{padding:96px 0 54px}
+  .hero h1{font-size:clamp(27px,7.4vw,34px);line-height:1.3}
+  .section{padding:66px 0}
+  .section--tight{padding:54px 0}
+  .slider-card{padding:20px 18px 18px;border-radius:24px}
+  .slide p{min-height:0;font-size:13.5px}
+  .slide-media{height:clamp(160px,26vh,210px)}
+  .slide-actions .btn{font-size:12.5px;padding:11px 12px}
+  .steps{grid-template-columns:1fr}
+  .week-line{grid-template-columns:1fr}
+  .hero-actions .btn{width:100%}
+  .monster-shots{grid-template-columns:1fr}
+  .shot--tall{grid-column:auto}
+  .shot img,.shot--tall img{height:auto}
+  .single{padding:24px 22px;gap:18px}
+  .single .single-side{width:100%;align-items:stretch;margin-left:0;gap:8px}
+  .single .price{text-align:left}
+  .single .btn{width:100%}
+  .h2{font-size:clamp(24px,7vw,30px)}
+  .contact-card{padding:28px 22px;border-radius:24px}
+  .modal{padding:12px}
+  .modal-box{max-height:calc(100vh - 24px);border-radius:20px}
+  .modal-body{padding:16px}
+  .gal{grid-template-columns:1fr}
+  .gal-thumbs{flex-direction:row;order:2}
+  .gal-thumbs button{flex:1}
+  .gal-thumbs img{height:48px}
+  .field-row{grid-template-columns:1fr}
+  .ftr{padding:40px 0 28px}
+  .foot-note{font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── 헤더 ───────────────────────────────────────────── -->
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="#top" aria-label="맨 위로">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 5h11v3.4h-7.2v2.3h6.2v3.4h-6.2v2.5H18V20H7z" fill="#fff"/></svg>
+      </span>
+      <span>
+        <span data-brand="name">EPL LAB</span>
+        <small data-brand="tagline">원장이 만든 학원 운영 도구</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#system">운영 흐름</a>
+      <a href="#report">리포트</a>
+      <a href="#monster">MONSTER WORLD</a>
+      <a href="#tools">도구</a>
+      <a href="#pricing">요금</a>
+      <a href="#faq">자주 묻는 질문</a>
+    </nav>
+    <div class="hdr-cta">
+      <button class="btn btn-dark btn-sm" data-open="inquiry">무료 체험 문의 <span class="arw">→</span></button>
+    </div>
+    <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#system" data-close-menu>운영 흐름 <span aria-hidden="true">→</span></a>
+  <a href="#report" data-close-menu>리포트 <span aria-hidden="true">→</span></a>
+  <a href="#monster" data-close-menu>MONSTER WORLD <span aria-hidden="true">→</span></a>
+  <a href="#tools" data-close-menu>도구 <span aria-hidden="true">→</span></a>
+  <a href="#pricing" data-close-menu>요금 <span aria-hidden="true">→</span></a>
+  <a href="#faq" data-close-menu>자주 묻는 질문 <span aria-hidden="true">→</span></a>
+  <button class="btn btn-dark" data-open="inquiry">무료 체험 문의하기</button>
+</div>
+
+<main id="top">
+
+<!-- ── 히어로 ─────────────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="hero-badge"><b>BETA</b> 학원을 운영하며 직접 만든 도구</span>
+        <h1>학원에서 매일 쓰는 도구를<br><mark>한 곳에</mark> 모았습니다</h1>
+        <p class="lede">
+          출제부터 수업 기록, 선생님 확인, 학부모 성적표까지.
+          원장이 자기 학원에서 쓰려고 만든 도구를 한 페이지에 정리했습니다.
+          학생은 주소만 열면 되고, 원장님은 파일 하나만 있으면 됩니다.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-dark" data-open="inquiry">14일 무료로 써 보기 <span class="arw">→</span></button>
+          <a class="btn btn-ghost" href="#system">운영 흐름 보기</a>
+        </div>
+        <p class="hero-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          카드 등록 없이 체험 · 해지 위약금 없음
+        </p>
+        <div class="hero-stats">
+          <div><b>6</b><span>학원 운영 도구</span></div>
+          <div><b>201종</b><span>몬스터 도감</span></div>
+          <div><b>50권</b><span>원서 워크북 풀</span></div>
+          <div><b>1~2분</b><span>학생 하루 기록</span></div>
+        </div>
+      </div>
+
+      <!-- 슬라이더 -->
+      <div class="slider" id="slider" aria-roledescription="carousel" aria-label="도구 소개">
+        <div class="slider-card">
+          <div class="slides">
+
+            <article class="slide is-active" data-slide="0" aria-hidden="false">
+              <div class="slide-head">
+                <span class="counter"><b>01</b> / 04</span>
+                <span class="slide-tag">MONSTER WORLD</span>
+                <span class="chip chip--mint">베타 모집 중</span>
+              </div>
+              <h3>단어 시험 대신, 매일<br><mark>몬스터가 자라는 기록</mark></h3>
+              <p>학생이 끝낸 학습을 ‘다 했어요’로 남기면 선생님이 확인하고, 확인된 만큼만 경험치가 쌓입니다. 앱 설치 없이 웹 주소로 열고, 하루 1~2분이면 끝납니다.</p>
+              <figure class="slide-media">
+                <img class="monster" src="assets/monster-home.webp" alt="MONSTER WORLD 학생 화면 — 불꽃 여우 캐릭터와 레벨 표시" width="840" height="916" loading="eager" fetchpriority="high" decoding="async">
+              </figure>
+              <div class="slide-actions">
+                <button class="btn btn-dark" data-scroll="#monster">운영 방식 보기</button>
+                <button class="btn btn-ghost" data-open="monster">화면 모아 보기</button>
+              </div>
+              <ul class="chips">
+                <li class="chip">단어 동굴 배틀</li>
+                <li class="chip">마을 지도 5곳</li>
+                <li class="chip">주간 정산표</li>
+                <li class="chip">학부모 안내문</li>
+              </ul>
+            </article>
+
+            <article class="slide" data-slide="1" aria-hidden="true">
+              <div class="slide-head">
+                <span class="counter"><b>02</b> / 04</span>
+                <span class="slide-tag">REPORT BUILDER</span>
+                <span class="chip chip--mint">단품 39,000원</span>
+              </div>
+              <h3>시험이 끝나면<br><mark>성적표가 바로</mark> 나옵니다</h3>
+              <p>학생 이름과 문항 수만 넣으면 영역별·유형별 정답률, 누적 성장 흐름, 담당 코멘트까지 담긴 A4 한 장이 완성됩니다. 넷튜터 상세 성적표를 붙여넣으면 칸이 자동으로 채워집니다.</p>
+              <figure class="slide-media">
+                <img src="assets/report-sample.webp" alt="성취테스트 리포트 예시 — 성취 등급, 영역별 성취, 담당 교사 코멘트" width="1200" height="1858" loading="lazy" decoding="async">
+              </figure>
+              <div class="slide-actions">
+                <button class="btn btn-dark" data-open="report">리포트 예시 보기</button>
+                <button class="btn btn-ghost" data-scroll="#report">만드는 법</button>
+              </div>
+              <ul class="chips">
+                <li class="chip">넷튜터 붙여넣기</li>
+                <li class="chip">A4 인쇄·PDF</li>
+                <li class="chip">JPG 저장</li>
+                <li class="chip">학부모 안내문 복사</li>
+              </ul>
+            </article>
+
+            <article class="slide" data-slide="2" aria-hidden="true">
+              <div class="slide-head">
+                <span class="counter"><b>03</b> / 04</span>
+                <span class="slide-tag">WORKBOOK · WORKSHEET</span>
+              </div>
+              <h3>권 번호만 누르면<br><mark>워크북 한 권</mark>이 나옵니다</h3>
+              <p>EPL 50권 풀에서 응원 문구·워크시트·답지를 무작위로 뽑아 인쇄까지 한 번에. LEGO 블록을 조립하듯 문장을 만드는 워크시트는 학생이 직접 풀고 그 자리에서 채점됩니다.</p>
+              <figure class="slide-media">
+                <img class="doc" src="assets/workbook.webp" alt="EPL 워크북 자동 출제기 — 50권 목록과 권별 문장 구조" width="1600" height="1075" loading="lazy" decoding="async">
+              </figure>
+              <div class="slide-actions">
+                <button class="btn btn-dark" data-scroll="#tools">출제기 살펴보기</button>
+                <button class="btn btn-ghost" data-scroll="#tools">워크시트 구조</button>
+              </div>
+              <ul class="chips">
+                <li class="chip">50권 풀</li>
+                <li class="chip">Click &amp; Print</li>
+                <li class="chip">Word Bank</li>
+                <li class="chip">블록 조립</li>
+              </ul>
+            </article>
+
+            <article class="slide" data-slide="3" aria-hidden="true">
+              <div class="slide-head">
+                <span class="counter"><b>04</b> / 04</span>
+                <span class="slide-tag">LOGIC WRITING</span>
+              </div>
+              <h3>생각의 구조를<br><mark>6개 유닛</mark>으로 훈련합니다</h3>
+              <p>주장과 이유에서 시작해 반론과 최종 에세이까지 6개 유닛. 등급은 문법이 아니라 사고력 3축에서만 나오고, 강사는 카드 맨 위 대본 3줄만 읽으면 됩니다.</p>
+              <figure class="slide-media slide-media--paper">
+                <div class="art" aria-hidden="true">
+                  <div class="art-head"><span>EPL · LOGIC READING &amp; WRITING</span><em>Unit 01–06</em></div>
+                  <div class="art-row"><i>01</i> Opinion + Reason</div>
+                  <div class="art-row"><i>02</i> Cause &amp; Effect</div>
+                  <div class="art-row"><i>03</i> Compare &amp; Contrast</div>
+                  <div class="art-row"><i>04</i> Claim + Evidence</div>
+                  <div class="art-row"><i>05</i> Counterargument</div>
+                  <div class="art-row"><i>06</i> Final Essay</div>
+                  <div class="art-foot">사고력 3축 등급 · 강사 대본 3줄 <span class="art-stamp">A</span></div>
+                </div>
+              </figure>
+              <div class="slide-actions">
+                <button class="btn btn-dark" data-scroll="#tools">유닛 구성 보기</button>
+              </div>
+              <ul class="chips">
+                <li class="chip">6유닛 논리 구조</li>
+                <li class="chip">사고력 3축 등급</li>
+                <li class="chip">표지 빌더</li>
+              </ul>
+            </article>
+
+          </div>
+
+          <div class="slider-ctrl">
+            <div class="dots" role="tablist" aria-label="슬라이드 선택">
+              <button class="dot on" role="tab" aria-selected="true" aria-label="1번 슬라이드" data-go="0"></button>
+              <button class="dot" role="tab" aria-selected="false" aria-label="2번 슬라이드" data-go="1"></button>
+              <button class="dot" role="tab" aria-selected="false" aria-label="3번 슬라이드" data-go="2"></button>
+              <button class="dot" role="tab" aria-selected="false" aria-label="4번 슬라이드" data-go="3"></button>
+            </div>
+            <div class="slider-nav">
+              <button id="prev" aria-label="이전 슬라이드"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button id="next" aria-label="다음 슬라이드"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <p class="slider-hint">옆으로 넘겨 보세요</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACADEMY SYSTEM ─────────────────────────────────── -->
+<section class="section system" id="system">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Academy System</span>
+      <h2 class="h2">평소엔 출제와 기록, 시험엔 성적표.<br><mark>한 해가 끊기지 않게</mark> 이어집니다</h2>
+      <p class="lede">네 단계가 서로 다른 프로그램이 아니라 한 줄로 이어집니다. 수업 준비에 쓴 자료가 기록이 되고, 기록이 성적표가 됩니다.</p>
+    </div>
+
+    <div class="steps reveal">
+      <article class="step">
+        <span class="step-no">STEP 01</span>
+        <h3>수업 준비</h3>
+        <span class="tool">워크북 · 워크시트 · 라이팅</span>
+        <p>권 번호를 누르거나 주제를 고르면 그 자리에서 인쇄물이 나옵니다. 문제를 새로 쓰는 시간을 줄입니다.</p>
+      </article>
+      <article class="step">
+        <span class="step-no">STEP 02</span>
+        <h3>수업 기록</h3>
+        <span class="tool">MONSTER WORLD</span>
+        <p>학생이 끝낸 활동을 ‘다 했어요’로 남깁니다. 하루 1~2분, 앱 설치 없이 브라우저에서.</p>
+      </article>
+      <article class="step">
+        <span class="step-no">STEP 03</span>
+        <h3>선생님 확인</h3>
+        <span class="tool">승인 · 빠른 지급</span>
+        <p>여러 건을 골라 한 번에 승인·반려. 출석·태도처럼 바로 주는 항목은 버튼 한 번으로 지급합니다.</p>
+      </article>
+      <article class="step">
+        <span class="step-no">STEP 04</span>
+        <h3>정산과 성적표</h3>
+        <span class="tool">주간 정산 · 리포트</span>
+        <p>주 1회 입력할 포인트 표와, 학부모께 보낼 A4 성적표가 함께 나옵니다.</p>
+      </article>
+    </div>
+
+    <div class="week reveal">
+      <div>
+        <h3>한 주가 <span>이렇게</span> 흐릅니다</h3>
+        <p>학생은 매일 남기고, 선생님은 금요일에 한 번 확인하고, 주말에 정산표를 봅니다.</p>
+      </div>
+      <div class="week-line">
+        <div class="week-item"><b>MON–THU</b><span>학습 기록<br>학생 ‘다 했어요’</span></div>
+        <div class="week-item"><b>FRI</b><span>승인 · 반려<br>여러 건 한 번에</span></div>
+        <div class="week-item"><b>SAT</b><span>주간 정산<br>입력할 포인트 확인</span></div>
+        <div class="week-item"><b>시험 후</b><span>성취테스트 리포트<br>학부모 발송</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 리포트 프리뷰 ──────────────────────────────────── -->
+<section class="section report" id="report">
+  <div class="wrap">
+    <div class="report-grid">
+      <div class="report-copy reveal">
+        <span class="label">Report Preview</span>
+        <h2 class="h2">학부모에게 나가는 <mark>성적표</mark></h2>
+        <p class="lede">영역별 정답률, 유형별 성취, 누적 성장 흐름, 담당 코멘트까지. 학원 이름과 강조 색을 한 번 정해 두면 매번 같은 모양으로 나옵니다.</p>
+        <ul>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>넷튜터 자동 채우기</b> — 상세 성적표를 복사해 붙여넣으면 학생 이름·문항 수·영역 점수가 채워집니다. PDF 파일로 불러올 수도 있습니다.</span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>등급 기준은 학원이 정합니다</b> — 진급 기준 정답률과 표시 방식(등급·단계·숫자)을 학원에 맞게 바꿉니다. 강조 색은 클레이·포레스트·네이비·플럼 4종.</span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>A4 한 장으로 끝</b> — 인쇄·PDF 저장, JPG 저장, 학부모 안내문 복사까지 한 화면에서 됩니다.</span></li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>학생 정보는 저장하지 않습니다</b> — 입력한 값은 브라우저에 남기지 않고, 학원 설정만 이 컴퓨터에 저장됩니다.</span></li>
+        </ul>
+        <div class="report-actions">
+          <button class="btn btn-dark" data-open="report">리포트 예시 크게 보기 <span class="arw">→</span></button>
+          <button class="btn btn-ghost" data-open="inquiry">도입 문의</button>
+        </div>
+        <p class="privacy-note">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          서버로 보내지 않는 도구입니다. 파일 하나로 열리고, 인터넷이 없어도 리포트를 만들 수 있습니다.
+        </p>
+      </div>
+
+      <div class="paper-stack reveal">
+        <div class="paper" data-open="report" role="button" tabindex="0" aria-label="리포트 예시 크게 보기">
+          <img src="assets/report-sample.webp" alt="성취테스트 리포트 예시 화면" width="1200" height="1858" loading="lazy" decoding="async">
+          <span class="paper-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>
+            눌러서 크게 보기
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MONSTER WORLD ──────────────────────────────────── -->
+<section class="section monster" id="monster">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Monster World</span>
+      <h2 class="h2">게임은 앞서지 않고,<br>공부를 <mark>따라옵니다</mark></h2>
+      <p class="lede">학생 화면의 주인공은 몬스터입니다. 다만 공부를 시키기 위한 장식이 아니라, 선생님이 승인한 기록만 몬스터를 키웁니다.</p>
+    </div>
+
+    <div class="monster-shots reveal">
+      <figure class="shot shot--tall">
+        <img src="assets/monster-home.webp" alt="학생 홈 화면 — 불꽃 여우 몬스터와 레벨" width="840" height="916" loading="lazy" decoding="async">
+        <figcaption><b>학생 홈</b>승인된 만큼만 레벨이 오릅니다. 1,000 XP마다 1레벨, 최고 50레벨.</figcaption>
+      </figure>
+      <figure class="shot shot--wide">
+        <img src="assets/monster-map.webp" alt="마을 지도 — 속삭이는 숲, 바람의 협곡, 별빛 항구, 불꽃 성채" width="840" height="916" loading="lazy" decoding="async">
+        <figcaption><b>마을 지도</b>레벨에 따라 시작의 마을 → 불꽃 성채까지 다섯 마을이 열립니다.</figcaption>
+      </figure>
+      <figure class="shot shot--wide">
+        <img src="assets/monster-dex.webp" alt="몬스터 도감 — 67가문 3단계 201종" width="840" height="916" loading="lazy" decoding="async">
+        <figcaption><b>도감</b>67가문 × 3단계 = 201종. Lv.15와 Lv.35에서 진화합니다.</figcaption>
+      </figure>
+    </div>
+
+    <div class="monster-points reveal">
+      <div class="mpoint">
+        <span class="chip chip--mint">매일</span>
+        <b>단어 동굴 배틀</b>
+        <p>학원 단어장으로 Unit당 10문제. 뜻 고르기·영어 고르기·듣기·철자 4종이고 채점은 서버에서 합니다. 그날 기록이 하나도 없으면 배틀이 열리지 않습니다.</p>
+      </div>
+      <div class="mpoint">
+        <span class="chip chip--mint">매주</span>
+        <b>선생님 승인과 정산</b>
+        <p>승인 화면에서 여러 건을 한 번에 처리하고, 주 1회 학생별 ‘입력할 포인트’를 표로 받습니다. 실제 지급은 지금 하시는 방식 그대로입니다.</p>
+      </div>
+      <div class="mpoint">
+        <span class="chip chip--mint">함께</span>
+        <b>학부모 안내문</b>
+        <p>프로그램 소개와 개인정보 안내가 담긴 가정통신문, 선생님·학생 가이드, 홈 화면 추가 안내를 학원 이름으로 드립니다.</p>
+      </div>
+    </div>
+
+    <div class="monster-actions reveal">
+      <button class="btn btn-mint" data-open="monster">화면 5장 모아 보기 <span class="arw">→</span></button>
+      <a class="btn btn-ghost" href="#pricing">요금 보기</a>
+    </div>
+
+    <div class="safety reveal">
+      <h4>학부모 안심</h4>
+      <ul>
+        <li>받는 정보는 이름(화면 표시용)·아이디·학습 기록 세 가지</li>
+        <li>서버에서 학원별로 데이터를 분리</li>
+        <li>지도에 보이는 이름은 별명·가린 이름·실명·나만 보기 중 선택</li>
+      </ul>
+      <ul>
+        <li class="no">연락처·생년월일·주소·사진은 받지 않음</li>
+        <li class="no">실제 이메일 주소를 만들지 않음</li>
+        <li>퇴원 시 계정 이용 중지, 기록 삭제는 학원에서 처리</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── 도구 ───────────────────────────────────────────── -->
+<section class="section tools" id="tools">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">All Tools</span>
+      <h2 class="h2">한 곳에 모은 <mark>여섯 가지</mark></h2>
+      <p class="lede">모두 지금 학원에서 쓰고 있는 도구입니다. 화려한 기능보다 매일 반복되는 일을 줄이는 데 맞췄습니다.</p>
+    </div>
+
+    <div class="tool-grid">
+      <article class="tool reveal">
+        <div class="tool-top">
+          <span class="tool-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <div>
+            <h3>원서 워크북 자동 출제기</h3>
+            <div class="sub">WORKBOOK · CLICK &amp; PRINT</div>
+          </div>
+        </div>
+        <p>EPL 50권 목록에서 권 번호를 누르면 응원 문구·워크시트·답지가 무작위로 채워집니다. 같은 권을 다시 누르면 새 조합이 나오고, OpenAI 키를 넣으면 권별 그림 9장도 자동으로 만듭니다.</p>
+        <ul class="chips"><li class="chip">50권 풀</li><li class="chip">Word Bank</li><li class="chip">답지 포함</li><li class="chip">바로 인쇄</li></ul>
+      </article>
+
+      <article class="tool reveal">
+        <div class="tool-top">
+          <span class="tool-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+          <div>
+            <h3>문장 조립 워크시트</h3>
+            <div class="sub">WORKSHEET · LEGO BLOCKS</div>
+          </div>
+        </div>
+        <p>주제와 레벨을 고르면 블록이 나오고, 학생이 블록을 눌러 빈칸에 문장을 완성합니다. 정답 확인과 프린트, 학습 배정과 랭킹까지 한 화면에서 됩니다.</p>
+        <ul class="chips"><li class="chip">블록 조립</li><li class="chip">자동 채점</li><li class="chip">학습 배정</li><li class="chip">프린트</li></ul>
+      </article>
+
+      <article class="tool reveal">
+        <div class="tool-top">
+          <span class="tool-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+          <div>
+            <h3>로직 라이팅</h3>
+            <div class="sub">LOGIC WRITING · 6 UNITS</div>
+          </div>
+        </div>
+        <p>주장+이유, 원인·결과, 비교·대조, 주장+근거, 반론, 최종 에세이 6개 유닛으로 논리 구조를 훈련합니다. 등급은 사고력 3축에서만 나오고, 강사 대본 3줄이 카드 맨 위에 붙습니다.</p>
+        <ul class="chips"><li class="chip">6유닛 구조</li><li class="chip">사고력 3축 등급</li><li class="chip">표지 빌더</li></ul>
+      </article>
+
+      <article class="tool reveal">
+        <div class="tool-top">
+          <span class="tool-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.3 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.3 9.4l6.1-.8z"/></svg></span>
+          <div>
+            <h3>칭찬 도장판</h3>
+            <div class="sub">STAMP BOARD</div>
+          </div>
+        </div>
+        <p>학생 이름과 도장 수를 눌러 채우면 이번 달 도장판과 상위 10명 랭킹이 만들어집니다. 매월 1일에 새로 시작하고, 학원 PC에 저장됩니다.</p>
+        <ul class="chips"><li class="chip">월 단위 리셋</li><li class="chip">랭킹</li><li class="chip">원장 설정</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── 요금제 ─────────────────────────────────────────── -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head section-head--center reveal">
+      <span class="label">Pricing</span>
+      <h2 class="h2">원생 수로 정하고, <mark>기능은 모두 같습니다</mark></h2>
+      <p class="lede">요금제에 따라 달라지는 것은 활성 원생 정원뿐입니다. 작은 학원이 기능이 부족해지는 일은 없어야 한다고 봤습니다.</p>
+    </div>
+
+    <div class="plans reveal">
+      <article class="plan">
+        <div class="plan-name">라이트</div>
+        <div class="plan-cap">활성 원생 50명까지</div>
+        <div class="plan-price"><span class="now">29,000<small>원</small></span><span class="per">/ 월</span></div>
+        <div class="plan-was">정가 <s>39,000원</s></div>
+        <span class="plan-beta">베타가 · 3개월</span>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>MONSTER WORLD 전체 기능</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>학부모 안내문·가이드 인쇄물</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>데이터 백업 · 기능 업데이트</li>
+        </ul>
+        <button class="btn btn-ghost" data-open="inquiry">라이트로 상담</button>
+        <p class="plan-note">부가세 별도</p>
+      </article>
+
+      <article class="plan plan--pick">
+        <span class="plan-flag">가장 많이 고르는</span>
+        <div class="plan-name">스탠다드</div>
+        <div class="plan-cap">활성 원생 100명까지</div>
+        <div class="plan-price"><span class="now">49,000<small>원</small></span><span class="per">/ 월</span></div>
+        <div class="plan-was">정가 <s>69,000원</s></div>
+        <span class="plan-beta">베타가 · 3개월</span>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>라이트의 모든 기능</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>활성 원생 100명까지</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>세금계산서 · 계좌이체</li>
+        </ul>
+        <button class="btn btn-dark" data-open="inquiry">스탠다드로 상담</button>
+        <p class="plan-note">부가세 별도</p>
+      </article>
+
+      <article class="plan">
+        <div class="plan-name">프로</div>
+        <div class="plan-cap">활성 원생 200명까지</div>
+        <div class="plan-price"><span class="now">79,000<small>원</small></span><span class="per">/ 월</span></div>
+        <div class="plan-was">정가 <s>109,000원</s></div>
+        <span class="plan-beta">베타가 · 3개월</span>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>스탠다드의 모든 기능</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>활성 원생 200명까지</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>200명 초과는 협의</li>
+        </ul>
+        <button class="btn btn-ghost" data-open="inquiry">프로로 상담</button>
+        <p class="plan-note">부가세 별도</p>
+      </article>
+    </div>
+
+    <div class="pricing-foot reveal">
+      <div class="single">
+        <div>
+          <h3>MONSTER WORLD 없이, 리포트만 필요하다면</h3>
+          <p>성취테스트 리포트 생성기 단품. 파일 하나로 설치 없이 쓰고, 1학원 1라이선스입니다.</p>
+        </div>
+        <div class="single-side">
+          <div class="price">39,000원<small>1회 결제 · 라이선스</small></div>
+          <button class="btn btn-mint" data-open="inquiry" data-tool="report">단품 문의 <span class="arw">→</span></button>
+        </div>
+      </div>
+      <div class="taxnote">
+        <ul>
+          <li>첫 14일 무료 체험 · 카드 등록 없음</li>
+          <li>해지 수수료·위약금 없음</li>
+          <li>월 중간 시작은 일할 계산(30일 기준)</li>
+          <li>베타가는 3개월 적용 후 정가로 전환되며, 전환 전에 안내드립니다</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 문의 ───────────────────────────────────────────── -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div>
+        <h2>우리 학원에 맞는지,<br><span>14일 먼저 써 보세요</span></h2>
+        <p>학원명과 원생 수, 관심 있는 도구만 알려 주시면 학원 코드와 선생님 코드를 만들어 드립니다. 체험 기간에는 결제 정보를 받지 않습니다.</p>
+      </div>
+      <div class="contact-actions">
+        <button class="btn btn-dark" data-open="inquiry">도입 문의 남기기 <span class="arw">→</span></button>
+        <a class="btn btn-ghost" data-dm href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">인스타 DM <span>@ahyoung.notes</span></a>
+        <small>문의는 인스타그램 DM으로 받고 있습니다</small>
+      </div>
+    </div>
+
+
+
+    <div class="faq" id="faq">
+      <h3 style="text-align:center;font-size:20px;font-weight:800;letter-spacing:-.03em;margin:0 0 16px">자주 묻는 질문</h3>
+      <details class="q" open>
+        <summary>설치가 필요한가요?</summary>
+        <div class="a">아니요. <b>휴대폰·태블릿·PC 브라우저에서 주소로 열면</b> 됩니다. 홈 화면에 추가해 두면 아이콘으로 바로 들어오고, 카카오톡으로 받은 링크를 눌러도 브라우저로 열립니다. 리포트·워크북 도구는 파일 하나로 동작해 인터넷이 없어도 인쇄까지 됩니다.</div>
+      </details>
+      <details class="q">
+        <summary>학생 개인정보는 어떻게 되나요?</summary>
+        <div class="a">MONSTER WORLD가 받는 정보는 <b>학생 이름(화면 표시용), 아이디, 학습 기록</b> 세 가지입니다. 연락처·생년월일·주소·사진·결제 정보는 받지 않고, 실제 이메일 주소도 만들지 않습니다. 서버에서는 학원별로 데이터를 분리해 다른 학원의 학생·기록이 보이지 않습니다.</div>
+      </details>
+      <details class="q">
+        <summary>요금제에 따라 기능이 다른가요?</summary>
+        <div class="a">아니요. <b>달라지는 것은 활성 원생 정원뿐</b>입니다. 학부모 안내문·가이드 인쇄물, 데이터 백업, 기능 업데이트는 모든 요금제에 포함됩니다. 정원은 프로그램에서 실제로 제한되고, 넘으면 학생 활성화가 되지 않습니다.</div>
+      </details>
+      <details class="q">
+        <summary>그만두고 싶으면 어떻게 하나요?</summary>
+        <div class="a">해지 수수료나 위약금은 없습니다. 첫 14일은 무료이고 카드 등록도 필요 없습니다. 월 단위로 청구하며, 월 중간에 시작하시면 다음 결제일까지 일할 계산합니다.</div>
+      </details>
+      <details class="q">
+        <summary>휴대폰이 없는 학생도 쓸 수 있나요?</summary>
+        <div class="a">학원 태블릿이나 PC 브라우저로 열면 됩니다. 한 기기에서는 한 명씩 로그인하고, 형제가 같이 써도 아이디가 다르면 기록이 따로 쌓입니다.</div>
+      </details>
+      <details class="q">
+        <summary>지금 바로 도입할 수 있나요?</summary>
+        <div class="a">MONSTER WORLD는 지금 <b>베타 학원</b>을 받고 있습니다. 인스타 DM으로 학원명·원생 수·원하시는 요금제를 알려 주시면 학원 코드를 만들어 드리고, 14일 동안 선생님 계정과 학생 몇 명으로 먼저 써 보실 수 있습니다.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── 푸터 ───────────────────────────────────────────── -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-in">
+      <div>
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 5h11v3.4h-7.2v2.3h6.2v3.4h-6.2v2.5H18V20H7z" fill="#fff"/></svg>
+          </span>
+          <span><span data-brand="name">EPL LAB</span><small data-brand="tagline">원장이 만든 학원 운영 도구</small></span>
+        </a>
+        <p>EPL 영어학원을 운영하는 원장이 자기 학원의 필요로 만든 도구를, 다른 학원도 함께 쓸 수 있도록 정리했습니다.</p>
+      </div>
+      <div class="ftr-links">
+        <a href="#system">운영 흐름</a>
+        <a href="#report">리포트</a>
+        <a href="#monster">MONSTER WORLD</a>
+        <a href="#pricing">요금</a>
+        <a data-dm href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">인스타 DM</a>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <span>© 2026 <span data-brand="name">EPL LAB</span>. All rights reserved.</span>
+      <span class="foot-note">표시된 금액은 부가세 별도이며, 베타 기간에는 달라질 수 있습니다. 이 페이지는 도입 문의용으로, 결제는 상담 후 진행됩니다.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 모바일 하단 바 -->
+<div class="mobile-bar" aria-hidden="false">
+  <button class="btn btn-dark" data-open="inquiry">무료 체험 문의</button>
+  <a class="btn btn-ghost" data-dm href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">DM</a>
+</div>
+
+<!-- ══════════ 모달: 리포트 ══════════ -->
+<div class="modal" id="modal-report" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="report-title">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3 id="report-title">성취테스트 리포트 예시</h3>
+        <div class="sub">초등 5학년 · Reading Bridge 2 · Unit 05–08</div>
+      </div>
+      <button class="modal-x" data-close aria-label="닫기">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body modal-body--flush">
+      <img src="assets/report-sample.webp" alt="성취테스트 리포트 전체 예시 — 성취 등급, 누적 성장 흐름, 유형별 성취, 영역별 성취, 우선 학습 항목, 담당 교사 코멘트" width="1200" height="1858">
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" data-close>닫기</button>
+      <button class="btn btn-dark btn-sm" data-open="inquiry" data-tool="report">이 리포트 만들어 보기 <span class="arw">→</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 모달: MONSTER WORLD 갤러리 ══════════ -->
+<div class="modal" id="modal-monster" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="monster-title">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3 id="monster-title">MONSTER WORLD 화면</h3>
+        <div class="sub">실제 화면 캡처 · 5장</div>
+      </div>
+      <button class="modal-x" data-close aria-label="닫기">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="gal">
+        <div class="gal-thumbs" id="galThumbs">
+          <button class="on" data-src="assets/monster-home.webp" data-cap="학생 홈|승인된 기록만 XP가 되고, 1,000 XP마다 1레벨. 진화에는 진화석이 함께 필요합니다.">
+            <img src="assets/monster-home.webp" alt="학생 홈 썸네일" width="840" height="916" loading="lazy">
+          </button>
+          <button data-src="assets/monster-map.webp" data-cap="마을 지도|레벨에 따라 시작의 마을 → 속삭이는 숲 → 바람의 협곡 → 별빛 항구 → 불꽃 성채가 열립니다.">
+            <img src="assets/monster-map.webp" alt="마을 지도 썸네일" width="840" height="916" loading="lazy">
+          </button>
+          <button data-src="assets/monster-dex.webp" data-cap="몬스터 도감|67가문 × 3단계 = 201종. 스탯이 1,000·5,000에 닿으면 새 알이 열립니다.">
+            <img src="assets/monster-dex.webp" alt="도감 썸네일" width="840" height="916" loading="lazy">
+          </button>
+          <button data-src="assets/monster-approve.webp" data-cap="선생님 승인 화면|여러 건을 골라 한 번에 승인·반려하고, 출석·태도는 빠른 지급으로 바로 줍니다.">
+            <img src="assets/monster-approve.webp" alt="선생님 승인 화면 썸네일" width="1800" height="791" loading="lazy">
+          </button>
+          <button data-src="assets/monster-parent.webp" data-cap="학부모 안내문|프로그램 소개와 개인정보 안내가 담긴 A4 가정통신문. 학원 이름으로 인쇄해 배포합니다.">
+            <img src="assets/monster-parent.webp" alt="학부모 안내문 썸네일" width="1100" height="1556" loading="lazy">
+          </button>
+        </div>
+        <div>
+          <div class="gal-main"><img id="galMain" src="assets/monster-home.webp" alt="MONSTER WORLD 화면" width="840" height="916"></div>
+          <div class="gal-cap"><b id="galTitle">학생 홈</b><span id="galDesc">승인된 기록만 XP가 되고, 1,000 XP마다 1레벨.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" data-close>닫기</button>
+      <button class="btn btn-dark btn-sm" data-open="inquiry" data-tool="monster">체험 신청하기 <span class="arw">→</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 모달: 도입 문의 ══════════ -->
+<div class="modal" id="modal-inquiry" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="inquiry-title">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box modal-box--sm">
+    <div class="modal-head">
+      <div>
+        <h3 id="inquiry-title">도입 문의</h3>
+        <div class="sub">보내실 내용을 정리해 드립니다 · 30초</div>
+      </div>
+      <button class="modal-x" data-close aria-label="닫기">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form" id="inquiryForm" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-academy">학원명 <span aria-hidden="true">*</span></label>
+            <input id="f-academy" name="academy" type="text" placeholder="예: EPL 영어학원" required autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="f-name">성함</label>
+            <input id="f-name" name="name" type="text" placeholder="원장님 성함" autocomplete="name">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-count">원생 수</label>
+            <input id="f-count" name="count" type="text" inputmode="numeric" placeholder="예: 60">
+          </div>
+          <div class="field">
+            <label for="f-plan">관심 요금제</label>
+            <select id="f-plan" name="plan">
+              <option value="">아직 모르겠어요</option>
+              <option value="라이트(50명)">라이트 · 50명</option>
+              <option value="스탠다드(100명)">스탠다드 · 100명</option>
+              <option value="프로(200명)">프로 · 200명</option>
+              <option value="리포트 단품">리포트 생성기 단품</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>관심 있는 도구</label>
+          <div class="check-row">
+            <label><input type="checkbox" name="tool" value="MONSTER WORLD">MONSTER WORLD</label>
+            <label><input type="checkbox" name="tool" value="성취테스트 리포트">리포트 생성기</label>
+            <label><input type="checkbox" name="tool" value="워크북·워크시트">워크북·워크시트</label>
+            <label><input type="checkbox" name="tool" value="로직 라이팅">로직 라이팅</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-msg">궁금한 점</label>
+          <textarea id="f-msg" name="msg" placeholder="예: 지금 쓰는 칭찬 포인트 제도와 연동되는지 궁금합니다."></textarea>
+        </div>
+        <p class="form-note">문의 내용 만들기를 누르면 정리된 문의문이 복사됩니다. 인스타그램 DM에 붙여넣어 보내 주세요. 이 페이지는 어떤 정보도 서버로 보내지 않습니다.</p>
+        <div class="copy-box" id="copyBox">
+          <div class="h">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span id="copyMsg">복사되었습니다</span>
+          </div>
+          <pre id="copyText"></pre>
+          <a class="btn btn-dark btn-sm" id="dmLink" data-dm href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener" style="width:100%;margin-top:10px">인스타 DM 열어서 붙여넣기 <span class="arw">→</span></a>
+        </div>
+      </form>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" data-close>닫기</button>
+      <button class="btn btn-dark btn-sm" id="sendBtn" type="button">문의 내용 만들기 <span class="arw">→</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ───────────────────────────────────────────────
+   브랜드 적용
+   ─────────────────────────────────────────────── */
+(function(){
+  document.querySelectorAll('[data-brand]').forEach(function(el){
+    var k = el.getAttribute('data-brand');
+    if (BRAND[k]) el.textContent = BRAND[k];
+  });
+  document.title = BRAND.name + " — 학원 운영 도구 모음";
+  document.querySelectorAll('[data-dm]').forEach(function(a){ a.href = BRAND.dm; });
+  document.querySelectorAll('.contact-actions .btn-ghost span').forEach(function(s){
+    s.textContent = '@' + BRAND.instagram;
+  });
+})();
+
+/* ───────────────────────────────────────────────
+   헤더 · 모바일 메뉴
+   ─────────────────────────────────────────────── */
+(function(){
+  var hdr = document.getElementById('hdr');
+  var onScroll = function(){ hdr.classList.toggle('is-stuck', window.scrollY > 8); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  var burger = document.getElementById('burger');
+  burger.addEventListener('click', function(){
+    var open = document.body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+  });
+  document.querySelectorAll('[data-close-menu]').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.body.classList.remove('menu-open');
+      burger.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+
+/* ───────────────────────────────────────────────
+   히어로 슬라이더
+   ─────────────────────────────────────────────── */
+(function(){
+  var root = document.getElementById('slider');
+  var slides = root.querySelectorAll('.slide');
+  var dots = root.querySelectorAll('.dot');
+  var idx = 0, timer = null, stopped = false;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function go(n){
+    idx = (n + slides.length) % slides.length;
+    slides.forEach(function(s,i){
+      s.classList.toggle('is-active', i === idx);
+      s.setAttribute('aria-hidden', i === idx ? 'false' : 'true');
+    });
+    dots.forEach(function(d,i){
+      d.classList.toggle('on', i === idx);
+      d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
+  }
+  function next(){ go(idx + 1); }
+  function prev(){ go(idx - 1); }
+
+  document.getElementById('next').addEventListener('click', function(){ stopAuto(); next(); });
+  document.getElementById('prev').addEventListener('click', function(){ stopAuto(); prev(); });
+  dots.forEach(function(d,i){ d.addEventListener('click', function(){ stopAuto(); go(i); }); });
+
+  // 키보드
+  root.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight'){ stopAuto(); next(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft'){ stopAuto(); prev(); e.preventDefault(); }
+  });
+  root.setAttribute('tabindex','0');
+
+  // 스와이프
+  var sx = null;
+  root.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  root.addEventListener('touchend', function(e){
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 42){ stopAuto(); dx < 0 ? next() : prev(); }
+    sx = null;
+  }, {passive:true});
+
+  function startAuto(){
+    if (reduced || stopped || timer) return;
+    timer = setInterval(next, 7000);
+  }
+  function stopAuto(){
+    stopped = true;
+    if (timer){ clearInterval(timer); timer = null; }
+  }
+  root.addEventListener('mouseenter', function(){ if (timer){ clearInterval(timer); timer = null; } });
+  root.addEventListener('mouseleave', startAuto);
+  root.addEventListener('focusin', function(){ if (timer){ clearInterval(timer); timer = null; } });
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){ if (timer){ clearInterval(timer); timer = null; } }
+    else startAuto();
+  });
+  startAuto();
+})();
+
+/* ───────────────────────────────────────────────
+   모달
+   ─────────────────────────────────────────────── */
+(function(){
+  var lastFocus = null, openModal = null;
+
+  function open(id, trigger){
+    var m = document.getElementById('modal-' + id);
+    if (!m) return;
+    if (openModal) close();
+    lastFocus = trigger || document.activeElement;
+    m.classList.add('open');
+    m.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    openModal = m;
+    var f = m.querySelector('.modal-x');
+    if (f) setTimeout(function(){ f.focus(); }, 40);
+  }
+  function close(){
+    if (!openModal) return;
+    openModal.classList.remove('open');
+    openModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    openModal = null;
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-open]');
+    if (t){
+      e.preventDefault();
+      open(t.getAttribute('data-open'), t);
+      var tool = t.getAttribute('data-tool');
+      if (tool && tool === 'report'){
+        var cb = document.querySelector('#inquiryForm input[value="성취테스트 리포트"]');
+        if (cb) cb.checked = true;
+        var sel = document.getElementById('f-plan');
+        if (sel) sel.value = '리포트 단품';
+      }
+      return;
+    }
+    if (e.target.closest('[data-close]')){ e.preventDefault(); close(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') close();
+    if (e.key === 'Tab' && openModal){
+      var f = openModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if (e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    }
+  });
+
+  // 부드러운 이동
+  document.addEventListener('click', function(e){
+    var s = e.target.closest('[data-scroll]');
+    if (!s) return;
+    var el = document.querySelector(s.getAttribute('data-scroll'));
+    if (el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+
+  // 갤러리
+  var thumbs = document.querySelectorAll('#galThumbs button');
+  var main = document.getElementById('galMain');
+  var gt = document.getElementById('galTitle');
+  var gd = document.getElementById('galDesc');
+  thumbs.forEach(function(b){
+    b.addEventListener('click', function(){
+      thumbs.forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      main.src = b.getAttribute('data-src');
+      var parts = b.getAttribute('data-cap').split('|');
+      gt.textContent = parts[0];
+      gd.textContent = parts[1] || '';
+      main.alt = parts[0] + ' 화면';
+    });
+  });
+})();
+
+/* ───────────────────────────────────────────────
+   문의 폼 — 서버 없이 문의문 만들기
+   ─────────────────────────────────────────────── */
+(function(){
+  var btn = document.getElementById('sendBtn');
+  var box = document.getElementById('copyBox');
+  var pre = document.getElementById('copyText');
+  var msg = document.getElementById('copyMsg');
+
+  btn.addEventListener('click', function(){
+    var academy = document.getElementById('f-academy');
+    var name = document.getElementById('f-name').value.trim();
+    var count = document.getElementById('f-count').value.trim();
+    var plan = document.getElementById('f-plan').value;
+    var text = document.getElementById('f-msg').value.trim();
+    var tools = Array.from(document.querySelectorAll('#inquiryForm input[name="tool"]:checked')).map(function(c){ return c.value; });
+
+    if (!academy.value.trim()){
+      academy.focus();
+      academy.style.borderColor = '#E86A6A';
+      setTimeout(function(){ academy.style.borderColor = ''; }, 1600);
+      return;
+    }
+
+    var lines = ['안녕하세요, ' + BRAND.name + ' 도입 문의드립니다.', ''];
+    lines.push('· 학원명: ' + academy.value.trim());
+    if (name) lines.push('· 성함: ' + name);
+    if (count) lines.push('· 원생 수: ' + count + '명');
+    if (plan) lines.push('· 관심 요금제: ' + plan);
+    if (tools.length) lines.push('· 관심 도구: ' + tools.join(', '));
+    if (text) lines.push('', text);
+    lines.push('', '14일 무료 체험을 먼저 해 보고 싶습니다.');
+    var body = lines.join('\n');
+
+    pre.textContent = body;
+    box.classList.add('show');
+    msg.textContent = '문의 내용이 준비되었습니다';
+
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(body).then(function(){
+        msg.textContent = '복사되었습니다 — 아래 버튼으로 DM을 열어 붙여넣어 주세요';
+      }).catch(function(){
+        msg.textContent = '아래 내용을 복사해 인스타 DM으로 보내 주세요';
+      });
+    } else {
+      msg.textContent = '아래 내용을 복사해 인스타 DM으로 보내 주세요';
+    }
+
+    box.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+})();
+
+/* ───────────────────────────────────────────────
+   스크롤 등장
+   ─────────────────────────────────────────────── */
+(function(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (!items.length) return;
+  var ticking = false;
+
+  function sweep(){
+    ticking = false;
+    var vh = window.innerHeight || 800;
+    for (var i = items.length - 1; i >= 0; i--){
+      var r = items[i].getBoundingClientRect();
+      // 화면에 들어왔거나, 이미 지나쳐 위로 올라간 요소도 보이게 합니다.
+      if (r.top < vh * 0.94){
+        items[i].classList.add('in');
+        items.splice(i, 1);
+      }
+    }
+    if (!items.length){
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+  }
+  function onScroll(){
+    if (!ticking){ ticking = true; requestAnimationFrame(sweep); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', sweep);
+  sweep();
+})();
+</script>
+</body>
+</html>
