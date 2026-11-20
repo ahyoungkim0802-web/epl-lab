@@ -3,1942 +3,1625 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>EPL — THE QUIET PRACTICE · 학원 운영 도구 넷</title>
-<meta name="description" content="출제하고, 기록하고, 확인하고, 보냅니다. 원서 영어학원을 운영하며 매주 반복되던 네 가지 일을 도구로 만들었습니다. 성취테스트 리포트·MONSTER WORLD·원서 워크북·로직 라이팅.">
-<meta name="theme-color" content="#F6F4EF">
-<meta property="og:title" content="EPL — THE QUIET PRACTICE">
-<meta property="og:description" content="매일 반복되는 일을, 매일 같은 방식으로. 원장이 자기 학원에서 쓰려고 만든 네 가지 도구.">
+<title>EPL LAB — 학원에서 쓰는 네 가지 도구</title>
+<meta name="description" content="시험이 끝나면 성적표, 수업이 끝나면 몬스터. 원서 영어학원을 운영하며 만든 네 가지 도구 — 성취테스트 리포트 · MONSTER WORLD · 원서 워크북 · 로직 라이팅.">
+<meta name="theme-color" content="#FBFAF7">
+<meta property="og:title" content="EPL LAB — 학원에서 쓰는 네 가지 도구">
+<meta property="og:description" content="시험이 끝나면 성적표, 수업이 끝나면 몬스터. 원장이 자기 학원에서 쓰는 도구 그대로.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="EPL — The Quiet Practice">
+<meta property="og:site_name" content="EPL LAB">
 <meta property="og:url" content="https://ahyoungkim0802-web.github.io/epl-lab/">
 <meta property="og:image" content="https://ahyoungkim0802-web.github.io/epl-lab/assets/report-sample.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23171614'/%3E%3Cpath d='M20 17h24v5H26v7h13v5H26v7h18v6H20z' fill='%23F6F4EF'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315161A'/%3E%3Ccircle cx='32' cy='32' r='9' fill='%23F5C26B'/%3E%3C/svg%3E">
 <link rel="preload" href="assets/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-/* ═══════════════════════════════════════════════
-   EPL — THE QUIET PRACTICE
-   warm stone · espresso ink · taupe · olive
-   ═══════════════════════════════════════════════ */
 @font-face{
   font-family:"Pretendard";
   src:url("assets/fonts/PretendardVariable.woff2") format("woff2-variations");
   font-weight:45 920;font-style:normal;font-display:swap;
 }
-@font-face{
-  font-family:"Instrument Serif";
-  src:url("assets/fonts/InstrumentSerif-Regular.woff2") format("woff2");
-  font-weight:400;font-style:normal;font-display:swap;
-}
-@font-face{
-  font-family:"Instrument Serif";
-  src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
-  font-weight:400;font-style:italic;font-display:swap;
-}
-@font-face{
-  font-family:"Noto Serif KR";
-  src:url("assets/fonts/NotoSerifKR-subset.woff2") format("woff2");
-  font-weight:400;font-style:normal;font-display:swap;
-}
-
 :root{
-  --paper:#F6F4EF;
-  --paper-2:#F0ECE3;
-  --mat:#E9E4D9;
-  --ink:#171614;
-  --ink-2:#3D3934;
-  --ink-3:#6B655C;
-  --taupe:#756557;
-  --line:#DCD5C7;
-  --line-2:#C9C0AF;
-  --olive:#2A3B32;
-  --umber:#7A4E38;
-  --gap:clamp(16px,1.9vw,28px);
-  --pad:clamp(20px,4.2vw,72px);
-  --sec-y:clamp(76px,8.6vw,150px);
-  --ease:cubic-bezier(.22,.61,.36,1);
-}
-[data-theme="ink"]{
-  --paper:#171614;
-  --paper-2:#1D1B18;
-  --ink:#F2EEE6;
-  --ink-2:#D8D2C6;
-  --ink-3:#A79E90;
-  --taupe:#9C9285;
-  --line:rgba(242,238,230,.17);
-  --line-2:rgba(242,238,230,.30);
-  --mat:#E7E1D5;
-}
+  --ink:#15161A;
+  --sub:#565862;
+  --muted:#8C8F99;
+  --bg:#FBFAF7;
+  --card:#FFFFFF;
+  --line:rgba(21,22,26,.09);
+  --line-2:rgba(21,22,26,.16);
 
+  --report:#B8583A;
+  --report-bg:#FBF0E8;
+  --report-soft:#F3DFD1;
+
+  --monster:#171632;
+  --monster-2:#7472E8;
+  --monster-soft:#EAE8FB;
+
+  --work:#B08634;
+  --work-bg:#FCF6EA;
+
+  --write:#3F5F4E;
+  --write-bg:#EDF2EC;
+
+  --r-xl:32px;
+  --r-lg:24px;
+  --r-md:16px;
+  --r-sm:10px;
+
+  --shadow-card:0 1px 2px rgba(30,24,16,.04),0 18px 40px -22px rgba(30,24,16,.28);
+  --shadow-lift:0 2px 4px rgba(30,24,16,.05),0 32px 70px -30px rgba(30,24,16,.38);
+  --max:1264px;
+}
 *,*::before,*::after{box-sizing:border-box}
-html{
-  scroll-behavior:smooth;scroll-padding-top:96px;
-  -webkit-text-size-adjust:100%;
-}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:88px}
 body{
-  margin:0;background:var(--paper);color:var(--ink);
+  margin:0;background:var(--bg);color:var(--ink);
   font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  font-weight:400;font-size:16px;line-height:1.75;letter-spacing:-.012em;
-  word-break:keep-all;overflow-wrap:break-word;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-  text-rendering:optimizeLegibility;
+  font-size:16px;line-height:1.62;font-weight:450;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   overflow-x:hidden;
-  transition:background .5s var(--ease);
 }
-img{display:block;max-width:100%;height:auto}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-h1,h2,h3,h4,p,figure,blockquote,dl,dd{margin:0}
-ul,ol{margin:0;padding:0;list-style:none}
-::selection{background:#DDD2BE;color:var(--ink)}
-:focus-visible{outline:2px solid var(--umber);outline-offset:4px}
+img{display:block;max-width:100%}
+figure{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+::selection{background:#F7D9A8;color:#15161A}
+:focus-visible{outline:2px solid #15161A;outline-offset:3px;border-radius:6px}
 
+/* ── layout ───────────────────────────────── */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+.sec{position:relative;padding:118px 0}
+.sec--tight{padding:84px 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12.5px;font-weight:700;letter-spacing:.01em;color:var(--sub);
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 11px;
+}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--report);display:block}
+h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-.035em;line-height:1.14}
+h1{font-size:clamp(38px,4.5vw,62px)}
+h2{font-size:clamp(29px,3.3vw,46px);line-height:1.16}
+h3{font-size:clamp(21px,1.9vw,26px);letter-spacing:-.03em;line-height:1.3}
+.lead{font-size:clamp(15.5px,1.25vw,18px);color:var(--sub);line-height:1.7;font-weight:450;margin:0}
+.muted{color:var(--muted)}
+.sec-head{max-width:720px}
+.sec-head h2{margin:16px 0 0}
+.sec-head .lead{margin-top:18px;max-width:560px}
 
-/* ── 종이 결 ─────────────────────────────────── */
-body::before{
-  content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
-  opacity:.30;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
-  background-size:160px 160px;
-}
-@media (prefers-reduced-motion: reduce){ body::before{opacity:.22} }
-
-/* ── 타이포 ─────────────────────────────────── */
-.serif{font-family:"Noto Serif KR","Apple SD Gothic Neo",serif;font-weight:400;letter-spacing:-.025em}
-.en{font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:.01em}
-.label{
-  font-size:.6875rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--taupe);line-height:1.4;
-}
-.label-ko{font-size:.75rem;letter-spacing:.04em;color:var(--taupe);font-weight:400}
-.lead{
-  font-size:clamp(1rem,1.06vw,1.0625rem);line-height:1.85;color:var(--ink-2);
-  letter-spacing:-.014em;max-width:44ch;
-}
-.body-sm{font-size:.875rem;line-height:1.8;color:var(--ink-2)}
-.strong{font-weight:600;color:var(--ink)}
-.num{font-variant-numeric:tabular-nums}
-
-/* ── 레이아웃 ───────────────────────────────── */
-.wrap{width:100%;max-width:1360px;margin:0 auto;padding:0 var(--pad)}
-.g{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  column-gap:var(--gap);row-gap:var(--gap);
-}
-.sec{padding:var(--sec-y) 0;position:relative}
-.sec + .sec{border-top:1px solid var(--line)}
-.sec-head{
-  display:flex;align-items:baseline;gap:clamp(14px,2vw,28px);
-  padding-bottom:clamp(34px,4vw,60px);
-}
-.sec-head .no{
-  font-family:"Instrument Serif",Georgia,serif;font-size:1rem;color:var(--umber);
-  letter-spacing:.06em;line-height:1;
-}
-.sec-head .en-label{letter-spacing:.24em}
-.sec-head .rule{flex:1;height:1px;background:var(--line);transform:translateY(-.32em)}
-
-.h2{
-  font-size:clamp(1.85rem,3.5vw,3.05rem);
-  line-height:1.22;letter-spacing:-.035em;font-weight:600;
-  text-wrap:balance;
-}
-.h3{font-size:clamp(1.15rem,1.5vw,1.35rem);line-height:1.5;letter-spacing:-.025em;font-weight:600}
-
-/* ── 버튼 ───────────────────────────────────── */
 .btn{
-  display:inline-flex;align-items:center;gap:.75em;
-  padding:1.05em 1.7em;border:1px solid var(--ink);
-  font-size:.8125rem;font-weight:500;letter-spacing:.05em;
-  color:var(--ink);background:transparent;
-  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:54px;padding:0 26px;border-radius:999px;border:1px solid transparent;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;text-decoration:none;cursor:pointer;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1),box-shadow .25s,background .2s,border-color .2s;
   white-space:nowrap;
 }
-.btn .ar{transition:transform .45s var(--ease);display:inline-block}
-.btn:hover{background:var(--ink);color:var(--paper)}
-.btn:hover .ar{transform:translateX(4px)}
-.btn-solid{background:var(--ink);color:var(--paper)}
-.btn-solid:hover{background:var(--olive);border-color:var(--olive);color:#F6F4EF}
-.btn-sm{padding:.82em 1.25em;font-size:.75rem}
-.btn-light{border-color:rgba(246,244,239,.45);color:#F6F4EF}
-.btn-light:hover{background:#F6F4EF;color:var(--olive);border-color:#F6F4EF}
-.btn-fill{background:#F6F4EF;color:var(--olive);border-color:#F6F4EF}
-.btn-fill:hover{background:transparent;color:#F6F4EF;border-color:rgba(246,244,239,.6)}
-.link{
-  display:inline-flex;align-items:center;gap:.55em;font-size:.8125rem;letter-spacing:.02em;
-  border-bottom:1px solid var(--line-2);padding-bottom:.35em;
-  transition:border-color .3s,color .3s;
-}
-.link:hover{border-color:var(--ink);color:var(--umber)}
-.link .ar{transition:transform .45s var(--ease)}
-.link:hover .ar{transform:translateX(4px)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn--ink{background:var(--ink);color:#fff;box-shadow:0 10px 24px -14px rgba(0,0,0,.7)}
+.btn--ink:hover{transform:translateY(-2px);box-shadow:0 18px 32px -16px rgba(0,0,0,.6)}
+.btn--ghost{background:#fff;color:var(--ink);border-color:var(--line-2)}
+.btn--ghost:hover{transform:translateY(-2px);border-color:rgba(21,22,26,.4);box-shadow:0 12px 26px -20px rgba(0,0,0,.5)}
+.btn--sm{height:44px;padding:0 20px;font-size:13.5px}
+.btn--wide{width:100%}
 
-/* ── 헤더 ───────────────────────────────────── */
-.prog{position:fixed;top:0;left:0;right:0;height:1px;z-index:60;pointer-events:none}
-.prog i{display:block;height:100%;width:0;background:var(--umber);opacity:.85;transition:width .1s linear}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  height:32px;padding:0 13px;border-radius:999px;background:rgba(255,255,255,.92);
+  border:1px solid rgba(21,22,26,.08);box-shadow:0 8px 20px -12px rgba(20,16,10,.5);
+  font-size:12.5px;font-weight:700;letter-spacing:-.01em;color:var(--ink);
+  white-space:nowrap;backdrop-filter:blur(8px);
+}
+.chip b{font-weight:800}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.55}
+
+/* ── header ───────────────────────────────── */
 .hdr{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  background:rgba(246,244,239,.94);backdrop-filter:saturate(140%) blur(14px);
-  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .3s,box-shadow .3s,border-color .3s;
   border-bottom:1px solid transparent;
-  transition:border-color .4s var(--ease),background .4s var(--ease);
 }
-.hdr.scrolled{border-bottom-color:var(--line)}
-.hdr-in{
-  max-width:1360px;margin:0 auto;padding:0 var(--pad);
-  height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;
-}
-.brand{display:flex;align-items:baseline;gap:.85em}
-.brand-mark{font-family:"Instrument Serif",Georgia,serif;font-size:1.35rem;letter-spacing:.14em;line-height:1}
-.brand-sub{font-size:.5625rem;letter-spacing:.26em;color:var(--taupe);text-transform:uppercase}
-.nav{display:flex;align-items:center;gap:clamp(18px,2.4vw,38px)}
-.nav a{
-  font-size:.75rem;letter-spacing:.06em;color:var(--ink-2);position:relative;padding:.4em 0;
-  transition:color .3s;
-}
-.nav a::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);
-  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);
-}
+.hdr.is-solid{background:rgba(251,250,247,.86);backdrop-filter:blur(16px) saturate(1.2);border-bottom-color:var(--line)}
+.hdr__in{max-width:var(--max);margin:0 auto;padding:0 40px;height:72px;display:flex;align-items:center;gap:32px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:-.04em;font-size:19px;white-space:nowrap;flex:none}
+.logo i{width:22px;height:22px;border-radius:7px;background:var(--ink);display:grid;place-items:center}
+.logo i::after{content:"";width:8px;height:8px;border-radius:50%;background:#F5C26B}
+.logo span{font-weight:500;font-size:11px;letter-spacing:.16em;color:var(--muted);margin-left:2px;transform:translateY(1px);white-space:nowrap}
+@media(max-width:620px){.logo span{display:none}.logo{font-size:17px}}
+.nav{display:flex;align-items:center;gap:26px;margin-left:auto}
+.nav a{font-size:13.5px;font-weight:600;color:var(--sub);text-decoration:none;letter-spacing:-.01em;transition:color .2s}
 .nav a:hover{color:var(--ink)}
-.nav a:hover::after{transform:scaleX(1)}
-.hdr-act{display:flex;align-items:center;gap:14px}
+.hdr .btn{margin-left:8px}
+@media(max-width:900px){.nav{display:none}.hdr__in{height:64px;padding:0 20px}}
 
-/* ── 히어로 ─────────────────────────────────── */
-.hero{padding-top:calc(76px + clamp(48px,6vw,86px));padding-bottom:0;position:relative}
-.hero-top{
-  display:flex;justify-content:space-between;align-items:baseline;gap:20px;
-  padding-bottom:clamp(34px,4vw,54px);border-bottom:1px solid var(--line);
+/* ── hero ─────────────────────────────────── */
+.hero{position:relative;padding:126px 0 64px;overflow:hidden}
+.hero__in{max-width:var(--max);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.03fr);gap:56px;align-items:center}
+.hero h1{margin:22px 0 0}
+.hero h1 em{font-style:normal;position:relative;white-space:nowrap}
+.hero h1 em::after{
+  content:"";position:absolute;left:-2px;right:-2px;bottom:.06em;height:.34em;z-index:-1;
+  background:#F7DDB4;border-radius:4px;opacity:.85;
 }
-.hero-h1{
-  grid-column:1 / span 10;
-  margin-top:clamp(34px,4.4vw,62px);
-  font-size:clamp(2.35rem,5.05vw,4.5rem);
-  line-height:1.16;letter-spacing:-.042em;font-weight:600;
-  text-wrap:balance;
-}
-.hero-h1 .serif{display:block;letter-spacing:-.035em;font-weight:400}
-.hero-body{
-  margin-top:clamp(28px,3.4vw,48px);
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  column-gap:var(--gap);row-gap:clamp(28px,3vw,40px);
-  align-items:start;
-}
-.hero-copy{grid-column:1 / span 5}
-.hero-copy .lead{max-width:36ch}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,2.6vw,34px)}
-.hero-note{margin-top:18px;font-size:.75rem;letter-spacing:.01em;color:var(--ink-3)}
-.hero-toc{margin-top:clamp(44px,5vw,76px);max-width:30em}
-.hero-toc .label{display:block;margin-bottom:.9em}
-.hero-toc li{border-top:1px solid var(--line)}
-.hero-toc li:last-child{border-bottom:1px solid var(--line)}
-.hero-toc a{display:flex;align-items:baseline;gap:.7em;padding:.72em 0;font-size:.8125rem;color:var(--ink-2);transition:color .3s}
-.hero-toc a:hover{color:var(--umber)}
-.hero-toc .n{font-family:"Instrument Serif",Georgia,serif;font-size:.75rem;color:var(--umber);letter-spacing:.06em;flex:none}
-.hero-toc .dots{flex:1;border-bottom:1px dotted var(--line-2);transform:translateY(-.28em);min-width:1.5em}
-.hero-toc .m{font-size:.75rem;color:var(--ink-3);flex:none;letter-spacing:.02em}
-.hero-rule{grid-column:7 / span 1;align-self:stretch;background:var(--line);width:1px;justify-self:center;opacity:.9}
-.hero-figure{grid-column:8 / span 5}
-.hero-figure .plate{aspect-ratio:4/4.7}
-.hero-figure .cap{margin-top:14px}
+.hero .lead{margin-top:22px;max-width:420px}
+.hero__cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.hero__note{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:22px;font-size:12.5px;color:var(--muted);font-weight:550}
+.hero__note span{display:inline-flex;align-items:center;gap:6px}
+.hero__note svg{width:13px;height:13px;color:#3F7D5C}
 
-/* 플레이트(전시 프레임) */
-.plate{
-  background:var(--mat);padding:clamp(10px,1.1vw,18px);
-  border:1px solid var(--line);
-  display:block;position:relative;overflow:hidden;
-  transition:background .5s var(--ease);
+/* hero stage */
+.stage{position:relative;border-radius:var(--r-xl);overflow:hidden;aspect-ratio:1.04;
+  background:#F1EEE8;
+  box-shadow:inset 0 0 0 1px rgba(21,22,26,.05),0 40px 90px -60px rgba(30,24,16,.55);
+  isolation:isolate;
 }
-.plate img{
-  position:absolute;inset:clamp(10px,1.1vw,18px);
-  width:calc(100% - 2*clamp(10px,1.1vw,18px));height:calc(100% - 2*clamp(10px,1.1vw,18px));
-  object-fit:contain;
-  border:1px solid rgba(23,22,20,.10);
-  background:#fff;
-}
-.plate.tall{aspect-ratio:3/3.6}
-.plate.wide{aspect-ratio:16/8.6}
-.plate.wide.lead-wide{aspect-ratio:16/10.5}
-.plate.sq{aspect-ratio:1/1.06}
-.plate button.shot{
-  display:block;position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:zoom-in;background:none;
-}
-.plate button.shot img{transition:transform 1.1s var(--ease),filter .6s var(--ease)}
-.plate button.shot:hover img{transform:scale(1.012)}
-.cap{
-  font-size:.6875rem;line-height:1.7;letter-spacing:.06em;color:var(--ink-3);
-  display:flex;gap:.7em;align-items:baseline;
-}
-.cap b{
-  font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic;
-  letter-spacing:.04em;color:var(--umber);font-size:.8125rem;white-space:nowrap;
-}
-.hero-cap{display:flex;justify-content:space-between;gap:16px;margin-top:14px}
+.stage__tint{position:absolute;inset:0;transition:background .8s ease}
+.stage[data-i="0"] .stage__tint{background:radial-gradient(120% 100% at 25% 15%,#FBEEE3 0%,#F6E7DA 45%,#EFE6DA 100%)}
+.stage[data-i="1"] .stage__tint{background:radial-gradient(120% 100% at 70% 10%,#E7E5FC 0%,#DCDAF6 40%,#E9E6F3 100%)}
+.stage[data-i="2"] .stage__tint{background:radial-gradient(120% 100% at 20% 20%,#FCF3DF 0%,#F7EAD2 50%,#F1E7D6 100%)}
+.stage[data-i="3"] .stage__tint{background:radial-gradient(120% 100% at 75% 15%,#E6EEE6 0%,#DDE8DE 45%,#E7EBE2 100%)}
+.stage__grain{position:absolute;inset:0;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.7) 1px,transparent 1px);background-size:5px 5px;mix-blend-mode:soft-light;pointer-events:none}
 
-/* 지표 스트립 */
-.stats{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  border-top:1px solid var(--line);margin-top:clamp(44px,5.4vw,84px);
-}
-.stat{padding:clamp(24px,2.6vw,34px) 0 clamp(26px,3vw,40px);border-left:1px solid var(--line)}
-.stat:first-child{border-left:0}
-.stat .v{
-  font-family:"Instrument Serif",Georgia,serif;font-size:clamp(2rem,2.7vw,2.6rem);
-  line-height:1;letter-spacing:.01em;display:flex;align-items:baseline;gap:.18em;
-}
-.stat .v small{font-size:.3125em;letter-spacing:.16em;font-family:"Pretendard",sans-serif;color:var(--taupe);font-weight:500}
-.stat .k{margin-top:.9em;font-size:.75rem;letter-spacing:.04em;color:var(--ink-3)}
-.stat:not(:first-child){padding-left:clamp(18px,2vw,28px)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .75s ease,visibility .75s;transform:scale(1.02);}
+.slide.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .8s ease,transform 1s cubic-bezier(.2,.7,.3,1)}
+.scene{position:absolute;inset:0;display:grid;place-items:center;padding:34px}
+.scene__label{position:absolute;left:22px;top:20px;font-size:11.5px;font-weight:800;letter-spacing:.14em;color:rgba(21,22,26,.42);z-index:4}
+.scene__label b{color:rgba(21,22,26,.72)}
 
-/* ── 00 PREMISE ─────────────────────────────── */
-.premise{position:relative}
-.pq{grid-column:1 / span 7}
-.pq blockquote{
-  margin-top:clamp(20px,2.4vw,34px);
-  font-family:"Noto Serif KR","Apple SD Gothic Neo",serif;
-  font-size:clamp(1.55rem,2.85vw,2.6rem);
-  line-height:1.52;letter-spacing:-.045em;font-weight:400;text-wrap:balance;
+.sheet{background:#fff;border-radius:8px;overflow:hidden;
+  box-shadow:0 30px 60px -30px rgba(40,28,18,.55),0 2px 6px rgba(40,28,18,.1);
+  transform-origin:center;
 }
-.pq blockquote .br{display:block}
-.pq .who{
-  margin-top:clamp(26px,3vw,40px);padding-top:18px;border-top:1px solid var(--line);
-  font-size:.75rem;letter-spacing:.05em;color:var(--ink-3);max-width:26em;
-}
-.pq .who b{color:var(--ink);font-weight:500}
-.pbody{grid-column:9 / span 4;padding-top:clamp(4px,1vw,14px)}
-.pbody p + p{margin-top:1.1em}
-.specs{margin-top:clamp(30px,3.4vw,46px);border-top:1px solid var(--line)}
-.spec-row{
-  display:grid;grid-template-columns:minmax(84px,7.5em) 1fr;gap:clamp(12px,1.6vw,26px);
-  padding:clamp(13px,1.4vw,17px) 0;border-bottom:1px solid var(--line);
-  font-size:.8125rem;line-height:1.75;color:var(--ink-2);align-items:baseline;
-}
-.spec-row dt{font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe)}
-.spec-row dd{margin:0}
+.sheet img{width:100%;height:100%;object-fit:cover;object-position:top center}
 
-/* ── 01 TOOLS ───────────────────────────────── */
-.tools-head{grid-column:1 / span 5}
-.tools-aside{grid-column:8 / span 5;align-self:end}
-.tools-aside p{font-size:.875rem;color:var(--ink-3);line-height:1.8;max-width:34ch}
-.tool-list{margin-top:clamp(34px,4vw,58px);border-top:1px solid var(--line-2)}
-.tool{
-  display:grid;
-  grid-template-columns:3.2em minmax(0,3.4fr) minmax(0,4fr) auto;
-  align-items:baseline;gap:clamp(14px,2vw,34px);
-  padding:clamp(22px,2.5vw,34px) 0;
-  border-bottom:1px solid var(--line);
-  position:relative;transition:background .5s var(--ease);
-}
-.tool:hover{background:rgba(140,123,107,.055)}
-.tool .idx{font-family:"Instrument Serif",Georgia,serif;font-size:.95rem;color:var(--umber);letter-spacing:.06em}
-.tool .name{display:flex;flex-direction:column;gap:.35em}
-.tool .name .ko{font-size:clamp(1.15rem,1.6vw,1.5rem);letter-spacing:-.03em;font-weight:600;line-height:1.3}
-.tool .name .en{font-size:.625rem;letter-spacing:.2em;color:var(--taupe);text-transform:uppercase}
-.tool .desc{font-size:.8125rem;line-height:1.8;color:var(--ink-2);max-width:40ch}
-.tool .side{display:flex;align-items:center;gap:clamp(14px,2vw,28px);justify-self:end}
-.tool .price{font-size:.75rem;letter-spacing:.04em;color:var(--ink-3);white-space:nowrap}
-.tool .go{
-  width:38px;height:38px;border:1px solid var(--line-2);border-radius:50%;
-  display:grid;place-items:center;font-size:.8rem;color:var(--ink-2);
-  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease);
-  flex:none;
-}
-.tool:hover .go{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.tool-note{
-  margin-top:22px;font-size:.75rem;line-height:1.9;color:var(--ink-3);max-width:60ch;
-}
-.tool-note em{font-style:normal;color:var(--ink-2)}
+/* slide 1 — report */
+.sc-report{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.sc-report .a4{width:66%;aspect-ratio:1/1.414;transform:rotate(-3.5deg);position:relative;z-index:2;transition:transform 1.2s cubic-bezier(.2,.7,.3,1)}
+.sc-report .a4--back{position:absolute;width:66%;aspect-ratio:1/1.414;background:#fff;border-radius:8px;transform:rotate(3deg) translate(26px,10px);z-index:1;box-shadow:0 20px 40px -30px rgba(40,28,18,.5)}
+.slide.is-on .sc-report .a4{transform:rotate(-2deg)}
+.fchip{position:absolute;z-index:5}
+.sc-report .detail{position:absolute;left:1%;bottom:7%;width:31%;aspect-ratio:1/1;border-radius:12px;z-index:6;
+  background:#fff url("assets/report-sample.webp") no-repeat;
+  background-size:230%;background-position:20% 40%;
+  box-shadow:0 28px 54px -26px rgba(40,28,18,.55),0 0 0 5px #fff,0 0 0 6px rgba(40,28,18,.06);
+  transform:rotate(3.5deg)}
+.sc-report .fchip{position:absolute;z-index:5}
+.sc-report .detail{position:absolute;left:1%;bottom:7%;width:31%;aspect-ratio:1/1;border-radius:12px;z-index:6;
+  background:#fff url("assets/report-sample.webp") no-repeat;
+  background-size:230%;background-position:20% 40%;
+  box-shadow:0 28px 54px -26px rgba(40,28,18,.55),0 0 0 5px #fff,0 0 0 6px rgba(40,28,18,.06);
+  transform:rotate(3.5deg)}
+.sc-report .fchip--1{right:2.5%;top:8%}
+.sc-report .fchip--2{right:2.5%;bottom:10%}
+.sc-report .fchip--3{right:6%;bottom:9%}
 
-/* ── 02 WEEK ────────────────────────────────── */
-.week-head{grid-column:1 / span 5}
-.week-lead{grid-column:8 / span 5;align-self:end}
-.steps{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  column-gap:var(--gap);margin-top:clamp(38px,4.4vw,64px);
-}
-.step{border-top:1px solid var(--line-2);padding-top:clamp(16px,1.8vw,22px);display:flex;flex-direction:column;gap:.9em}
-.step .n{
-  font-size:.6875rem;letter-spacing:.2em;color:var(--umber);
-}
-.step h3{font-size:1.0625rem;letter-spacing:-.025em;font-weight:600;line-height:1.4}
-.step p{font-size:.8125rem;line-height:1.8;color:var(--ink-2)}
-.step .tag{margin-top:auto;padding-top:1em;font-size:.6875rem;letter-spacing:.12em;color:var(--taupe);text-transform:uppercase}
-.week-lower{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  margin-top:clamp(46px,5.4vw,84px);align-items:start;
-}
-.week-table{grid-column:1 / span 4}
-.week-table .row{
-  display:grid;grid-template-columns:5.6em 1fr;gap:1em;
-  padding:clamp(12px,1.3vw,16px) 0;border-bottom:1px solid var(--line);font-size:.8125rem;
-}
-.week-table .row:first-child{border-top:1px solid var(--line-2)}
-.week-table .row span:first-child{font-size:.6875rem;letter-spacing:.14em;color:var(--taupe);text-transform:uppercase;padding-top:.2em}
-.week-table .row b{font-weight:600;display:block;font-size:.8125rem;letter-spacing:-.01em}
-.week-table .row em{font-style:normal;color:var(--ink-3);font-size:.75rem}
-.week-shot{grid-column:6 / span 7}
-.week-shot .plate{aspect-ratio:16/8.4}
+/* slide 2 — monster */
+.sc-monster{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:16px}
+.sc-monster .screen{width:50%;aspect-ratio:3/3.35;border-radius:22px;overflow:hidden;box-shadow:0 34px 60px -30px rgba(30,24,60,.55),0 0 0 1px rgba(30,24,60,.08)}
+.sc-monster .screen img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.sc-monster .side{display:flex;flex-direction:column;gap:12px;width:38%}
+.sc-monster .mini{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 20px 40px -26px rgba(30,24,60,.5);aspect-ratio:16/11}
+.sc-monster .mini img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.sc-monster .xp{position:absolute;left:50%;transform:translateX(-50%);bottom:7%;z-index:5}
 
-/* ── 03 REPORT ──────────────────────────────── */
-.report-top{grid-column:1 / span 5}
-.report-meta{grid-column:8 / span 5;align-self:end;display:flex;gap:clamp(20px,3vw,48px);flex-wrap:wrap}
-.report-meta .m .k{font-size:.625rem;letter-spacing:.18em;color:var(--taupe);text-transform:uppercase}
-.report-meta .m .v{margin-top:.5em;font-size:.875rem;letter-spacing:-.01em;color:var(--ink)}
-.report-body{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  column-gap:var(--gap);margin-top:clamp(40px,4.6vw,70px);align-items:start;
-}
-.report-shot{grid-column:1 / span 5;position:sticky;top:110px}
-.report-shot .plate{aspect-ratio:3/4.1}
-.report-detail{grid-column:7 / span 6}
-.detail-list{border-top:1px solid var(--line-2)}
-.detail{
-  display:grid;grid-template-columns:6.4em 1fr;gap:clamp(12px,1.6vw,24px);
-  padding:clamp(15px,1.6vw,20px) 0;border-bottom:1px solid var(--line);
-  align-items:baseline;
-}
-.detail dt{font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe)}
-.detail dd{margin:0;font-size:.875rem;line-height:1.8;color:var(--ink-2)}
-.detail dd b{font-weight:600;color:var(--ink)}
-.buy{
-  margin-top:clamp(28px,3vw,40px);padding-top:clamp(20px,2.2vw,26px);border-top:1px solid var(--line-2);
-  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:22px;
-}
-.buy .amount{display:flex;align-items:baseline;gap:.5em}
-.buy .amount .v{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(2rem,2.6vw,2.5rem);line-height:1;letter-spacing:.01em}
-.buy .amount .u{font-size:.8125rem;color:var(--ink-3)}
-.buy .buy-terms{margin-top:.7em;font-size:.75rem;color:var(--ink-3);line-height:1.8}
-.buy-act{display:flex;flex-wrap:wrap;gap:10px}
+/* slide 3 — workbook */
+.sc-work{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.sc-work .win{width:86%;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 34px 70px -34px rgba(60,40,10,.55),0 0 0 1px rgba(60,40,10,.06)}
+.sc-work .win__bar{height:26px;background:#F4EFE4;display:flex;align-items:center;gap:5px;padding:0 12px;border-bottom:1px solid rgba(60,40,10,.07)}
+.sc-work .win__bar i{width:7px;height:7px;border-radius:50%;background:#D8CDB8}
+.sc-work .win__bar span{margin-left:8px;font-size:9px;color:#A79A80;font-weight:600;letter-spacing:.02em}
+.sc-work .win img{width:100%;height:auto}
+.sc-work .sheetback{position:absolute;width:34%;aspect-ratio:1/1.32;background:#fff;border-radius:5px;transform:rotate(-6deg) translate(-62%,38%);
+  box-shadow:0 18px 40px -28px rgba(60,40,10,.55);z-index:1;padding:14px 12px;display:flex;flex-direction:column;gap:7px}
+.sc-work .sheetback i{display:block;height:2px;background:#F0E7D6;border-radius:2px}
+.sc-work .sheetback i:nth-child(1){width:52%;height:4px;background:#E6DAC2;margin-bottom:4px}
+.sc-work .sheetback i:nth-child(4){width:70%}
+.sc-work .sheetback i:nth-child(6){width:84%}
+.sc-work .sheetback i:nth-child(8){width:60%}
+.sc-work .fchip--1{right:4%;top:12%}
+.sc-work .fchip--2{left:5%;bottom:10%}
 
-/* ── 04 MONSTER WORLD (dark) ────────────────── */
-.dark{background:var(--paper);color:var(--ink)}
-.dark .plate{border-color:rgba(242,238,230,.16)}
-.dark .plate img{border-color:rgba(23,22,20,.12)}
-.dark-head{grid-column:1 / span 6}
-.dark-head .h2 .serif{display:block;font-weight:400;letter-spacing:-.03em}
-.dark-lead{grid-column:8 / span 5;align-self:end}
-.viewer{margin-top:clamp(38px,4.4vw,64px);max-width:920px}
-.viewer-stage{
-  background:var(--paper-2);border:1px solid var(--line);
-  padding:clamp(14px,2vw,34px);
-  display:block;
-}
-.vpanel[hidden]{display:none}
-.vpanel{display:block}
-.vframe{
-  height:clamp(300px,37.5vw,575px);
-  background:var(--mat);border:1px solid var(--line);overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  padding:clamp(8px,1.1vw,16px);
-}
-.vframe img{
-  height:100%;width:auto;max-width:100%;object-fit:contain;
-  border:1px solid rgba(23,22,20,.12);background:#fff;
-}
-.vcap{
-  min-height:5.4em;padding-top:16px;display:flex;justify-content:space-between;gap:24px;align-items:baseline;
-}
-.vcap .txt{font-size:.8125rem;line-height:1.8;color:var(--ink-2);max-width:52ch}
-.vcap .fig{font-size:.6875rem;letter-spacing:.14em;color:var(--taupe);text-transform:uppercase;white-space:nowrap}
-.tabs{
-  display:flex;flex-wrap:wrap;gap:clamp(14px,2.2vw,34px);
-  margin-top:clamp(22px,2.6vw,34px);border-top:1px solid var(--line);padding-top:18px;
-}
-.tab{
-  display:flex;align-items:baseline;gap:.55em;
-  font-size:.8125rem;letter-spacing:.01em;color:var(--ink-3);padding:.2em 0;
-  border-bottom:1px solid transparent;transition:color .3s,border-color .3s;
-}
-.tab .ti{font-family:"Instrument Serif",Georgia,serif;font-size:.75rem;letter-spacing:.06em}
-.tab:hover{color:var(--ink)}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
-.mw-facts{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  margin-top:clamp(40px,4.6vw,68px);
-}
-.mw-fact{grid-column:span 4;border-top:1px solid var(--line-2);padding-top:16px}
-.mw-fact .k{font-size:.625rem;letter-spacing:.18em;color:var(--taupe);text-transform:uppercase}
-.mw-fact h4{margin-top:.8em;font-size:1rem;letter-spacing:-.02em;font-weight:600}
-.mw-fact p{margin-top:.6em;font-size:.8125rem;line-height:1.8;color:var(--ink-2)}
-.safety{
-  margin-top:clamp(40px,4.4vw,64px);
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  border-top:1px solid var(--line);padding-top:clamp(20px,2.4vw,30px);
-}
-.safety h3{grid-column:1 / span 3;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);font-weight:500}
-.safety ul{grid-column:4 / span 9;display:grid;grid-template-columns:1fr 1fr;gap:.75em clamp(20px,3vw,44px)}
-.safety li{font-size:.8125rem;line-height:1.75;color:var(--ink-2);padding-left:1.1em;position:relative}
-.safety li::before{content:"";position:absolute;left:0;top:.72em;width:6px;height:1px;background:var(--taupe)}
-.mw-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(30px,3.2vw,42px)}
+/* slide 4 — writing */
+.sc-write{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.wpanel{position:relative;width:88%;background:#fff;border-radius:16px;padding:20px 24px;
+  box-shadow:0 34px 64px -34px rgba(30,50,35,.55),0 1px 3px rgba(30,50,35,.08);display:grid;gap:2px}
+.wrow{display:flex;gap:12px;align-items:flex-start;padding:11px 2px;border-bottom:1px dashed #E4EDE4}
+.wrow:last-child{border-bottom:0}
+.wn{font-size:9px;font-weight:800;color:#A6B8AA;padding-top:4px;letter-spacing:.06em;flex:none}
+.wrow p{margin:0;font-size:clamp(12px,1.25vw,15px);font-weight:650;color:#54695B;line-height:1.55;letter-spacing:-.01em}
+.wrow mark{background:linear-gradient(transparent 62%,#D3E6D4 62%);color:inherit}
+.wrow.is-last{background:#F3F8F1;border-radius:10px;padding:13px 14px;margin-top:4px;border-bottom:0}
+.wrow.is-last .wn{color:#4C7A5B}
+.wrow.is-last p{font-size:clamp(14px,1.6vw,20px);color:#1F2E26;font-weight:750;letter-spacing:-.02em}
+.wcap{display:block;margin-top:4px;font-size:9.5px;font-weight:700;color:#93A89A;letter-spacing:.02em}
+.sc-write .fchip--1{right:4%;top:10%}
 
-/* ── 05 WORKBOOK ────────────────────────────── */
-.wb-head{grid-column:1 / span 5}
-.wb-lead{grid-column:8 / span 5;align-self:end}
-.wb-shot{margin-top:clamp(36px,4.2vw,60px)}
-.wb-shot-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);align-items:end}
-.wb-shot-grid .plate{grid-column:1 / span 9}
-.wb-cap{grid-column:10 / span 3;padding-bottom:.4em}
-.wb-cap .fig{display:block;font-size:.6875rem;letter-spacing:.06em;color:var(--ink-3)}
-.wb-cap p{margin-top:.9em;font-size:.8125rem;line-height:1.8;color:var(--ink-2)}
-.wb-cap-meta{display:flex;flex-wrap:wrap;gap:.4em;margin-top:1.1em}
-.wb-cap-meta span{font-size:.625rem;letter-spacing:.08em;color:var(--ink-3);border:1px solid var(--line);padding:.35em .55em}
-.wb-lower{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  margin-top:clamp(40px,4.6vw,70px);align-items:start;
+/* thumbs */
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.thumbs button{
+  appearance:none;background:transparent;border:0;border-top:2px solid var(--line-2);
+  padding:12px 2px 4px;text-align:left;cursor:pointer;transition:border-color .3s,color .3s;
+  font-size:12px;font-weight:650;color:var(--muted);letter-spacing:-.01em;line-height:1.35;
 }
-.sheets{grid-column:1 / span 6}
-.sheet-stage{
-  background:var(--mat);border:1px solid var(--line);padding:clamp(14px,1.8vw,26px);
-  display:grid;place-items:center;min-height:clamp(300px,32vw,420px);
-}
-.sheet{
-  width:100%;max-width:430px;background:#FCFBF7;border:1px solid rgba(23,22,20,.12);
-  padding:clamp(16px,2vw,26px);color:#242220;
-  box-shadow:0 18px 40px -34px rgba(23,22,20,.6);
-}
-.sheet[hidden]{display:none}
-.sheet-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #D8D1C3;padding-bottom:8px}
-.sheet-head .t{font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:#6B655C}
-.sheet-head .v{font-family:"Instrument Serif",Georgia,serif;font-size:.8125rem;letter-spacing:.06em;color:#7A4E38}
-.sheet-title{margin-top:12px;font-size:1rem;letter-spacing:-.02em;font-weight:600}
-.sheet-sub{margin-top:2px;font-size:.6875rem;letter-spacing:.04em;color:#6B655C}
-.sheet ul{margin-top:12px;border-top:1px solid #E2DCCF}
-.sheet li{
-  display:flex;justify-content:space-between;gap:10px;align-items:baseline;
-  padding:6px 0;border-bottom:1px solid #E2DCCF;font-size:.75rem;
-}
-.sheet li .en{font-family:"Instrument Serif",Georgia,serif;font-size:.8125rem;letter-spacing:.02em}
-.sheet li .ko{color:#6B655C;font-size:.6875rem}
-.sheet .blocks{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.sheet .blocks span{
-  border:1px solid #CFC6B6;padding:.35em .6em;font-size:.6875rem;letter-spacing:.02em;color:#3D3934;background:#F6F2E9;
-}
-.sheet .blocks span.hole{border-style:dashed;background:none;min-width:5.5em}
-.sheet .lines{margin-top:14px}
-.sheet .lines i{display:block;border-bottom:1px solid #D8D1C3;height:1.55em}
-.sheet .foot{margin-top:14px;display:flex;justify-content:space-between;font-size:.625rem;letter-spacing:.14em;color:#8C7B6B;text-transform:uppercase}
-.wb-tabs{margin-top:0}
-.wb-detail{grid-column:8 / span 5}
-.wb-tools{display:grid;border-top:1px solid var(--line-2)}
-.wb-tool{padding:clamp(16px,1.8vw,22px) 0;border-bottom:1px solid var(--line)}
-.wb-tool h4{font-size:.9375rem;letter-spacing:-.02em;font-weight:600}
-.wb-tool .k{font-size:.625rem;letter-spacing:.18em;color:var(--taupe);text-transform:uppercase;display:block;margin-bottom:.6em}
-.wb-tool p{margin-top:.45em;font-size:.8125rem;line-height:1.8;color:var(--ink-2)}
-.wb-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:.9em}
-.wb-tags span{font-size:.6875rem;letter-spacing:.04em;color:var(--ink-3);border:1px solid var(--line);padding:.3em .6em}
+.thumbs button b{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;color:#B9BBC2;margin-bottom:4px;transition:color .3s}
+.thumbs button:hover{color:var(--ink)}
+.thumbs button[aria-selected="true"]{color:var(--ink);border-top-color:var(--ink)}
+.thumbs button[aria-selected="true"] b{color:var(--ink)}
+.thumbs button[data-i="0"][aria-selected="true"]{border-top-color:var(--report)}
+.thumbs button[data-i="1"][aria-selected="true"]{border-top-color:var(--monster-2)}
+.thumbs button[data-i="2"][aria-selected="true"]{border-top-color:#C79A45}
+.thumbs button[data-i="3"][aria-selected="true"]{border-top-color:var(--write)}
+.thumbs button{position:relative}
+.thumbs button::after{content:"";position:absolute;left:0;top:-2px;height:2px;width:0;background:currentColor;border-radius:2px}
+.thumbs button[aria-selected="true"]::after{animation:thumbrun 6.2s linear forwards}
+.stage:hover ~ .thumbs button[aria-selected="true"]::after{animation-play-state:paused}
+@keyframes thumbrun{from{width:0}to{width:100%}}
 
-/* ── 06 LOGIC ───────────────────────────────── */
-.lg-head{grid-column:1 / span 5}
-.lg-lead{grid-column:8 / span 5;align-self:end}
-.lg-body{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  margin-top:clamp(38px,4.4vw,64px);align-items:start;
+@media(max-width:1024px){
+  .hero__in{grid-template-columns:1fr;gap:40px}
+  .hero{padding-top:104px}
+  .stage{aspect-ratio:1.12}
 }
-.unit-list{grid-column:1 / span 4;border-top:1px solid var(--line-2)}
-.unit{
-  width:100%;display:grid;grid-template-columns:2.4em 1fr auto;align-items:baseline;gap:.6em;
-  padding:clamp(12px,1.4vw,16px) 0;border-bottom:1px solid var(--line);
-  text-align:left;color:var(--ink-3);transition:color .3s,padding-left .4s var(--ease);
+@media(max-width:620px){
+  .wrap,.hero__in{padding:0 20px}
+  .sec{padding:74px 0}
+  .sec--tight{padding:56px 0}
+  .hero{padding:86px 0 30px}
+  .hero__in{gap:26px}
+  .hero h1{margin-top:16px;font-size:clamp(34px,9.6vw,44px)}
+  .hero .lead{margin-top:16px;font-size:15px}
+  .hero__cta{margin-top:22px;gap:8px}
+  .hero__cta .btn{flex:1 1 100%;height:50px}
+  .hero__note{margin-top:16px;gap:4px 14px;font-size:11.5px}
+  .stage{aspect-ratio:.86;border-radius:22px}
+  .scene{padding:18px 14px}
+  .scene__label{left:14px;top:12px;font-size:9.5px;letter-spacing:.1em}
+  .chip{height:26px;padding:0 9px;font-size:10.5px;gap:5px}
+  .sc-report .a4{width:58%}
+  .sc-report .fchip--1{right:3%;top:10%}
+  .sc-report .fchip--2{left:2%;bottom:16%}
+  .sc-report .fchip--3{right:4%;bottom:8%}
+  .sc-monster{gap:8px}
+  .sc-monster .screen{width:52%}
+  .sc-monster .side{width:40%;gap:8px}
+  .sc-monster .xp{bottom:5%}
+  .sc-work .fchip--1{right:2%;top:8%}
+  .sc-work .fchip--2{left:2%;bottom:6%}
+  .sc-write .card{padding:14px 16px;width:72%}
+  .sc-write .s{font-size:12px}
+  .sc-write .wline{font-size:9px;margin-top:10px;padding-top:8px}
+  .thumbs{gap:4px;margin-top:10px}
+  .thumbs button{font-size:10px;padding-top:9px}
+  .thumbs button b{font-size:8.5px;margin-bottom:3px}
+  .grid-masonry{columns:1}
+  .tile__tag{left:auto;right:10px}
 }
-.unit:hover{color:var(--ink)}
-.unit[aria-selected="true"]{color:var(--ink);padding-left:.6em;border-bottom-color:var(--ink-2)}
-.unit .ui{font-family:"Instrument Serif",Georgia,serif;font-size:.75rem;letter-spacing:.06em;color:var(--umber)}
-.unit .un{font-size:.9375rem;letter-spacing:-.02em}
-.unit .ue{font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe)}
-.unit-panel{grid-column:6 / span 7}
-.upanel[hidden]{display:none}
-.upanel .ex{
-  border-top:1px solid var(--line-2);padding-top:clamp(18px,2vw,26px);
-  min-height:clamp(220px,26vw,330px);
-}
-.upanel .ex .sam{
-  font-family:"Instrument Serif",Georgia,serif;
-  font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.35;letter-spacing:-.01em;
-  color:var(--ink);text-wrap:balance;
-}
-.upanel .ex .sam em{font-style:italic;color:var(--umber)}
-.upanel .ex p{margin-top:1.3em;font-size:.875rem;line-height:1.9;color:var(--ink-2);max-width:44ch}
-.upanel .ex .width-note{margin-top:1.1em;font-size:.75rem;letter-spacing:.02em;color:var(--taupe)}
-.lg-foot{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  margin-top:clamp(40px,4.4vw,64px);border-top:1px solid var(--line);padding-top:clamp(20px,2.4vw,30px);
-}
-.lg-foot .f{grid-column:span 4}
-.lg-foot .f .k{font-size:.625rem;letter-spacing:.18em;color:var(--taupe);text-transform:uppercase}
-.lg-foot .f p{margin-top:.7em;font-size:.8125rem;line-height:1.8;color:var(--ink-2)}
 
-/* ── 07 PRICING ─────────────────────────────── */
-.pr-head{grid-column:1 / span 6}
-.pr-lead{grid-column:8 / span 5;align-self:end}
-.plans{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  margin-top:clamp(40px,4.6vw,70px);border-top:1px solid var(--line-2);
+/* ── gallery (받는 것) ─────────────────────── */
+.things{background:var(--bg);border-top:1px solid var(--line)}
+.grid-masonry{columns:3;column-gap:14px;margin-top:44px}
+.tile{
+  break-inside:avoid;margin:0 0 14px;position:relative;border-radius:18px;overflow:hidden;
+  background:#fff;box-shadow:var(--shadow-card);cursor:zoom-in;border:1px solid rgba(21,22,26,.05);
+  transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s;
 }
+.tile.is-plain{cursor:default}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.tile img{width:100%;height:auto;transition:transform .7s cubic-bezier(.2,.7,.3,1)}
+.tile:hover img{transform:scale(1.025)}
+.tile__cap{
+  position:absolute;left:10px;bottom:10px;right:10px;display:flex;align-items:center;gap:7px;
+  background:rgba(21,22,26,.86);color:#fff;border-radius:999px;padding:7px 12px;width:max-content;max-width:calc(100% - 20px);
+  font-size:11.5px;font-weight:700;letter-spacing:-.01em;box-shadow:0 6px 18px -10px rgba(0,0,0,.4);
+  backdrop-filter:blur(6px);opacity:0;transform:translateY(6px);transition:.3s;
+}
+.tile:hover .tile__cap,.tile:focus-visible .tile__cap{opacity:1;transform:none}
+.tile__tag{position:absolute;left:10px;bottom:10px;font-size:10.5px;font-weight:800;letter-spacing:-.01em;
+  background:rgba(255,255,255,.94);color:#15161A;padding:6px 11px;border-radius:999px;
+  box-shadow:0 6px 16px -10px rgba(0,0,0,.45);backdrop-filter:blur(6px);transition:.3s;z-index:2}
+.tile:hover .tile__tag{opacity:0;transform:translateY(-4px)}
+/* css tiles */
+.tile--paper{background:linear-gradient(160deg,#FBF1E6,#F4E2D2);padding:26px}
+.mini-report{background:#fff;border-radius:5px;padding:18px 16px 20px;box-shadow:0 18px 34px -22px rgba(80,50,30,.5)}
+.mini-report .r-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #EDE6DC;padding-bottom:8px}
+.mini-report .r-name{font-size:11px;font-weight:800;letter-spacing:-.02em;color:#3A2C22}
+.mini-report .r-sub{font-size:6.5px;letter-spacing:.22em;color:#A99C8C;margin-top:2px}
+.mini-report .r-grade{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:16px;font-weight:800;color:#B8583A;
+  background:conic-gradient(#B8583A 0 63%,#F0E3D8 63% 100%);position:relative;margin:12px auto 0}
+.mini-report .r-grade::after{content:"";position:absolute;inset:5px;border-radius:50%;background:#fff}
+.mini-report .r-grade span{position:relative;z-index:1}
+.mini-report .r-bar{height:5px;border-radius:3px;background:#EFE7DC;margin-top:6px;overflow:hidden}
+.mini-report .r-bar i{display:block;height:100%;border-radius:3px;background:#6E8570}
+.mini-report .r-row{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:6.5px;color:#8A7C6C;font-weight:700}
+.mini-report .r-row b{width:26px;color:#3A2C22}
+.mini-report .r-row .r-bar{flex:1;margin:0}
+.mini-report .r-hl{margin-top:10px;background:#F8F1E7;border-radius:4px;padding:6px 7px;font-size:6.5px;color:#7A6A59;line-height:1.5}
+.tile--stamp{background:linear-gradient(160deg,#F5F7F2,#E9EFE6);padding:24px}
+.stamp-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 18px 34px -24px rgba(30,60,40,.45)}
+.stamp-card h5{margin:0 0 2px;font-size:12px;font-weight:800;letter-spacing:-.02em}
+.stamp-card p{margin:0 0 12px;font-size:8px;color:#9AA79C;font-weight:600}
+.stamp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.stamp-grid i{aspect-ratio:1;border-radius:50%;background:#EDF3EA;display:grid;place-items:center;font-size:9px;color:#7FA07E}
+.stamp-grid i.on{background:#DCEBDA;color:#3F6B45;font-size:11px}
+.stamp-line{display:flex;justify-content:space-between;margin-top:10px;font-size:7px;font-weight:700;color:#8A9A8C}
+@media(max-width:980px){.grid-masonry{columns:2}}
+@media(max-width:560px){.grid-masonry{columns:2;column-gap:10px;margin-top:28px}.tile{margin-bottom:10px;border-radius:14px}.tile__tag{font-size:9.5px;padding:5px 9px;left:7px;bottom:7px}.tile:hover .tile__tag{opacity:1;transform:none}}
+
+/* ── feature panels ───────────────────────── */
+.feature{position:relative;overflow:hidden}
+.feature .wrap{position:relative;z-index:2}
+.feature__media,.feature__text{min-width:0}
+.feature__grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:60px;align-items:center}
+.feature__grid--rev{grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr)}
+.feature h2{margin-top:14px}
+.feature .lead{margin-top:18px;max-width:400px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.fact{border-radius:12px;padding:11px 14px;background:rgba(255,255,255,.7);border:1px solid rgba(21,22,26,.07)}
+.fact b{display:block;font-size:15px;font-weight:800;letter-spacing:-.02em}
+.fact span{font-size:10.5px;color:var(--muted);font-weight:650;letter-spacing:.01em}
+.price-line{display:flex;align-items:baseline;gap:8px;margin-top:28px}
+.price-line b{font-size:32px;font-weight:800;letter-spacing:-.04em}
+.price-line span{font-size:12.5px;color:var(--muted);font-weight:600}
+.feature__cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.link-arrow{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+.link-arrow:hover{gap:11px;border-bottom-color:currentColor}
+@media(max-width:980px){
+  .feature__grid,.feature__grid--rev{grid-template-columns:1fr;gap:36px}
+  .feature__grid--rev .feature__media{order:-1}
+}
+@media(max-width:620px){.feature .wrap{padding:0 20px}}
+
+/* report feature */
+#report{background:linear-gradient(180deg,#FCF6F0 0%,#FBF1E8 100%)}
+.report-demo{
+  background:#fff;border-radius:22px;padding:18px;box-shadow:var(--shadow-lift);
+  border:1px solid rgba(120,70,40,.08);
+}
+.demo-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 4px 14px}
+.demo-head .t{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:-.01em}
+.demo-head .t i{width:8px;height:8px;border-radius:50%;background:var(--report)}
+.demo-head .t span{font-weight:600;color:var(--muted);font-size:11px}
+.demo-body{display:grid;grid-template-columns:.86fr 1.14fr;gap:14px;align-items:center}
+.demo-col{display:flex;flex-direction:column;gap:8px;min-width:0;justify-content:center}
+.demo-k{font-size:10px;font-weight:800;letter-spacing:.02em;color:#B0A08E;padding-left:2px}
+.paste{
+  background:#FAF6F1;border:1px dashed #E4D3C3;border-radius:14px;padding:14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;line-height:1.9;color:#A08C7A;
+  position:relative;overflow:hidden;flex:none;display:flex;flex-direction:column;
+}
+.paste-note{margin-top:auto;padding-top:12px;font-family:"Pretendard",sans-serif;font-size:9.5px;font-weight:600;color:#B4A392;border-top:1px dashed #E4D3C3;letter-spacing:-.01em;line-height:1.5}
+.paste .pl{opacity:0;transform:translateY(4px);transition:.35s}
+.paste .pl.on{opacity:1;transform:none}
+.paste .pl b{color:#6B5544;font-weight:700}
+.paste .caret{display:inline-block;width:5px;height:11px;background:#B8583A;vertical-align:-1px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.demo-result{position:relative;border-radius:12px;background:#F3EDE4;overflow:hidden;display:grid;place-items:center;padding:12px}
+.a4out{
+  margin:0;width:100%;aspect-ratio:1200/1858;background:#fff;border-radius:3px;overflow:hidden;
+  box-shadow:0 18px 34px -20px rgba(90,55,30,.65),0 1px 3px rgba(90,55,30,.14);
+  opacity:0;transform:translateY(16px) scale(.985);transition:.45s cubic-bezier(.2,.7,.3,1);
+}
+.a4out img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.a4out.on{opacity:1;transform:none}
+.a4out--empty{opacity:1;transform:none;background:repeating-linear-gradient(180deg,#fff,#fff 22px,#FCF7EF 22px,#FCF7EF 23px)}
+.scan{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#B8583A,transparent);opacity:0;pointer-events:none}
+.scan.run{animation:scan 1.15s cubic-bezier(.4,0,.6,1)}
+@keyframes scan{0%{opacity:.9;top:0}85%{opacity:.9}100%{opacity:0;top:100%}}
+.demo-actions{display:flex;align-items:center;gap:10px;margin-top:14px}
+.demo-actions .hint{font-size:11px;color:var(--muted);font-weight:600}
+.demo-actions .btn{height:42px;padding:0 18px;font-size:12.5px}
+@media(max-width:620px){.demo-body{grid-template-columns:1fr}.paste{font-size:10px}}
+
+/* monster feature */
+#monster{background:#141330;color:#F3F2FF}
+#monster .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#C6C4F2}
+#monster .eyebrow i{background:#9C99FF}
+#monster h2{color:#fff}
+#monster .lead{color:#B9B7D6}
+#monster .fact{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+#monster .fact b{color:#fff}
+#monster .fact span{color:#9E9CC0}
+#monster .btn--ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff}
+#monster .btn--ghost:hover{background:rgba(255,255,255,.14)}
+.mw{position:relative;display:grid;grid-template-columns:1.08fr .92fr;gap:20px;align-items:center}
+.mw-grid{position:relative}
+.device{position:relative;border-radius:24px;overflow:hidden;background:#12112A;
+  box-shadow:0 46px 90px -46px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.1);transform:rotate(-1.6deg)}
+.device img{width:100%;height:auto;display:block}
+.device::after{content:"";position:absolute;inset:0;border-radius:24px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);pointer-events:none}
+.devglow{position:absolute;inset:6% -8% 0 -8%;background:radial-gradient(closest-side,rgba(150,145,255,.4),transparent 72%);filter:blur(26px);z-index:-1}
+.devmini{position:absolute;left:-8%;bottom:-14%;width:46%;border-radius:14px;overflow:hidden;border:4px solid #141330;box-shadow:0 24px 44px -20px rgba(0,0,0,.9);transform:rotate(4deg);z-index:3}
+.devmini img{width:100%;height:auto;display:block}
+.devchip{position:absolute;right:-14px;top:16px;background:rgba(255,255,255,.94);color:#15161A;border-radius:999px;
+  padding:8px 13px;font-size:11px;font-weight:800;box-shadow:0 10px 24px -12px rgba(0,0,0,.8);letter-spacing:-.01em}
+.xpcard{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px;
+  backdrop-filter:blur(8px);
+}
+.xpcard .lv{display:flex;align-items:baseline;justify-content:space-between}
+.xpcard .lv b{font-size:34px;font-weight:800;letter-spacing:-.05em;color:#fff;line-height:1}
+.xpcard .lv span{font-size:10px;font-weight:800;letter-spacing:.16em;color:#9C99FF}
+.xpcard .xpbar{height:9px;border-radius:99px;background:rgba(255,255,255,.12);margin:12px 0 6px;overflow:hidden}
+.xpcard .xpbar i{display:block;height:100%;width:64%;border-radius:99px;background:linear-gradient(90deg,#8B87FF,#C9A6FF);transition:width .6s cubic-bezier(.2,.7,.3,1)}
+.xpcard .xpmeta{display:flex;justify-content:space-between;font-size:10.5px;font-weight:600;color:#9E9CC0}
+.xpchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.xpchips button{
+  appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#E9E7FF;
+  border-radius:999px;padding:8px 12px;font-size:11.5px;font-weight:700;cursor:pointer;transition:.18s;
+}
+.xpchips button:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
+.xpchips button:active{transform:scale(.96)}
+.xpnote{margin-top:12px;font-size:10.5px;color:#8D8AB4;line-height:1.5}
+.xptoast{
+  border-radius:12px;font-size:11.5px;font-weight:700;color:#241F4D;
+  background:linear-gradient(90deg,#D9D6FF,#F0E4FF);opacity:0;transform:translateY(6px);
+  max-height:0;padding:0 12px;margin-top:0;overflow:hidden;
+  transition:opacity .3s,transform .3s,max-height .3s,padding .3s,margin .3s;
+}
+.xptoast.on{opacity:1;transform:none;max-height:60px;padding:10px 12px;margin-top:12px}
+@media(max-width:980px){.mw{grid-template-columns:1fr 1fr;gap:18px}.xpcard{padding:14px}.devmini{left:-6%;width:48%}}
+@media(max-width:620px){.mw{grid-template-columns:1fr;gap:22px}.xpcard{padding:16px}.devmini{display:none}.devchip{right:10px;top:12px}.device{transform:rotate(-1deg)}}
+
+/* workbook feature */
+#workbook{background:linear-gradient(180deg,#FDF9F0,#FBF4E6)}
+.wb-scene{position:relative;padding:34px 34px 28px;border-radius:26px;
+  background:radial-gradient(120% 110% at 15% 0%,#FDF8EC,#F7EDDA 60%,#F1E5CF);
+  box-shadow:inset 0 0 0 1px rgba(90,60,20,.07),0 30px 60px -50px rgba(90,60,20,.6)}
+.wb-back{position:absolute;background:#fff;border-radius:5px;box-shadow:0 20px 40px -30px rgba(90,60,20,.55);border:1px solid rgba(90,60,20,.05)}
+.wb-back.b1{left:14%;right:6%;top:26px;bottom:26px;transform:rotate(2.6deg)}
+.wb-back.b2{left:6%;right:14%;top:22px;bottom:32px;transform:rotate(-2.4deg)}
+.wb-chip{position:absolute;right:16px;top:-14px;z-index:6}
+.wb-viewport{position:relative;z-index:3;overflow:hidden;border-radius:3px}
+.wb-track{display:flex;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.wb-slide{flex:0 0 100%;display:grid;place-items:center;padding:2px}
+.paper{
+  width:100%;aspect-ratio:1/1.3;background:#fff;border-radius:3px;padding:30px 32px;
+  box-shadow:0 30px 50px -30px rgba(90,60,20,.55),0 1px 2px rgba(90,60,20,.12);
+  display:flex;flex-direction:column;color:#2A2419;position:relative;overflow:hidden;
+}
+.paper::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.5),transparent 38%);pointer-events:none}
+.paper .p-brand{font-size:9px;letter-spacing:.24em;font-weight:800;color:#B7A88C;text-transform:uppercase}
+.paper h4{font-size:19px;letter-spacing:-.03em;margin:7px 0 0;font-weight:800}
+.paper .p-meta{font-size:9.5px;color:#A79B84;font-weight:600;margin-top:4px}
+.paper .p-rule{border-top:1px solid #EEE4D2;margin:14px 0}
+.paper .p-words{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.paper .p-word{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dotted #E3D8C2;padding-bottom:4px}
+.paper .p-word b{font-size:12px;font-weight:700}
+.paper .p-word span{font-size:9.5px;color:#9C8F76}
+.paper .p-write{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.paper .p-write i{display:block;height:16px;border-bottom:1px solid #F0E7D6}
+.paper .p-note{margin-top:auto;font-size:9.5px;color:#A79B84;display:flex;justify-content:space-between;border-top:1px solid #EEE4D2;padding-top:10px}
+.paper .p-sent{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.paper .p-sent span{background:#FBF2DF;border:1px solid #EEDDBB;border-radius:7px;padding:7px 10px;font-size:11.5px;font-weight:700;color:#6B572F}
+.paper .p-slot{height:34px;border-bottom:1.5px solid #DCCBA9;margin-top:10px;border-radius:2px;display:flex;align-items:center;font-size:11.5px;font-weight:700;padding:0 8px;color:#6B572F}
+.paper .p-slot.filled{background:#FCF3E1}
+.paper .p-pass{font-size:11px;line-height:2;color:#4A4030;margin-top:12px}
+.paper .p-q{margin-top:12px;font-size:11px;color:#4A4030;display:grid;gap:9px}
+.paper .p-q div{display:flex;gap:8px}
+.paper .p-q b{color:#B08634}
+.paper .p-blank{flex:1;border-bottom:1px solid #EFE7D7;margin-top:8px}
+.paper .p-test{display:grid;gap:10px;margin-top:10px;font-size:11px}
+.paper .p-test div{display:flex;justify-content:space-between;border-bottom:1px dotted #E8DDC8;padding-bottom:6px;color:#4A4030}
+.paper .p-test span{color:#C0B49C;min-width:60px;border-bottom:1px solid #E8DDC8}
+.wb-ui{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px}
+.wb-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.wb-tabs button{
+  appearance:none;border:1px solid rgba(21,22,26,.1);background:rgba(255,255,255,.7);
+  border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;color:#6B6252;cursor:pointer;transition:.2s;
+}
+.wb-tabs button:hover{background:#fff}
+.wb-tabs button[aria-selected="true"]{background:#2A2419;color:#fff;border-color:#2A2419}
+.wb-arrows{display:flex;gap:8px}
+.wb-arrows button{
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(21,22,26,.12);background:#fff;
+  display:grid;place-items:center;cursor:pointer;transition:.2s;font-size:15px;
+}
+.wb-arrows button:hover{background:#2A2419;color:#fff;border-color:#2A2419}
+@media(max-width:620px){
+  .wb-scene{padding:20px 18px 18px;border-radius:18px}
+  .paper{padding:20px 18px;aspect-ratio:1/1.42}
+  .paper h4{font-size:15px}
+  .paper .p-brand{font-size:7.5px}
+  .paper .p-word b{font-size:10.5px}
+  .paper .p-word span{font-size:8px}
+  .paper .p-sent span{font-size:9.5px;padding:5px 7px}
+  .paper .p-pass,.paper .p-q,.paper .p-test{font-size:9px}
+  .paper .p-slot{height:26px;font-size:9.5px}
+  .wb-ui{flex-direction:column;align-items:stretch;gap:12px}
+  .wb-arrows{justify-content:flex-end}
+  .wb-chip{right:10px;top:-12px}
+}
+
+/* writing feature */
+#writing{background:linear-gradient(180deg,#F1F5EF,#E9EFE8)}
+.wr{display:block;min-width:0}
+.wr-steps{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.wr-steps::-webkit-scrollbar{display:none}
+.wr-steps button{
+  appearance:none;background:transparent;border:1px solid transparent;border-radius:999px;padding:8px 14px 8px 9px;text-align:left;
+  display:flex;align-items:center;gap:8px;cursor:pointer;transition:.2s;color:#5C6E62;white-space:nowrap;flex:none;
+}
+.wr-steps button:hover{background:rgba(255,255,255,.6)}
+.wr-steps button[aria-selected="true"]{background:#fff;border-color:rgba(30,60,40,.08);box-shadow:0 10px 24px -18px rgba(30,60,40,.8);color:#1F2E26}
+.wr-steps .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;background:rgba(63,95,78,.1);color:#4C6A58;flex:none}
+.wr-steps button[aria-selected="true"] .n{background:var(--write);color:#fff}
+.wr-steps .wlb{font-size:12.5px;font-weight:750;letter-spacing:-.02em}
+.wr-board{
+  background:#fff;border-radius:22px;padding:38px 40px 34px;min-height:330px;display:flex;flex-direction:column;justify-content:center;
+  box-shadow:var(--shadow-lift);border:1px solid rgba(30,60,40,.06);position:relative;overflow:hidden;
+}
+.wr-board .ghost{position:absolute;right:36px;top:14px;font-size:132px;font-weight:800;letter-spacing:-.07em;color:#F3F6F1;line-height:1;pointer-events:none;user-select:none}
+.wr-board .wb-k{font-size:10.5px;font-weight:800;letter-spacing:.14em;color:#A3B3A7}
+.wr-board .wb-s{font-size:clamp(24px,2.9vw,40px);font-weight:750;letter-spacing:-.04em;line-height:1.45;color:#1F2E26;margin-top:16px;min-height:1.45em;max-width:92%}
+.wr-board .wb-s em{font-style:normal;background:linear-gradient(transparent 60%,#CDE3CF 60%);padding:0 2px;transition:.3s}
+.wr-board .wb-frame{margin-top:30px;padding-top:18px;border-top:1px dashed #DDE7DD;font-size:13px;color:#7E8F83;font-weight:650;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wr-board .wb-frame code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:#F2F6F1;padding:4px 8px;border-radius:6px;color:#40584A}
+.wr-board .wb-desc{margin-top:16px;font-size:14px;color:#6B7C70;line-height:1.7;max-width:560px}
+.wr-board.swap .wb-s{animation:fade .45s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:620px){.wr-steps{margin:0 -2px 10px}.wr-board{padding:26px 22px 24px;min-height:0}.wr-board .wb-s{font-size:clamp(20px,5.6vw,26px)}.wr-board .ghost{font-size:88px;right:20px;top:10px}.wr-board .wb-frame{margin-top:20px;padding-top:14px;font-size:11.5px}.wr-board .wb-desc{font-size:12.5px}}
+
+/* ── week flow ────────────────────────────── */
+.flow{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.fcell{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;transition:.3s}
+.fcell:hover{transform:translateY(-3px);box-shadow:var(--shadow-card);background:#fff}
+.fcell .day{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--muted)}
+.fcell h4{font-size:16px;letter-spacing:-.03em;font-weight:800}
+.fcell p{margin:0;font-size:12.5px;color:var(--sub);line-height:1.6}
+.fcell .viz{margin-top:auto;background:#fff;border-radius:14px;padding:12px;border:1px solid var(--line);min-height:92px;display:flex;flex-direction:column;justify-content:center;gap:7px}
+.fcell .viz .ln{height:7px;border-radius:4px;background:#F1EFEA}
+.fcell .viz .ln.w70{width:70%}
+.fcell .viz .ln.w45{width:45%}
+.fcell .viz .ln.g{background:#E4EDE6}
+.fcell .viz .btnv{background:#15161A;color:#fff;border-radius:7px;font-size:9.5px;font-weight:800;padding:5px 9px;width:max-content}
+.fcell .viz .rowv{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;font-weight:700;color:#8C8F99}
+.fcell .viz .rowv b{color:#15161A}
+.fcell .viz .bars{display:flex;align-items:flex-end;gap:5px;height:40px}
+.fcell .viz .bars i{flex:1;border-radius:3px 3px 0 0;background:#EFE6D6}
+.fcell .viz .bars i.hi{background:#C08A32}
+.fcell .viz .av{width:17px;height:17px;border-radius:50%;background:#F1E9DB;display:grid;place-items:center;font-size:8px;font-weight:800;color:#8B7A61;flex:none}
+.fcell .viz .rowv span.nm{flex:1;color:#3A3B42;font-weight:700}
+.fcell .viz .rowv b.ok{color:#3F7D5C}
+.fcell .viz .rowv b.wait{color:#B9BBC2}
+.fcell .viz.total{border-top:1px solid var(--line);padding-top:5px;margin-top:1px}
+.fcell .viz.total b{color:#15161A}
+.fcell .viz .minsheet{display:flex;align-items:center;gap:9px}
+.fcell .viz .minsheet .g{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#B8583A;background:conic-gradient(#B8583A 0 62%,#F2E7DC 62% 100%);position:relative;flex:none}
+.fcell .viz .minsheet .g::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff}
+.fcell .viz .minsheet .g span{position:relative;z-index:1}
+.fcell .viz .minsheet .lns{flex:1;display:grid;gap:4px}
+.fcell .viz .minsheet .lns i{display:block;height:4px;border-radius:2px;background:#EFE7DC}
+.fcell .viz .minsheet .lns i:nth-child(2){width:70%;background:#E2EADF}
+.fcell .viz .minsheet .lns i:nth-child(3){width:50%}
+@media(max-width:980px){.flow-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.flow-grid{grid-template-columns:1fr 1fr;gap:10px}.fcell{padding:15px}.fcell h4{font-size:14px}}
+
+/* ── pricing ──────────────────────────────── */
+.pricing{background:var(--bg)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
 .plan{
-  padding:clamp(20px,2.4vw,32px) clamp(16px,2vw,28px) clamp(24px,2.6vw,34px);
-  border-left:1px solid var(--line);display:flex;flex-direction:column;gap:0;
-  position:relative;
+  background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 24px 24px;
+  display:flex;flex-direction:column;position:relative;transition:.3s;
 }
-.plan:first-child{border-left:0;padding-left:0}
-.plan:last-child{padding-right:0}
-.plan .ph{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.plan .pn{font-size:.9375rem;letter-spacing:-.02em;font-weight:600}
-.plan .pe{font-size:.625rem;letter-spacing:.18em;color:var(--taupe);text-transform:uppercase}
-.plan .cap2{margin-top:.5em;font-size:.75rem;color:var(--ink-3);letter-spacing:.02em}
-.plan .price{display:flex;align-items:baseline;gap:.35em;margin-top:clamp(18px,2vw,26px)}
-.plan .price .v{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(2.1rem,2.9vw,2.7rem);line-height:1;letter-spacing:.01em}
-.plan .price .u{font-size:.75rem;color:var(--ink-3)}
-.plan .list-price{margin-top:.55em;font-size:.75rem;color:var(--ink-3);display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
-.plan .list-price s{text-decoration-thickness:1px;color:var(--taupe)}
-.plan .list-price .btag{font-size:.625rem;letter-spacing:.1em;border:1px solid var(--line-2);padding:.2em .5em;color:var(--umber)}
-.plan ul{margin-top:clamp(18px,2vw,24px);border-top:1px solid var(--line);padding-top:clamp(12px,1.4vw,16px);display:grid;gap:.55em}
-.plan li{font-size:.8125rem;line-height:1.7;color:var(--ink-2);padding-left:1em;position:relative}
-.plan li::before{content:"";position:absolute;left:0;top:.7em;width:5px;height:1px;background:var(--taupe)}
-.plan .pact{margin-top:auto;padding-top:clamp(20px,2.2vw,28px)}
-.plan.reco::before{
-  content:"";position:absolute;left:clamp(16px,2vw,28px);right:clamp(16px,2vw,28px);top:0;height:2px;background:var(--olive);
-}
-.plan .badge{
-  display:inline-flex;align-items:center;gap:.45em;
-  font-size:.625rem;letter-spacing:.14em;color:var(--olive);text-transform:uppercase;
-  font-weight:500;
-}
-.plan .badge::before{content:"";width:5px;height:5px;background:var(--olive);display:block;flex:none}
-.plan .pn .badge{margin-left:.6em;vertical-align:.05em}
+.plan:hover{transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.plan--pick{border-color:#15161A;box-shadow:0 1px 2px rgba(0,0,0,.04),0 26px 50px -34px rgba(0,0,0,.5)}
+.plan__pick{position:absolute;top:16px;right:18px;font-size:10px;font-weight:800;letter-spacing:.06em;background:#15161A;color:#fff;padding:5px 10px;border-radius:999px}
+.plan h3{font-size:19px}
+.plan .cap{font-size:12.5px;color:var(--muted);font-weight:650;margin-top:6px}
+.plan .amt{display:flex;align-items:baseline;gap:5px;margin-top:20px}
+.plan .amt b{font-size:34px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.plan .amt span{font-size:12px;color:var(--muted);font-weight:650}
+.plan .was{font-size:11.5px;color:#A9ABB2;font-weight:600;margin-top:6px}
+.plan .was s{text-decoration:line-through}
+.plan ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:9px;font-size:12.5px;color:var(--sub)}
+.plan li{display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.plan li svg{width:13px;height:13px;margin-top:3px;flex:none;color:#4C7A5B}
+.plan .btn{margin-top:22px;height:46px;font-size:13px}
 .single{
-  margin-top:clamp(34px,3.8vw,54px);border-top:1px solid var(--line-2);
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  padding-top:clamp(20px,2.4vw,30px);align-items:start;
+  margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 24px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
 }
-.single .s-head{grid-column:1 / span 4}
-.single .s-head h3{font-size:1.0625rem;letter-spacing:-.025em;font-weight:600}
-.single .s-head .k{font-size:.625rem;letter-spacing:.18em;color:var(--taupe);text-transform:uppercase;display:block;margin-bottom:.7em}
-.single .s-body{grid-column:5 / span 4;font-size:.8125rem;line-height:1.85;color:var(--ink-2)}
-.single .s-act{grid-column:10 / span 3;justify-self:end;text-align:right}
-.single .s-act .v{font-family:"Instrument Serif",Georgia,serif;font-size:1.9rem;line-height:1;letter-spacing:.01em}
-.single .s-act .u{display:block;margin-top:.5em;font-size:.75rem;color:var(--ink-3)}
-.single .s-act .btn{margin-top:1.1em}
-.terms{
-  margin-top:clamp(30px,3.4vw,46px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  column-gap:var(--gap);border-top:1px solid var(--line);padding-top:clamp(18px,2vw,24px);
-}
-.terms p{grid-column:1 / span 7;font-size:.75rem;line-height:1.95;color:var(--ink-3)}
-.terms .v{grid-column:9 / span 4;font-size:.75rem;line-height:1.95;color:var(--ink-3);text-align:right}
+.single .txt{flex:1;min-width:240px}
+.single h3{font-size:17px}
+.single p{margin:4px 0 0;font-size:12.5px;color:var(--sub)}
+.single .amt{display:flex;align-items:baseline;gap:5px}
+.single .amt b{font-size:26px;font-weight:800;letter-spacing:-.04em}
+.single .amt span{font-size:11px;color:var(--muted);font-weight:650}
+.fine{margin-top:22px;font-size:11.5px;color:var(--muted);line-height:1.8}
+@media(max-width:980px){.plans{grid-template-columns:1fr;gap:10px}}
+@media(max-width:620px){.single{padding:20px}.single .btn{width:100%}}
 
-/* ── 08 FAQ ─────────────────────────────────── */
-.faq-head{grid-column:1 / span 4}
-.faq-list{grid-column:6 / span 7;border-top:1px solid var(--line-2)}
-.faq-list details{border-bottom:1px solid var(--line)}
-.faq-list summary{
-  list-style:none;cursor:pointer;display:grid;grid-template-columns:2.2em 1fr auto;gap:.8em;
-  padding:clamp(16px,1.8vw,22px) 0;align-items:baseline;
-  font-size:.9375rem;letter-spacing:-.015em;color:var(--ink);
+/* ── faq ──────────────────────────────────── */
+.faq{background:#fff;border-top:1px solid var(--line)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:38px}
+details.q{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:0 18px;transition:.25s}
+details.q[open]{background:#fff;box-shadow:var(--shadow-card)}
+details.q summary{
+  cursor:pointer;list-style:none;padding:17px 26px 17px 0;font-size:13.5px;font-weight:750;letter-spacing:-.02em;position:relative;
 }
-.faq-list summary::-webkit-details-marker{display:none}
-.faq-list summary .qn{font-family:"Instrument Serif",Georgia,serif;font-size:.8125rem;color:var(--umber);letter-spacing:.04em}
-.faq-list summary .pm{width:13px;height:13px;position:relative;justify-self:end;align-self:center;color:var(--ink-3)}
-.faq-list summary .pm::before,.faq-list summary .pm::after{
-  content:"";position:absolute;background:currentColor;transition:transform .35s var(--ease),opacity .35s;
-}
-.faq-list summary .pm::before{left:0;right:0;top:6px;height:1px}
-.faq-list summary .pm::after{top:0;bottom:0;left:6px;width:1px}
-.faq-list details[open] summary .pm::after{transform:scaleY(0);opacity:0}
-.faq-list .a{padding:0 0 clamp(18px,2vw,26px) 3.1em;font-size:.8438rem;line-height:1.9;color:var(--ink-2);max-width:52ch}
-.faq-list .a b{font-weight:600;color:var(--ink)}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:17px;font-weight:500;color:var(--muted);transition:.25s}
+details.q[open] summary::after{content:"−"}
+details.q .a{padding:0 0 18px;font-size:12.5px;color:var(--sub);line-height:1.75;max-width:96%}
+@media(max-width:760px){.faq-grid{grid-template-columns:1fr}}
 
-/* ── 09 START (olive) ───────────────────────── */
-.start{background:var(--olive);color:#F4F1E9;padding:var(--sec-y) 0;border-top:0}
-.start .label{color:rgba(244,241,233,.62)}
-.start .sec-head .rule{background:rgba(244,241,233,.22)}
-.start .sec-head .no{color:#C8A98D}
-.start-h2{
-  font-family:"Noto Serif KR","Apple SD Gothic Neo",serif;
-  font-size:clamp(1.95rem,3.7vw,3.2rem);line-height:1.42;letter-spacing:-.045em;font-weight:400;
-  text-wrap:balance;
+/* ── contact ──────────────────────────────── */
+.contact{background:var(--bg)}
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-top:40px;align-items:start}
+.ccard{
+  border-radius:22px;padding:26px;background:#fff;border:1px solid var(--line);
+  display:flex;flex-direction:column;gap:6px;text-decoration:none;transition:.3s;position:relative;overflow:hidden;
 }
-.start-lead{margin-top:1.1em;font-size:clamp(.9375rem,1.05vw,1rem);line-height:1.9;color:rgba(244,241,233,.78);max-width:40ch}
-.start-h{grid-column:1 / span 6}
-.start-lead-col{grid-column:8 / span 5;align-self:end}
-.start-grid{
-  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
-  margin-top:clamp(38px,4.4vw,62px);align-items:start;
+.ccard:hover{transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.ccard .k{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--muted)}
+.ccard h3{font-size:20px;margin-top:12px}
+.ccard p{margin:6px 0 0;font-size:12.5px;color:var(--sub);line-height:1.6}
+.ccard .go{margin-top:20px;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:750}
+.ccard--dark{background:#15161A;color:#fff;border-color:#15161A}
+.ccard--dark .k{color:#8C8F99}
+.ccard--dark p{color:#B4B6BE}
+.ccard__art{position:absolute;right:-46px;top:-56px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#F7CF8E,#E4572E 62%,transparent 72%);opacity:.1;filter:blur(6px)}
+.ccard--dark .ccard__art{opacity:.22}
+.stack{display:grid;gap:14px}
+.composer{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
+.composer h3{font-size:17px}
+.composer .sub{font-size:12px;color:var(--muted);margin-top:6px}
+.composer .field{margin-top:14px;display:grid;gap:6px}
+.composer label{font-size:11px;font-weight:750;color:var(--sub)}
+.composer input,.composer textarea,.composer select{
+  width:100%;border:1px solid var(--line-2);border-radius:10px;padding:11px 12px;font:inherit;font-size:13px;background:#FCFBF8;color:var(--ink);
+  transition:.2s;
 }
-.start-l{grid-column:1 / span 6}
-.paths{border-top:1px solid rgba(244,241,233,.22)}
-.path{
-  display:grid;grid-template-columns:1fr auto;gap:1em;align-items:baseline;
-  padding:clamp(16px,1.9vw,22px) 0;border-bottom:1px solid rgba(244,241,233,.22);
-}
-.path .pt{font-size:.625rem;letter-spacing:.18em;color:rgba(244,241,233,.55);text-transform:uppercase}
-.path h3{margin-top:.55em;font-size:1.0625rem;letter-spacing:-.02em;font-weight:500}
-.path p{margin-top:.4em;font-size:.8125rem;line-height:1.8;color:rgba(244,241,233,.74);max-width:34ch}
-.path a{font-size:.75rem;letter-spacing:.04em;color:#F4F1E9;border-bottom:1px solid rgba(244,241,233,.5);padding-bottom:.3em;white-space:nowrap}
-.path a:hover{border-color:#F4F1E9}
-.start-note{margin-top:clamp(22px,2.4vw,32px);font-size:.75rem;line-height:1.9;color:rgba(244,241,233,.58);max-width:38ch}
-.start-r{grid-column:8 / span 5}
-.form-card{border:1px solid rgba(244,241,233,.28);padding:clamp(20px,2.4vw,32px)}
-.form-card .fh{display:flex;justify-content:space-between;align-items:baseline;gap:1em;padding-bottom:14px;border-bottom:1px solid rgba(244,241,233,.22)}
-.form-card .fh .t{font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,241,233,.62)}
-.form-card .fh .s{font-size:.6875rem;color:rgba(244,241,233,.45)}
-.field{margin-top:clamp(14px,1.6vw,20px)}
-.field label{display:block;font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,241,233,.6);margin-bottom:.5em}
-.field label .req{color:#D9B99A}
-.field input[type=text],.field select,.field textarea{
-  width:100%;background:transparent;border:0;border-bottom:1px solid rgba(244,241,233,.32);
-  color:#F4F1E9;font:inherit;font-size:.875rem;padding:.45em 0;border-radius:0;
-  transition:border-color .3s;
-}
-.field select{
-  appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:22px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23F4F1E9' stroke-width='1.3'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right .15em center;background-size:11px 7px;
-}
-.field select option{color:#171614;background:#F6F4EF}
-.field textarea{resize:vertical;min-height:2.6em}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:#F4F1E9}
-.field input::placeholder,.field textarea::placeholder{color:rgba(244,241,233,.35)}
-.checks{display:flex;flex-wrap:wrap;gap:.5em .9em;margin-top:.4em}
-.checks label{
-  display:inline-flex;align-items:center;gap:.45em;font-size:.75rem;letter-spacing:.01em;
-  color:rgba(244,241,233,.82);text-transform:none;margin:0;cursor:pointer;
-}
-.checks input{
-  appearance:none;-webkit-appearance:none;width:13px;height:13px;flex:none;margin:0;
-  border:1px solid rgba(244,241,233,.42);background:transparent;position:relative;
-  cursor:pointer;transition:background .25s var(--ease),border-color .25s var(--ease);
-}
-.checks input:hover{border-color:rgba(244,241,233,.75)}
-.checks input:checked{background:#F4F1E9;border-color:#F4F1E9}
-.checks input:checked::after{
-  content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
-  border:solid var(--olive);border-width:0 1.5px 1.5px 0;transform:rotate(42deg);
-}
-.checks input:focus-visible{outline:2px solid #F4F1E9;outline-offset:3px}
-.form-act{margin-top:clamp(20px,2.2vw,28px);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.form-msg{font-size:.75rem;color:rgba(244,241,233,.6);margin-top:.9em}
-.out{
-  margin-top:18px;border-top:1px solid rgba(244,241,233,.22);padding-top:16px;display:none;
-}
-.out.on{display:block}
-.out pre{
-  margin:0;white-space:pre-wrap;font-family:inherit;font-size:.8125rem;line-height:1.9;
-  color:#F4F1E9;background:rgba(0,0,0,.14);padding:14px 16px;border:1px solid rgba(244,241,233,.16);
-}
-.out .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
-.out .stat2{font-size:.75rem;color:rgba(244,241,233,.65)}
+.composer input:focus,.composer textarea:focus,.composer select:focus{outline:none;border-color:#15161A;background:#fff}
+.composer textarea{resize:vertical;min-height:64px}
+.composer .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.composer .act{display:flex;gap:8px;margin-top:16px}
+.composer .act .btn{flex:1;height:44px;font-size:12.5px}
+.composer .out{margin-top:12px;background:#F7F5F0;border-radius:12px;padding:12px;font-size:12px;color:var(--sub);white-space:pre-wrap;line-height:1.7;display:none}
+.composer .out.on{display:block}
+@media(max-width:980px){.contact-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.composer{padding:20px}.composer .row{grid-template-columns:1fr}}
 
-/* ── 푸터 ───────────────────────────────────── */
-.ft{padding:clamp(50px,6vw,90px) 0 34px;border-top:1px solid var(--line)}
-.ft-top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);row-gap:40px}
-.ft-brand{grid-column:1 / span 5}
-.ft-brand .w{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(3rem,6vw,5rem);line-height:.9;letter-spacing:.06em}
-.ft-brand .s{margin-top:1em;font-size:.625rem;letter-spacing:.34em;color:var(--taupe);text-transform:uppercase}
-.ft-brand p{margin-top:1.4em;font-size:.8125rem;line-height:1.9;color:var(--ink-3);max-width:30ch}
-.ft-col{grid-column:span 2}
-.ft-col:first-of-type{grid-column:7 / span 2}
-.ft-col h4{font-size:.625rem;letter-spacing:.2em;color:var(--taupe);text-transform:uppercase;font-weight:500}
-.ft-col ul{margin-top:1.1em;display:grid;gap:.55em}
-.ft-col a{font-size:.8125rem;color:var(--ink-2);transition:color .3s}
-.ft-col a:hover{color:var(--umber)}
-.ft-bot{
-  margin-top:clamp(44px,5vw,72px);padding-top:22px;border-top:1px solid var(--line);
-  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  font-size:.6875rem;line-height:1.9;letter-spacing:.02em;color:var(--ink-3);
-}
-.ft-bot .lg{max-width:62ch}
+/* ── end band / footer ────────────────────── */
+.band{background:#15161A;color:#fff;padding:78px 0}
+.band__in{max-width:var(--max);margin:0 auto;padding:0 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.band h2{color:#fff;max-width:640px}
+.band p{color:#A9ABB3;margin:14px 0 0;font-size:14px;max-width:460px}
+.band .btn--ghost{background:transparent;border-color:rgba(255,255,255,.24);color:#fff}
+.band .btn--ghost:hover{background:rgba(255,255,255,.1)}
+.band .btn--ink{background:#fff;color:#15161A}
+.ft{padding:46px 0 60px;background:#fff;border-top:1px solid var(--line)}
+.ft__in{max-width:var(--max);margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+.ft__nav{display:flex;gap:18px;flex-wrap:wrap}
+.ft a{text-decoration:none}
+.ft a:hover{color:var(--ink)}
+@media(max-width:620px){.band__in,.ft__in{padding:0 20px}.band{padding:58px 0}}
 
-/* ── 라이트박스 ─────────────────────────────── */
-dialog.lb{
-  border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;
-  width:100%;height:100%;margin:0;
-}
-dialog.lb::backdrop{background:rgba(23,22,20,.86);backdrop-filter:blur(6px)}
-.lb-in{
-  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-  padding:clamp(18px,4vw,56px);position:relative;
-}
-.lb-in img{max-width:min(760px,92vw);max-height:82vh;width:auto;height:auto;background:#fff;border:1px solid rgba(246,244,239,.25)}
-.lb-close{
-  position:absolute;top:clamp(14px,2.4vw,28px);right:clamp(14px,2.4vw,28px);
-  color:#F6F4EF;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
-  border:1px solid rgba(246,244,239,.35);padding:.7em 1.1em;transition:background .3s,color .3s;
-}
-.lb-close:hover{background:#F6F4EF;color:#171614}
-.lb-cap{position:absolute;left:0;right:0;bottom:clamp(14px,2.4vw,28px);text-align:center;color:rgba(246,244,239,.68);font-size:.6875rem;letter-spacing:.08em}
+/* ── lightbox ─────────────────────────────── */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(15,15,18,.86);backdrop-filter:blur(6px);display:none;place-items:center;padding:40px}
+.lb.on{display:grid;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.lb img{max-width:min(920px,92vw);max-height:86vh;border-radius:10px;box-shadow:0 40px 80px -30px rgba(0,0,0,.8);object-fit:contain;background:#fff}
+.lb__close{position:absolute;top:20px;right:22px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:20px;cursor:pointer}
+.lb__cap{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#D7D8DE;font-size:12.5px;font-weight:600}
 
-/* ── 등장 모션 ──────────────────────────────── */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.rv.in{opacity:1;transform:none}
-.skip{
-  position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);
-  padding:.8em 1.2em;z-index:100;font-size:.8125rem;
+/* section entrance (CSS-only, safe) */
+@media(prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.3,1)}
+  .fade.in{opacity:1;transform:none}
 }
-.skip:focus{left:12px;top:12px}
-
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  .rv{opacity:1;transform:none;transition:none}
-  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
-}
-
-/* ── 반응형 ─────────────────────────────────── */
-@media (max-width:1080px){
-  .hero-h1{grid-column:1 / -1}
-  .hero-copy{grid-column:1 / span 6}
-  .hero-figure{grid-column:8 / span 5}
-  .pq{grid-column:1 / span 7}
-  .pbody{grid-column:8 / span 5}
-  .tool{grid-template-columns:2.6em minmax(0,3fr) minmax(0,4fr) auto}
-  .week-shot{grid-column:6 / span 7}
-  .report-shot{grid-column:1 / span 5}
-  .report-detail{grid-column:7 / span 6}
-  .dark-head{grid-column:1 / span 7}
-  .dark-lead{grid-column:1 / span 6}
-  .mw-fact{grid-column:span 6}
-  .mw-fact:nth-child(3){grid-column:span 6}
-  .safety h3{grid-column:1 / -1;margin-bottom:.2em}
-  .safety ul{grid-column:1 / -1}
-  .wb-lower .sheets{grid-column:1 / span 7}
-  .wb-detail{grid-column:8 / span 5}
-  .lg-body .unit-list{grid-column:1 / span 5}
-  .unit-panel{grid-column:6 / span 7}
-  .faq-head{grid-column:1 / span 4}
-  .faq-list{grid-column:6 / span 7}
-  .start-l{grid-column:1 / span 6}
-  .start-r{grid-column:7 / span 6}
-  .start-h,.start-lead-col{grid-column:1 / -1}
-}
-@media (max-width:900px){
-  .g > *{grid-column:1 / -1}
-  .nav{display:none}
-  .hero-rule{display:none}
-  .hero-copy,.hero-figure{grid-column:1 / -1}
-  .hero-figure{margin-top:8px}
-  .stats{grid-template-columns:1fr 1fr}
-  .stat{border-left:0;border-top:1px solid var(--line);padding-left:0 !important}
-  .stat:nth-child(-n+2){border-top:0}
-  .stat:nth-child(even){padding-left:clamp(16px,4vw,24px) !important;border-left:1px solid var(--line)}
-  .steps{grid-template-columns:1fr 1fr;row-gap:clamp(24px,4vw,32px)}
-  .week-lower,.report-body,.mw-facts,.safety,.wb-lower,.lg-body,.plans,.single,.terms,.start-grid,.faq-list,.faq-head,.ft-top,.premise-grid{
-    grid-template-columns:1fr;
-  }
-  .week-table,.week-shot,.report-shot,.report-detail,.wb-detail,.unit-list,.unit-panel,.faq-list,.faq-head,.start-l,.start-r,.ft-brand,.ft-col,.pq,.pbody,.tools-head,.tools-aside,.week-head,.week-lead,.report-top,.report-meta,.dark-head,.dark-lead,.wb-head,.wb-lead,.lg-head,.lg-lead,.pr-head,.pr-lead{
-    grid-column:1 / -1;
-  }
-  .report-shot{position:static}
-  .plans{grid-template-columns:1fr}
-  .plan{border-left:0;border-top:1px solid var(--line);padding-left:0 !important;padding-right:0 !important}
-  .plan:first-child{border-top:0}
-  .plan.reco::before{left:0;right:0;top:-1px}
-  .single .s-act{justify-self:start;text-align:left}
-  .terms p,.terms .v{grid-column:1 / -1;text-align:left}
-  .terms .v{margin-top:.8em}
-  .faq-list .a{padding-left:3em}
-  .tool{grid-template-columns:2.2em 1fr auto;row-gap:.9em}
-  .tool .desc{grid-column:2 / -1;padding-right:0}
-  .tool .side{grid-column:3;grid-row:1;align-self:start}
-  .tool .price{display:none}
-  .safety ul{grid-template-columns:1fr;gap:.6em}
-  .lg-foot{grid-template-columns:1fr}
-  .lg-foot .f{grid-column:1 / -1}
-  .vframe{height:clamp(260px,52vw,420px)}
-  .wb-shot-grid{grid-template-columns:1fr}
-  .wb-shot-grid .plate,.wb-cap{grid-column:1 / -1}
-  .wb-cap{margin-top:14px}
-  .vcap{flex-direction:column;gap:6px;min-height:0}
-  .hero-cap{flex-direction:column;gap:4px}
-  .hero-h1{font-size:clamp(2.05rem,7.4vw,3rem)}
-}
-@media (max-width:640px){
-  :root{--pad:20px;--sec-y:64px;--gap:16px}
-  body{font-size:15px}
-  .hdr-in{height:64px}
-  .brand-sub{display:none}
-  .hero{padding-top:calc(64px + 40px)}
-  .hero-top{flex-direction:column;gap:8px;align-items:flex-start}
-  .hero-note{font-size:.6875rem}
-  .hero-figure .plate{aspect-ratio:1/1.02}
-  .stats{grid-template-columns:1fr 1fr}
-  .steps{grid-template-columns:1fr}
-  .step .tag{padding-top:.6em}
-  .tool{grid-template-columns:1.8em 1fr auto;padding:20px 0}
-  .tool .name .ko{font-size:1.0625rem}
-  .tool .desc{font-size:.75rem}
-  .detail,.spec-row{grid-template-columns:1fr;gap:.35em}
-  .detail dt,.spec-row dt{padding-top:.2em}
-  .buy{align-items:flex-start}
-  .buy-act{width:100%}
-  .buy-act .btn{flex:1;justify-content:center}
-  .vframe{height:300px}
-  .tabs{gap:14px}
-  .tab{font-size:.75rem}
-  .mw-fact{grid-column:1 / -1}
-  .sheet{max-width:none}
-  .sheet-stage{padding:12px;min-height:0}
-  .upanel .ex{min-height:0}
-  .plan .price .v{font-size:2rem}
-  .form-card{padding:18px}
-  .ft-bot{flex-direction:column;gap:10px}
-  .plate{padding:10px}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .fade{opacity:1;transform:none}
 }
 </style>
+<noscript><style>.fade{opacity:1!important;transform:none!important}.slide{visibility:hidden}.slide.is-on{visibility:visible}</style></noscript>
 </head>
-<body id="top">
-<a class="skip" href="#main">본문으로 바로 가기</a>
-<div class="prog" aria-hidden="true"><i></i></div>
+<body>
 
 <header class="hdr" id="hdr">
-  <div class="hdr-in">
-    <a class="brand" href="#top" aria-label="EPL — 처음으로">
-      <span class="brand-mark">EPL</span>
-      <span class="brand-sub">The Quiet Practice</span>
-    </a>
-    <nav class="nav" aria-label="주요 섹션">
-      <a href="#tools">도구</a>
-      <a href="#week">흐름</a>
+  <div class="hdr__in">
+    <a class="logo" href="#top" aria-label="EPL LAB 홈"><i></i>EPL LAB<span>ACADEMY TOOLS</span></a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="#things">받는 것</a>
       <a href="#report">리포트</a>
-      <a href="#monster">Monster World</a>
-      <a href="#pricing">요금</a>
+      <a href="#monster">MONSTER WORLD</a>
+      <a href="#workbook">워크북</a>
+      <a href="#writing">라이팅</a>
     </nav>
-    <div class="hdr-act">
-      <a class="btn btn-sm" href="#start">14일 체험 <span class="ar">→</span></a>
-    </div>
+    <a class="btn btn--ink btn--sm" href="#pricing">14일 체험</a>
   </div>
 </header>
 
-<main id="main">
+<main id="top">
 
-  <!-- ══════════ HERO ══════════ -->
-  <section class="hero" aria-label="소개">
-    <div class="wrap">
-      <div class="hero-top">
-        <span class="label">원장의 도구 아카이브</span>
-        <span class="label">Academy Tools · 2026</span>
-      </div>
-
-      <h1 class="hero-h1 rv">
-        매일 반복되는 일을,
-        <span class="serif">매일 같은 방식으로.</span>
-      </h1>
-
-      <div class="hero-body">
-        <div class="hero-copy rv">
-          <p class="lead">출제하고, 기록하고, 확인하고, 보냅니다. 원서 영어학원을 운영하며 매주 되풀이되던 네 가지 일을 도구로 만들었습니다. 설치도, 새로 배울 화면도 없습니다.</p>
-          <div class="hero-cta">
-            <a class="btn btn-solid" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">리포트 단품 구매 · 39,000원 <span class="ar">→</span></a>
-            <a class="btn" href="https://litt.ly/eplenglish" target="_blank" rel="noopener">Monster World 베타 신청</a>
-          </div>
-          <p class="hero-note">카드 등록 없이 14일 체험 · 해지 위약금 없음 · 금액은 부가세 별도</p>
-
-          <nav class="hero-toc" aria-label="도구 바로가기">
-            <span class="label">Contents</span>
-            <ol>
-              <li><a href="#report"><span class="n">01</span><span>성취테스트 리포트</span><span class="dots" aria-hidden="true"></span><span class="m">39,000원</span></a></li>
-              <li><a href="#monster"><span class="n">02</span><span>Monster World</span><span class="dots" aria-hidden="true"></span><span class="m">구독 · 베타</span></a></li>
-              <li><a href="#workbook"><span class="n">03</span><span>워크북 · 워크시트</span><span class="dots" aria-hidden="true"></span><span class="m">포함</span></a></li>
-              <li><a href="#logic"><span class="n">04</span><span>로직 라이팅</span><span class="dots" aria-hidden="true"></span><span class="m">포함</span></a></li>
-            </ol>
-          </nav>
-        </div>
-
-        <div class="hero-rule" aria-hidden="true"></div>
-
-        <figure class="hero-figure rv">
-          <div class="plate">
-            <button class="shot" type="button" data-lb="assets/report-sample.webp" data-cap="FIG. 01 — 성취테스트 리포트. 초등 5학년 · Reading Bridge 2 · Unit 05–08 · A4 한 장." aria-label="성취테스트 리포트 예시 크게 보기">
-              <img src="assets/report-sample.webp" alt="성취테스트 리포트 예시. A4 한 장에 성취 등급, 누적 성장 흐름, 영역별 성취, 담당 교사 코멘트가 담겨 있습니다." width="1200" height="1858" fetchpriority="high" decoding="async">
-            </button>
-          </div>
-          <figcaption class="cap hero-cap">
-            <span><b>Fig. 01</b> &nbsp;성취테스트 리포트 · A4 한 장</span>
-            <span>학원 이름과 강조 색만 정하면 매번 같은 모양</span>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div class="stats rv">
-        <div class="stat"><div class="v">04<small>TOOLS</small></div><div class="k">출제 · 기록 · 확인 · 리포트</div></div>
-        <div class="stat"><div class="v">50<small>BOOKS</small></div><div class="k">원서 워크북 풀</div></div>
-        <div class="stat"><div class="v">201<small>SPECIES</small></div><div class="k">몬스터 도감 · 67가문 × 3단계</div></div>
-        <div class="stat"><div class="v">14<small>YEARS</small></div><div class="k">원서 영어학원 운영</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ 00 PREMISE ══════════ -->
-  <section class="sec premise" id="premise">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">00</span>
-        <span class="label en-label">Premise</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">만든 이유</span>
-      </div>
-
-      <div class="g premise-grid">
-        <div class="pq rv">
-          <span class="label">A Note From The Director</span>
-          <blockquote>
-            좋은 방법보다 중요한 건,
-            <span class="br">방법을 선택하는 나의 판단.</span>
-          </blockquote>
-          <div class="who"><b>김아영</b> — EPL 영어학원 원장. 동백 · 백현 두 곳을 운영합니다.</div>
-        </div>
-
-        <div class="pbody rv">
-          <p class="body-sm">14년째 원서 영어학원을 운영합니다. 동백과 백현, 두 곳에서 같은 일이 매주 돌아옵니다. 워크북을 뽑고, 아이들의 기록을 확인하고, 시험이 끝나면 성적표를 만듭니다. 학원마다 방식은 달라도 이 일이 사라지는 학원은 없습니다.</p>
-          <p class="body-sm">그래서 제가 쓰던 방법을 도구로 옮겼습니다. 화려하게 만들지 않았습니다. 대신 매주 같은 자리에서, 같은 품질로 나오게 만들었습니다. 방법을 고르는 일은 여전히 원장의 몫이고, 도구는 그 판단을 지키는 일만 합니다.</p>
-
-          <dl class="specs">
-            <div class="spec-row"><dt>사용</dt><dd>모든 도구를 제 학원에서 먼저 씁니다. 쓰지 않는 기능은 넣지 않았습니다.</dd></div>
-            <div class="spec-row"><dt>설명</dt><dd>선생님이 설명 없이 쓸 수 있는 것만 남겼습니다.</dd></div>
-            <div class="spec-row"><dt>기록</dt><dd>학생의 기록은 학원별로 분리되고, 이름·아이디·학습 기록 외에는 받지 않습니다.</dd></div>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ 01 TOOLS ══════════ -->
-  <section class="sec" id="tools">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">01</span>
-        <span class="label en-label">The Tools</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">네 가지</span>
-      </div>
-
-      <div class="g">
-        <div class="tools-head rv">
-          <h2 class="h2">네 가지 도구,<br>하나의 흐름</h2>
-        </div>
-        <div class="tools-aside rv">
-          <p>수업 자료를 만들고, 아이의 기록을 남기고, 학부모께 보내는 일까지. 서로 다른 프로그램이 아니라 한 줄로 이어집니다.</p>
-        </div>
-      </div>
-
-      <div class="tool-list rv">
-        <a class="tool" href="#report">
-          <span class="idx">01</span>
-          <span class="name"><span class="ko">성취테스트 리포트</span><span class="en">Report</span></span>
-          <span class="desc">시험이 끝나면 학부모께 보낼 A4 한 장이 바로 나옵니다. 붙여넣기 한 번이면 계산과 코멘트까지.</span>
-          <span class="side"><span class="price">단품 39,000원</span><span class="go" aria-hidden="true">→</span></span>
+<section class="hero">
+  <div class="hero__in">
+    <div class="hero__copy">
+      <span class="eyebrow"><i></i>원서 영어학원을 운영하며 만든 네 가지 도구</span>
+      <h1>시험이 끝나면 <em>성적표</em>,<br>수업이 끝나면 <em>몬스터</em>.</h1>
+      <p class="lead">출제하고, 남기고, 확인하고, 보냅니다. 학원에서 매주 반복되던 그 일이 화면 하나에서 끝납니다.</p>
+      <div class="hero__cta">
+        <a class="btn btn--ink" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">리포트 단품 받기 · 39,000원
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a class="tool" href="#monster">
-          <span class="idx">02</span>
-          <span class="name"><span class="ko">몬스터 월드</span><span class="en">Monster World</span></span>
-          <span class="desc">매일의 기록이 아이의 몬스터로 자랍니다. 선생님이 승인한 기록만 쌓입니다.</span>
-          <span class="side"><span class="price">구독 · 베타</span><span class="go" aria-hidden="true">→</span></span>
-        </a>
-        <a class="tool" href="#workbook">
-          <span class="idx">03</span>
-          <span class="name"><span class="ko">원서 워크북 · 워크시트</span><span class="en">Workbook</span></span>
-          <span class="desc">권 번호만 누르면 인쇄까지 한 번에. 워크시트 네 종류도 같은 화면에서 만듭니다.</span>
-          <span class="side"><span class="price">구독 포함</span><span class="go" aria-hidden="true">→</span></span>
-        </a>
-        <a class="tool" href="#logic">
-          <span class="idx">04</span>
-          <span class="name"><span class="ko">로직 라이팅</span><span class="en">Logic Writing</span></span>
-          <span class="desc">생각을 문단으로 만드는 여섯 유닛. 초등 고학년부터 중등까지, 한 유닛씩.</span>
-          <span class="side"><span class="price">구독 포함</span><span class="go" aria-hidden="true">→</span></span>
-        </a>
+        <a class="btn btn--ghost" href="https://litt.ly/eplenglish" target="_blank" rel="noopener">MONSTER WORLD 베타 신청</a>
       </div>
-
-      <p class="tool-note rv">※ <em>개별진도 OS</em>는 도구 묶음에 넣지 않았습니다. 학원마다 운영 방식이 달라서, 제 학원 안에 두었습니다.</p>
-    </div>
-  </section>
-
-  <!-- ══════════ 02 WEEK ══════════ -->
-  <section class="sec" id="week">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">02</span>
-        <span class="label en-label">The Week</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">한 주의 흐름</span>
-      </div>
-
-      <div class="g">
-        <div class="week-head rv"><h2 class="h2">한 주가<br>끊기지 않게</h2></div>
-        <div class="week-lead rv">
-          <p class="lead">학생은 매일 남기고, 선생님은 금요일에 한 번 확인하고, 주말에 정산표를 봅니다. 네 단계가 서로 다른 프로그램이 아니라 한 줄로 이어집니다.</p>
-        </div>
-      </div>
-
-      <div class="steps rv">
-        <div class="step">
-          <span class="n">Step 01</span>
-          <h3>만들기</h3>
-          <p>권 번호와 유닛만 고르면 워크북과 워크시트가 그 자리에서 인쇄됩니다. 출제에 쓰던 시간을 수업 준비로 돌립니다.</p>
-          <span class="tag">Workbook</span>
-        </div>
-        <div class="step">
-          <span class="n">Step 02</span>
-          <h3>남기기</h3>
-          <p>수업이 끝나면 아이가 ‘다 했어요’로 남깁니다. 하루 1–2분, 앱 설치 없이 브라우저에서.</p>
-          <span class="tag">Monster World</span>
-        </div>
-        <div class="step">
-          <span class="n">Step 03</span>
-          <h3>확인하기</h3>
-          <p>여러 건을 골라 한 번에 승인·반려. 출석·태도처럼 바로 주는 항목은 버튼 한 번으로 지급합니다.</p>
-          <span class="tag">Approval</span>
-        </div>
-        <div class="step">
-          <span class="n">Step 04</span>
-          <h3>보내기</h3>
-          <p>주 1회 입력할 포인트 표와, 학부모께 보낼 A4 성적표가 함께 나옵니다. 지급은 지금 하시는 방식 그대로.</p>
-          <span class="tag">Report</span>
-        </div>
-      </div>
-
-      <div class="week-lower rv">
-        <div class="week-table">
-          <div class="row"><span>Mon–Thu</span><span><b>학습 기록</b><em>학생 ‘다 했어요’</em></span></div>
-          <div class="row"><span>Fri</span><span><b>승인 · 반려</b><em>여러 건 한 번에</em></span></div>
-          <div class="row"><span>Sat</span><span><b>주간 정산</b><em>입력할 포인트 확인</em></span></div>
-          <div class="row"><span>시험 후</span><span><b>성취테스트 리포트</b><em>학부모 발송</em></span></div>
-        </div>
-        <figure class="week-shot">
-          <div class="plate wide">
-            <button class="shot" type="button" data-lb="assets/monster-approve.webp" data-cap="FIG. 02 — 선생님 승인 화면. 여러 건을 골라 한 번에 처리하고, ‘빠른 지급’으로 출석·태도를 바로 줍니다." aria-label="선생님 승인 화면 크게 보기">
-              <img src="assets/monster-approve.webp" alt="Monster World 선생님 승인 화면. 미션 완료 요청 목록과 빠른 지급 버튼이 보입니다." width="1800" height="791" loading="lazy" decoding="async">
-            </button>
-          </div>
-          <figcaption class="cap hero-cap">
-            <span><b>Fig. 02</b> &nbsp;선생님 승인 — 금요일에 한 번</span>
-            <span>학생 요청 없이도 바로 지급</span>
-          </figcaption>
-        </figure>
+      <div class="hero__note">
+        <span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>카드 등록 없이 14일</span>
+        <span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>해지 위약금 없음</span>
+        <span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>설치·로그인 없음</span>
       </div>
     </div>
-  </section>
 
-  <!-- ══════════ 03 REPORT ══════════ -->
-  <section class="sec" id="report">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">03</span>
-        <span class="label en-label">Report</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">성취테스트 리포트</span>
-      </div>
+    <div class="hero__stage">
+      <div class="stage" id="stage" data-i="0">
+        <div class="stage__tint"></div>
 
-      <div class="g">
-        <div class="report-top rv">
-          <h2 class="h2">시험이 끝난 날,<br>성적표도 끝나 있습니다</h2>
-          <p class="lead" style="margin-top:clamp(18px,2vw,26px)">넷튜터 상세 성적표를 붙여넣으면 학생 이름과 문항 수, 영역별 점수가 채워집니다. 유형별·영역별 정답률과 이전 회차 대비 성장, 담당 코멘트까지 A4 한 장으로 정리됩니다.</p>
-        </div>
-        <div class="report-meta rv">
-          <div class="m"><div class="k">Format</div><div class="v">A4 한 장 · PDF · JPG</div></div>
-          <div class="m"><div class="k">License</div><div class="v">1학원 1라이선스</div></div>
-          <div class="m"><div class="k">File</div><div class="v">파일 하나 · 설치 없음</div></div>
-        </div>
-      </div>
-
-      <div class="report-body">
-        <figure class="report-shot rv">
-          <div class="plate tall">
-            <button class="shot" type="button" data-lb="assets/report-sample.webp" data-cap="FIG. 01 — 성취테스트 리포트. 초등 5학년 · Reading Bridge 2 · Unit 05–08 · A4 한 장." aria-label="성취테스트 리포트 예시 크게 보기">
-              <img src="assets/report-sample.webp" alt="성취테스트 리포트 예시. 성취 등급, 누적 성장 흐름, 유형별 성취, 영역별 성취 막대, 우선 학습 항목, 담당 교사 코멘트가 한 장에 담겨 있습니다." width="1200" height="1858" loading="lazy" decoding="async">
-            </button>
-          </div>
-          <figcaption class="cap hero-cap">
-            <span><b>Fig. 01</b> &nbsp;학부모 발송용 · 실제 사용 화면</span>
-            <span>눌러서 크게 보기</span>
-          </figcaption>
-        </figure>
-
-        <div class="report-detail rv">
-          <dl class="detail-list">
-            <div class="detail"><dt>입력</dt><dd>넷튜터 상세 성적표를 복사해 붙여넣거나, PDF 파일로 불러옵니다. <b>칸이 자동으로 채워집니다.</b></dd></div>
-            <div class="detail"><dt>계산</dt><dd>영역별·유형별 정답률, 이전 회차 대비 성장 흐름, 진급 기준 대비 통과 여부까지 자동으로 계산됩니다.</dd></div>
-            <div class="detail"><dt>코멘트</dt><dd>강점 / 보완할 점 / 학부모님께 — 세 문단이 들어온 데이터에 맞춰 작성됩니다. 손으로 고칠 수 있습니다.</dd></div>
-            <div class="detail"><dt>출력</dt><dd>인쇄, PDF 저장, 카톡 발송용 JPG 저장, 학부모 안내문 복사까지 한 화면에서.</dd></div>
-            <div class="detail"><dt>기준</dt><dd>진급 기준 정답률과 표시 방식(등급·단계·숫자), 강조 색 4종을 학원에 맞게 정합니다.</dd></div>
-            <div class="detail"><dt>개인정보</dt><dd>입력한 학생 이름과 점수는 서버로 보내지 않습니다. 계산은 브라우저 안에서 끝납니다.</dd></div>
-          </dl>
-
-          <div class="buy">
-            <div>
-              <div class="amount"><span class="v">39,000</span><span class="u">원 · 1회 결제</span></div>
-              <p class="buy-terms">1학원 1라이선스 · 부가세 별도 · 파일 하나로 동작(설치·로그인·월 이용료 없음)<br>인터넷이 없어도 작성·인쇄·PDF 저장이 됩니다.</p>
-            </div>
-            <div class="buy-act">
-              <button class="btn" type="button" data-lb="assets/report-sample.webp" data-cap="FIG. 01 — 성취테스트 리포트. 초등 5학년 · Reading Bridge 2 · Unit 05–08 · A4 한 장.">예시 크게 보기</button>
-              <a class="btn btn-solid" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">리틀리에서 구매 <span class="ar">→</span></a>
+        <div class="slide is-on" data-i="0">
+          <div class="scene">
+            <div class="scene__label"><b>01</b> 성취테스트 리포트</div>
+            <div class="sc-report">
+              <div class="a4 a4--back" aria-hidden="true"></div>
+              <figure class="a4 sheet"><img src="assets/report-sample.webp" alt="성취테스트 리포트 A4 예시"></figure>
             </div>
           </div>
         </div>
+
+        <div class="slide" data-i="1">
+          <div class="scene">
+            <div class="scene__label"><b>02</b> MONSTER WORLD</div>
+            <div class="sc-monster">
+              <div class="screen"><img src="assets/monster-home.webp" alt="MONSTER WORLD 학생 홈 화면"></div>
+              <div class="side">
+                <div class="mini"><img src="assets/monster-dex.webp" alt="몬스터 도감 화면"></div>
+                <div class="mini"><img src="assets/monster-map.webp" alt="마을 지도 화면"></div>
+              </div>
+              <span class="chip xp"><b>+50 XP</b> 단어 테스트 승인</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-i="2">
+          <div class="scene">
+            <div class="scene__label"><b>03</b> 원서 워크북 · 워크시트</div>
+            <div class="sc-work">
+              <div class="win">
+                <div class="win__bar"><i></i><i></i><i></i><span>EPL · Workbook Auto Issue</span></div>
+                <img src="assets/workbook-app.webp" alt="원서 워크북 출제기 화면">
+              </div>
+              <span class="chip fchip fchip--1">50권 · 60문항</span>
+              <span class="chip fchip fchip--2">누르면 새 조합</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" data-i="3">
+          <div class="scene">
+            <div class="scene__label"><b>04</b> 로직 라이팅</div>
+            <div class="sc-write">
+              <div class="wpanel">
+                <div class="wrow"><span class="wn">01</span><p>The fox <mark>runs</mark>.</p></div>
+                <div class="wrow"><span class="wn">02</span><p>The fox finds <mark>a seed</mark>.</p></div>
+                <div class="wrow"><span class="wn">03</span><p>One morning, the fox finds a seed <mark>in an empty pot</mark>.</p></div>
+                <div class="wrow is-last"><span class="wn">06</span><div><p>A small habit <mark>changes the whole woods</mark>.</p><span class="wcap">여섯 유닛을 마치면 한 편의 에세이</span></div></div>
+              </div>
+              <span class="chip fchip fchip--1">6 유닛 · 쓰기 틀</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thumbs" role="tablist" aria-label="도구 미리보기">
+        <button role="tab" aria-selected="true" data-i="0"><b>01</b>성취테스트 리포트</button>
+        <button role="tab" aria-selected="false" data-i="1"><b>02</b>MONSTER WORLD</button>
+        <button role="tab" aria-selected="false" data-i="2"><b>03</b>워크북 · 워크시트</button>
+        <button role="tab" aria-selected="false" data-i="3"><b>04</b>로직 라이팅</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════ 04 MONSTER WORLD ══════════ -->
-  <section class="sec dark" id="monster" data-theme="ink">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">04</span>
-        <span class="label en-label">Monster World</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">매일의 기록</span>
-      </div>
-
-      <div class="g">
-        <div class="dark-head rv">
-          <h2 class="h2">게임은 앞서지 않습니다.
-            <span class="serif">공부를 따라옵니다.</span>
-          </h2>
-        </div>
-        <div class="dark-lead rv">
-          <p class="lead">학생 화면의 주인공은 몬스터입니다. 다만 공부를 시키기 위한 장식이 아니라, 선생님이 승인한 기록만 몬스터를 키웁니다. 하루 1–2분, 앱 설치 없이.</p>
-        </div>
-      </div>
-
-      <div class="viewer rv" data-tabs>
-        <div class="viewer-stage">
-          <div class="vpanel" id="mw-1" role="tabpanel" aria-labelledby="mwt-1">
-            <div class="vframe"><img src="assets/monster-home.webp" alt="Monster World 학생 홈 화면. 불꽃 여우 캐릭터와 레벨 5, 경험치 바가 보입니다." width="840" height="916" loading="lazy" decoding="async"></div>
-            <div class="vcap">
-              <p class="txt">승인된 기록만 XP가 됩니다. 1,000 XP마다 한 레벨, 최고 50레벨. 아이는 오늘 할 일을 자기 화면에서 확인합니다.</p>
-              <span class="fig">Fig. 03–1 · 학생 홈</span>
-            </div>
-          </div>
-          <div class="vpanel" id="mw-2" role="tabpanel" aria-labelledby="mwt-2" hidden>
-            <div class="vframe"><img src="assets/monster-approve.webp" alt="Monster World 선생님 승인 화면. 미션 완료 요청 목록과 빠른 지급 항목이 보입니다." width="1800" height="791" loading="lazy" decoding="async"></div>
-            <div class="vcap">
-              <p class="txt">여러 건을 골라 한 번에 승인·반려합니다. 출석·태도·단어 테스트처럼 바로 주는 항목은 ‘빠른 지급’으로 버튼 한 번에.</p>
-              <span class="fig">Fig. 03–2 · 선생님 승인</span>
-            </div>
-          </div>
-          <div class="vpanel" id="mw-3" role="tabpanel" aria-labelledby="mwt-3" hidden>
-            <div class="vframe"><img src="assets/monster-map.webp" alt="Monster World 마을 지도 화면. 레벨에 따라 열리는 다섯 마을이 보입니다." width="840" height="916" loading="lazy" decoding="async"></div>
-            <div class="vcap">
-              <p class="txt">레벨에 따라 다섯 마을이 차례로 열립니다. 시작의 마을에서 불꽃 성채까지. 지도에 보이는 이름은 별명·가린 이름·실명·나만 보기 중에서 고릅니다.</p>
-              <span class="fig">Fig. 03–3 · 마을 지도</span>
-            </div>
-          </div>
-          <div class="vpanel" id="mw-4" role="tabpanel" aria-labelledby="mwt-4" hidden>
-            <div class="vframe"><img src="assets/monster-dex.webp" alt="Monster World 도감 화면. 여러 몬스터가 격자로 정리되어 있습니다." width="840" height="916" loading="lazy" decoding="async"></div>
-            <div class="vcap">
-              <p class="txt">67가문 × 3단계 = 201종. Lv.15와 Lv.35에서 진화합니다. 모으는 재미가 다음 주의 기록을 만듭니다.</p>
-              <span class="fig">Fig. 03–4 · 도감</span>
-            </div>
-          </div>
-          <div class="vpanel" id="mw-5" role="tabpanel" aria-labelledby="mwt-5" hidden>
-            <div class="vframe"><img src="assets/monster-parent.webp" alt="Monster World 학부모 안내 가정통신문. 운영 방식과 개인정보 보호 안내가 담겨 있습니다." width="1100" height="1556" loading="lazy" decoding="async"></div>
-            <div class="vcap">
-              <p class="txt">프로그램 소개와 개인정보 안내가 담긴 가정통신문을 학원 이름으로 드립니다. 선생님·학생 가이드, 홈 화면 추가 안내도 함께.</p>
-              <span class="fig">Fig. 03–5 · 학부모 안내</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="tabs" role="tablist" aria-label="Monster World 화면">
-          <button class="tab" id="mwt-1" role="tab" aria-controls="mw-1" aria-selected="true"><span class="ti">01</span>학생 홈</button>
-          <button class="tab" id="mwt-2" role="tab" aria-controls="mw-2" aria-selected="false"><span class="ti">02</span>선생님 승인</button>
-          <button class="tab" id="mwt-3" role="tab" aria-controls="mw-3" aria-selected="false"><span class="ti">03</span>마을 지도</button>
-          <button class="tab" id="mwt-4" role="tab" aria-controls="mw-4" aria-selected="false"><span class="ti">04</span>도감</button>
-          <button class="tab" id="mwt-5" role="tab" aria-controls="mw-5" aria-selected="false"><span class="ti">05</span>학부모 안내</button>
-        </div>
-      </div>
-
-      <div class="mw-facts rv">
-        <div class="mw-fact">
-          <span class="k">매일</span>
-          <h4>단어 동굴 배틀</h4>
-          <p>학원 단어장으로 Unit당 10문항. 뜻 고르기·영어 고르기·듣기·철자 네 유형이고 채점은 서버에서 합니다. 그날 기록이 하나도 없으면 배틀이 열리지 않습니다.</p>
-        </div>
-        <div class="mw-fact">
-          <span class="k">매주</span>
-          <h4>승인과 정산</h4>
-          <p>금요일에 한 번 승인하면 주간 정산표가 나옵니다. 지급은 지금 하시는 방식 그대로, 표를 보고 하시면 됩니다.</p>
-        </div>
-        <div class="mw-fact">
-          <span class="k">함께</span>
-          <h4>학부모 안내문</h4>
-          <p>가정통신문, 선생님·학생 가이드, 홈 화면 추가 안내를 학원 이름으로 드립니다. 학부모가 처음 받는 문서까지 정리되어 있습니다.</p>
-        </div>
-      </div>
-
-      <div class="safety rv">
-        <h3>학부모 안심</h3>
-        <ul>
-          <li>받는 정보는 학생 이름(화면 표시용)·아이디·학습 기록 세 가지</li>
-          <li>연락처·생년월일·주소·사진은 받지 않음</li>
-          <li>서버에서 학원별로 데이터를 분리</li>
-          <li>실제 이메일 주소를 만들지 않음</li>
-          <li>지도에 보이는 이름은 별명·가린 이름·실명·나만 보기 중 선택</li>
-          <li>퇴원 시 계정 이용 중지, 기록 삭제는 학원에서 처리</li>
-        </ul>
-      </div>
-
-      <div class="mw-cta">
-        <a class="btn btn-light" href="https://litt.ly/eplenglish" target="_blank" rel="noopener">베타 사전 신청 <span class="ar">→</span></a>
-        <button class="btn btn-light" type="button" data-open-tab="mwt-5">학부모 안내문 견본</button>
-      </div>
+<section class="sec things" id="things">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <span class="eyebrow"><i style="background:#C79A45"></i>받는 것</span>
+      <h2>학원에 남는 것들</h2>
+      <p class="lead">화면, 인쇄물, 학부모께 가는 문서까지. 실제로 쓰는 모습 그대로입니다.</p>
     </div>
-  </section>
-
-  <!-- ══════════ 05 WORKBOOK ══════════ -->
-  <section class="sec" id="workbook">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">05</span>
-        <span class="label en-label">Workbook &amp; Worksheet</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">출제</span>
-      </div>
-
-      <div class="g">
-        <div class="wb-head rv"><h2 class="h2">권 번호만 누르면,<br>인쇄까지 한 번에</h2></div>
-        <div class="wb-lead rv"><p class="lead">EPL 50권 목록에서 권을 누르면 응원 문구·워크시트·답지가 무작위로 채워집니다. 같은 권을 다시 눌러도 새 조합이 나옵니다.</p></div>
-      </div>
-
-      <figure class="wb-shot rv">
-        <div class="wb-shot-grid">
-          <div class="plate wide lead-wide">
-            <button class="shot" type="button" data-lb="assets/workbook-app.webp" data-cap="FIG. 04 — 원서 워크북 출제기. 권 번호를 누르면 표지·워크시트·답지가 한 번에 나옵니다." aria-label="워크북 출제기 화면 크게 보기">
-              <img src="assets/workbook-app.webp" alt="원서 워크북 자동 출제기 화면. 50권 목록을 레벨별로 고르고, 오른쪽에서 권 정보와 워크시트 구성을 편집합니다." width="1600" height="1075" loading="lazy" decoding="async">
-            </button>
-          </div>
-          <figcaption class="wb-cap">
-            <span class="fig"><b>Fig. 04</b> &nbsp;원서 워크북 출제기</span>
-            <p>레벨별 50권. 권을 누르면 표지·워크시트·답지가 그 자리에서 나오고, 같은 권을 다시 눌러도 새 조합입니다. 오른쪽 패널에서 문장 유형과 어휘 수준을 바꿉니다.</p>
-            <div class="wb-cap-meta">
-              <span>50권 풀</span>
-              <span>60문항/권</span>
-              <span>답지 포함</span>
-              <span>바로 인쇄</span>
-            </div>
-          </figcaption>
-        </div>
+    <div class="grid-masonry">
+      <figure class="tile" data-full="assets/report-sample.webp" data-cap="성취테스트 리포트 · A4 한 장">
+        <span class="tile__tag">리포트</span>
+        <img src="assets/report-sample.webp" alt="성취테스트 리포트 A4 예시" loading="lazy">
+        <figcaption class="tile__cap">성취테스트 리포트 · 눌러서 크게</figcaption>
       </figure>
-
-      <div class="wb-lower">
-        <div class="sheets rv" data-tabs>
-          <div class="sheet-stage">
-            <div class="sheet" id="ws-1" role="tabpanel" aria-labelledby="wst-1">
-              <div class="sheet-head"><span class="t">EPL Workbook</span><span class="v">Vol. 12</span></div>
-              <div class="sheet-title">Word List — A Day at the Shore</div>
-              <div class="sheet-sub">Unit 05 · 10 words · 이름 ______</div>
-              <ul>
-                <li><span class="en">shore</span><span class="ko">해안</span></li>
-                <li><span class="en">gentle</span><span class="ko">온화한</span></li>
-                <li><span class="en">gather</span><span class="ko">모으다</span></li>
-                <li><span class="en">shell</span><span class="ko">조개껍질</span></li>
-                <li><span class="en">whisper</span><span class="ko">속삭이다</span></li>
-                <li><span class="en">horizon</span><span class="ko">수평선</span></li>
-              </ul>
-              <div class="foot"><span>Write each word twice</span><span>01 / 04</span></div>
-            </div>
-
-            <div class="sheet" id="ws-2" role="tabpanel" aria-labelledby="wst-2" hidden>
-              <div class="sheet-head"><span class="t">EPL Worksheet</span><span class="v">Vol. 12</span></div>
-              <div class="sheet-title">Sentence Blocks</div>
-              <div class="sheet-sub">단어 블록을 눌러 문장을 완성하세요</div>
-              <div class="blocks">
-                <span>The fox</span><span>finds</span><span>a seed</span><span>in an empty pot</span>
-              </div>
-              <div class="blocks" style="margin-top:10px">
-                <span class="hole"></span><span class="hole"></span><span class="hole"></span><span class="hole"></span>
-              </div>
-              <div class="lines"><i></i><i></i><i></i></div>
-              <div class="foot"><span>Auto-checked</span><span>02 / 04</span></div>
-            </div>
-
-            <div class="sheet" id="ws-3" role="tabpanel" aria-labelledby="wst-3" hidden>
-              <div class="sheet-head"><span class="t">EPL Worksheet</span><span class="v">Vol. 12</span></div>
-              <div class="sheet-title">Reading Questions</div>
-              <div class="sheet-sub">Read the passage, then answer.</div>
-              <p style="margin-top:12px;font-size:.75rem;line-height:1.85;color:#3D3934">The fox lives alone in the woods. One morning he finds a seed in an empty pot. He waters it every day, and slowly the woods begin to change.</p>
-              <div class="lines"><i></i><i></i><i></i><i></i></div>
-              <div class="foot"><span>3 questions</span><span>03 / 04</span></div>
-            </div>
-
-            <div class="sheet" id="ws-4" role="tabpanel" aria-labelledby="wst-4" hidden>
-              <div class="sheet-head"><span class="t">Weekly Test</span><span class="v">Vol. 12</span></div>
-              <div class="sheet-title">Weekly Check</div>
-              <div class="sheet-sub">10 questions · 만점 100점 · 이름 ______</div>
-              <ul>
-                <li><span class="en">01 · shore</span><span class="ko">______</span></li>
-                <li><span class="en">02 · gentle</span><span class="ko">______</span></li>
-                <li><span class="en">03 · gather</span><span class="ko">______</span></li>
-                <li><span class="en">04 · whisper</span><span class="ko">______</span></li>
-                <li><span class="en">05 · horizon</span><span class="ko">______</span></li>
-              </ul>
-              <div class="foot"><span>Score ____ / 100</span><span>04 / 04</span></div>
-            </div>
-          </div>
-          <div class="tabs wb-tabs" role="tablist" aria-label="워크시트 종류">
-            <button class="tab" id="wst-1" role="tab" aria-controls="ws-1" aria-selected="true"><span class="ti">01</span>단어장</button>
-            <button class="tab" id="wst-2" role="tab" aria-controls="ws-2" aria-selected="false"><span class="ti">02</span>문장 배열</button>
-            <button class="tab" id="wst-3" role="tab" aria-controls="ws-3" aria-selected="false"><span class="ti">03</span>독해 질문</button>
-            <button class="tab" id="wst-4" role="tab" aria-controls="ws-4" aria-selected="false"><span class="ti">04</span>주간 테스트</button>
-          </div>
+      <figure class="tile" data-full="assets/monster-home.webp" data-cap="MONSTER WORLD · 학생 홈">
+        <span class="tile__tag">MONSTER WORLD</span>
+        <img src="assets/monster-home.webp" alt="MONSTER WORLD 학생 홈 화면" loading="lazy">
+        <figcaption class="tile__cap">학생 홈 · 매일 1–2분</figcaption>
+      </figure>
+      <figure class="tile" data-full="assets/workbook-app.webp" data-cap="원서 워크북 출제기">
+        <span class="tile__tag">출제</span>
+        <img src="assets/workbook-app.webp" alt="원서 워크북 출제기 화면" loading="lazy">
+        <figcaption class="tile__cap">권 번호만 누르면 인쇄까지</figcaption>
+      </figure>
+      <figure class="tile" data-full="assets/monster-map.webp" data-cap="MONSTER WORLD · 마을 지도">
+        <span class="tile__tag">지도</span>
+        <img src="assets/monster-map.webp" alt="몬스터 월드 마을 지도 화면" loading="lazy">
+        <figcaption class="tile__cap">레벨마다 열리는 다섯 마을</figcaption>
+      </figure>
+      <figure class="tile" data-full="assets/monster-approve.webp" data-cap="선생님 승인 화면">
+        <span class="tile__tag">승인</span>
+        <img src="assets/monster-approve.webp" alt="선생님 승인 화면" loading="lazy">
+        <figcaption class="tile__cap">금요일에 한 번, 한 번에</figcaption>
+      </figure>
+      <figure class="tile" data-full="assets/monster-dex.webp" data-cap="MONSTER WORLD · 도감">
+        <span class="tile__tag">도감</span>
+        <img src="assets/monster-dex.webp" alt="몬스터 도감 화면" loading="lazy">
+        <figcaption class="tile__cap">201종 · Lv.15와 35에서 진화</figcaption>
+      </figure>
+      <div class="tile tile--paper is-plain">
+        <div class="mini-report" aria-hidden="true">
+          <div class="r-top"><div><div class="r-name">EPL 영어학원</div><div class="r-sub">ACHIEVEMENT REPORT</div></div><div style="text-align:right;font-size:6px;letter-spacing:.14em;color:#C0B09E">성취테스트</div></div>
+          <div class="r-grade"><span>C</span></div>
+          <div class="r-row"><b>어휘</b><div class="r-bar"><i style="width:91%"></i></div></div>
+          <div class="r-row"><b>문법</b><div class="r-bar"><i style="width:60%;background:#C08A32"></i></div></div>
+          <div class="r-row"><b>독해</b><div class="r-bar"><i style="width:86%"></i></div></div>
+          <div class="r-row"><b>쓰기</b><div class="r-bar"><i style="width:60%;background:#C08A32"></i></div></div>
+          <div class="r-hl">어휘 영역 정답률이 91%로 가장 높았습니다. 문법은 보완 학습으로 마무리합니다.</div>
         </div>
+        <figcaption class="tile__cap">A4 한 장 · 인쇄해서 바로</figcaption>
+      </div>
+      <figure class="tile" data-full="assets/monster-parent.webp" data-cap="MONSTER WORLD · 학부모 안내문">
+        <span class="tile__tag">안내문</span>
+        <img src="assets/monster-parent.webp" alt="학부모 안내문 견본" loading="lazy">
+        <figcaption class="tile__cap">학원 이름으로 나가는 가정통신문</figcaption>
+      </figure>
+      <div class="tile tile--stamp is-plain">
+        <div class="stamp-card" aria-hidden="true">
+          <h5>칭찬 도장판</h5>
+          <p>11월 · 김하늘</p>
+          <div class="stamp-grid">
+            <i class="on">★</i><i class="on">★</i><i class="on">★</i><i class="on">★</i><i></i>
+            <i class="on">★</i><i class="on">★</i><i class="on">★</i><i></i><i></i>
+            <i class="on">★</i><i class="on">★</i><i></i><i></i><i></i>
+            <i class="on">★</i><i></i><i></i><i></i><i></i>
+          </div>
+          <div class="stamp-line"><span>이번 달 12개</span><span>반 랭킹 3위</span></div>
+        </div>
+        <figcaption class="tile__cap">도장판 · 월 단위 랭킹</figcaption>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="wb-detail rv">
-          <div class="wb-tools">
-            <div class="wb-tool">
-              <span class="k">01 · Click &amp; Print</span>
-              <h4>권 번호로 출제</h4>
-              <p>50권 목록에서 권을 고르면 응원 문구·워크시트·답지가 무작위로 조합됩니다. 다시 누르면 새 조합.</p>
-              <div class="wb-tags"><span>50권 풀</span><span>답지 포함</span><span>바로 인쇄</span></div>
+<section class="feature sec" id="report">
+  <div class="wrap">
+    <div class="feature__grid">
+      <div class="feature__text fade">
+        <span class="eyebrow"><i></i>01 · 성취테스트 리포트</span>
+        <h2>붙여넣으면,<br>A4 한 장이 나옵니다.</h2>
+        <p class="lead">넷튜터 성적표를 붙여넣으면 이름과 문항 수, 영역별 점수가 채워집니다. 성장 흐름과 담당 코멘트까지 한 장에 담깁니다.</p>
+        <div class="facts">
+          <div class="fact"><b>A4 한 장</b><span>인쇄·PDF·JPG</span></div>
+          <div class="fact"><b>붙여넣기 1회</b><span>계산은 자동</span></div>
+          <div class="fact"><b>설치 없음</b><span>파일 하나로 동작</span></div>
+        </div>
+        <div class="price-line"><b>39,000원</b><span>1회 결제 · 1학원 1라이선스</span></div>
+        <div class="feature__cta">
+          <a class="btn btn--ink" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">리틀리에서 바로 받기
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="btn btn--ghost" data-full="assets/report-sample.webp" data-cap="성취테스트 리포트 · 실제 출력 예시">예시 크게 보기</button>
+        </div>
+      </div>
+
+      <div class="feature__media fade">
+        <div class="report-demo">
+          <div class="demo-head">
+            <div class="t"><i></i>성취테스트 리포트 생성기 <span>· 브라우저에서 바로</span></div>
+            <span class="chip" style="height:26px;font-size:11px;box-shadow:none">데모</span>
+          </div>
+          <div class="demo-body">
+            <div class="demo-col">
+              <div class="demo-k">① 성적표 붙여넣기</div>
+            <div class="paste" id="paste" aria-hidden="true">
+              <div class="pl">■ 종합평가 · Reading Bridge 2</div>
+              <div class="pl"><b>김하늘</b> · 초등 5학년</div>
+              <div class="pl">어휘 24/26 · 문법 6/10</div>
+              <div class="pl">독해 24/28 · 쓰기 6/10</div>
+              <div class="pl">이전 회차 2026.10.02 · D</div>
+              <div class="pl">담당 · 홍길동 선생님</div>
+              <div class="paste-note">학생 이름과 점수는 브라우저 안에서만 계산됩니다.</div>
             </div>
-            <div class="wb-tool">
-              <span class="k">02 · Lego Blocks</span>
-              <h4>문장 조립 워크시트</h4>
-              <p>블록을 눌러 빈칸에 문장을 완성하고, 그 자리에서 채점됩니다. 학습 배정과 프린트까지 한 화면에서.</p>
-              <div class="wb-tags"><span>블록 조립</span><span>자동 채점</span><span>학습 배정</span></div>
             </div>
-            <div class="wb-tool">
-              <span class="k">03 · Stamp Board</span>
-              <h4>칭찬 도장판</h4>
-              <p>학생 이름과 도장 수를 눌러 채우면 이번 달 도장판과 상위 10명 랭킹이 만들어집니다. 매월 1일에 새로 시작하고, 학원 PC에 저장됩니다.</p>
-              <div class="wb-tags"><span>월 단위 리셋</span><span>랭킹</span><span>원장 설정</span></div>
+            <div class="demo-col">
+              <div class="demo-k">② A4 리포트 완성</div>
+            <div class="demo-result" id="demoOut">
+              <figure class="a4out on" id="a4out"><img src="assets/report-sample.webp" alt="완성된 성취테스트 리포트 A4"></figure>
+              <span class="scan" id="scan" aria-hidden="true"></span>
             </div>
-            <div class="wb-tool">
-              <span class="k">Spec</span>
-              <h4>한 파일로 도는 도구</h4>
-              <p>파일 하나로 동작하고 인터넷이 없어도 인쇄까지 됩니다. OpenAI 키를 넣으면 권별 그림 9장도 자동으로 만듭니다.</p>
             </div>
+          </div>
+          <div class="demo-actions">
+            <button class="btn btn--ink" id="buildBtn" type="button">다시 만들기</button>
+            <span class="hint" id="buildHint">붙여넣으면 A4 한 장이 바로</span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════ 06 LOGIC WRITING ══════════ -->
-  <section class="sec" id="logic">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">06</span>
-        <span class="label en-label">Logic Writing</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">생각의 구조</span>
-      </div>
-
-      <div class="g">
-        <div class="lg-head rv"><h2 class="h2">생각을 문단으로<br>만드는 여섯 유닛</h2></div>
-        <div class="lg-lead rv"><p class="lead">문장의 뼈대에서 시작해 한 편의 글이 될 때까지. 한 유닛씩 쓰고 고치며 문단의 구조를 몸에 익힙니다. 초등 고학년부터 중등까지.</p></div>
-      </div>
-
-      <div class="lg-body rv" data-tabs>
-        <div class="unit-list" role="tablist" aria-label="로직 라이팅 유닛" style="display:grid">
-          <button class="unit" id="lut-1" role="tab" aria-controls="lu-1" aria-selected="true"><span class="ui">01</span><span class="un">뼈대</span><span class="ue">Subject + Verb</span></button>
-          <button class="unit" id="lut-2" role="tab" aria-controls="lu-2" aria-selected="false"><span class="ui">02</span><span class="un">목적어</span><span class="ue">Object</span></button>
-          <button class="unit" id="lut-3" role="tab" aria-controls="lu-3" aria-selected="false"><span class="ui">03</span><span class="un">수식어</span><span class="ue">Modifier</span></button>
-          <button class="unit" id="lut-4" role="tab" aria-controls="lu-4" aria-selected="false"><span class="ui">04</span><span class="un">연결</span><span class="ue">Connector</span></button>
-          <button class="unit" id="lut-5" role="tab" aria-controls="lu-5" aria-selected="false"><span class="ui">05</span><span class="un">주제문</span><span class="ue">Topic Sentence</span></button>
-          <button class="unit" id="lut-6" role="tab" aria-controls="lu-6" aria-selected="false"><span class="ui">06</span><span class="un">다듬기</span><span class="ue">Final Essay</span></button>
-        </div>
-
-        <div class="unit-panel">
-          <div class="upanel" id="lu-1" role="tabpanel" aria-labelledby="lut-1">
-            <div class="ex">
-              <p class="sam">The fox <em>runs</em>.</p>
-              <p>짧아도 주어와 동사만 있으면 문장이 됩니다. 여섯 유닛의 출발점. 아이는 여기서 “무엇이, 어떻게 하는가”를 먼저 봅니다.</p>
-              <p class="width-note">쓰기 틀 — The fox ______.</p>
-            </div>
+<section class="feature sec" id="monster">
+  <div class="wrap">
+    <div class="feature__grid feature__grid--rev">
+      <div class="feature__media fade">
+        <div class="mw">
+          <div class="mw-grid">
+            <div class="devglow" aria-hidden="true"></div>
+            <figure class="device">
+              <img src="assets/monster-home.webp" alt="MONSTER WORLD 학생 홈 화면">
+            </figure>
+            <span class="devchip">불꽃 여우 · Lv.5</span>
+            <figure class="devmini"><img src="assets/monster-dex.webp" alt="몬스터 도감 카드"></figure>
           </div>
-          <div class="upanel" id="lu-2" role="tabpanel" aria-labelledby="lut-2" hidden>
-            <div class="ex">
-              <p class="sam">The fox <em>finds a seed</em>.</p>
-              <p>동사가 무엇을 향하는지 붙입니다. 목적어가 생기면 문장이 한 걸음 길어지고, 아이가 말하고 싶은 것이 구체해집니다.</p>
-              <p class="width-note">쓰기 틀 — The fox finds ______.</p>
+          <div class="xpcard">
+            <div class="lv"><b id="lvNum">Lv.5</b><span>FLAMY · ROOKIE</span></div>
+            <div class="xpbar"><i id="xpBar" style="width:64%"></i></div>
+            <div class="xpmeta"><span id="xpText">640 / 1,000 XP</span><span>다음 레벨까지 <b id="xpLeft" style="color:#fff">360</b></span></div>
+            <div class="xpchips" aria-label="승인된 기록 예시">
+              <button type="button" data-xp="50">단어 테스트 +50</button>
+              <button type="button" data-xp="50">클래스카드 +50</button>
+              <button type="button" data-xp="200">독해책 1권 +200</button>
+              <button type="button" data-xp="50">출석 +50</button>
             </div>
-          </div>
-          <div class="upanel" id="lu-3" role="tabpanel" aria-labelledby="lut-3" hidden>
-            <div class="ex">
-              <p class="sam">One morning, the fox finds a seed <em>in an empty pot</em>.</p>
-              <p>언제, 어디서, 어떻게를 더합니다. 수식어는 문장을 꾸미는 것이 아니라, 장면을 보이게 하는 일입니다.</p>
-              <p class="width-note">쓰기 틀 — ______, the fox finds a seed ______.</p>
-            </div>
-          </div>
-          <div class="upanel" id="lu-4" role="tabpanel" aria-labelledby="lut-4" hidden>
-            <div class="ex">
-              <p class="sam">He waters it every day, <em>and</em> slowly the woods begin to change.</p>
-              <p>두 문장을 이어 하나의 흐름으로 만듭니다. 원인과 결과, 앞과 뒤를 잇는 자리에 접속사를 놓습니다.</p>
-              <p class="width-note">연결어 — and · but · so · because</p>
-            </div>
-          </div>
-          <div class="upanel" id="lu-5" role="tabpanel" aria-labelledby="lut-5" hidden>
-            <div class="ex">
-              <p class="sam">A small habit <em>changes the whole woods</em>.</p>
-              <p>문단의 첫 문장이 무엇을 약속할지 정합니다. 주제문이 서면 뒤따르는 문장들은 그 약속을 지키는 일만 합니다.</p>
-              <p class="width-note">문단 — 주제문 + 근거 2 + 맺음</p>
-            </div>
-          </div>
-          <div class="upanel" id="lu-6" role="tabpanel" aria-labelledby="lut-6" hidden>
-            <div class="ex">
-              <p class="sam" style="font-size:clamp(1.15rem,1.65vw,1.4rem);line-height:1.6">A fox lives alone in the woods. One morning he finds a seed in an empty pot. He waters it every day, and slowly the woods begin to change.</p>
-              <p>군더더기를 덜어내고 한 편으로 완성합니다. 여섯 유닛을 마치면 아이 손에 한 편의 에세이가 남습니다.</p>
-              <p class="width-note">최종 결과물 — 한 편의 에세이</p>
-            </div>
+            <div class="xptoast" id="xpToast">승인되었습니다 · +50 XP</div>
+            <div class="xpnote">선생님이 승인한 기록만 XP가 됩니다. 눌러서 확인해 보세요.</div>
           </div>
         </div>
       </div>
-
-      <div class="lg-foot rv">
-        <div class="f"><span class="k">Grade</span><p>등급은 문법이 아니라 사고력 3축에서만 나옵니다. 잘 쓴 문장보다, 생각이 이어진 문단을 봅니다.</p></div>
-        <div class="f"><span class="k">Teacher</span><p>강사는 카드 맨 위 대본 세 줄만 읽으면 수업이 됩니다. 준비 시간을 늘리지 않았습니다.</p></div>
-        <div class="f"><span class="k">Range</span><p>초등 고학년부터 중등까지. 여섯 유닛 · 표지 빌더 · 사고력 3축 등급.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ 07 PRICING ══════════ -->
-  <section class="sec" id="pricing">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">07</span>
-        <span class="label en-label">Pricing</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">요금</span>
-      </div>
-
-      <div class="g">
-        <div class="pr-head rv"><h2 class="h2">원생 수로 정하고,<br>기능은 같습니다</h2></div>
-        <div class="pr-lead rv"><p class="lead">요금제에 따라 달라지는 것은 활성 원생 정원뿐입니다. 작은 학원이 기능이 부족해지는 일은 없어야 한다고 봤습니다.</p></div>
-      </div>
-
-      <div class="plans rv">
-        <div class="plan">
-          <div class="ph"><span class="pn">라이트</span><span class="pe">Light</span></div>
-          <p class="cap2">활성 원생 50명까지</p>
-          <div class="price"><span class="v num">29,000</span><span class="u">원 / 월</span></div>
-          <p class="list-price"><s>39,000원</s><span class="btag">베타가 · 3개월</span></p>
-          <ul>
-            <li>네 가지 도구 모두 사용</li>
-            <li>A4 리포트 · PDF · JPG</li>
-            <li>학부모 안내문 · 가이드 인쇄물</li>
-            <li>데이터 백업 · 기능 업데이트</li>
-          </ul>
-          <div class="pact"><button class="link" type="button" data-plan="light">이 요금제로 문의 <span class="ar">→</span></button></div>
+      <div class="feature__text fade">
+        <span class="eyebrow"><i style="background:#9C99FF"></i>02 · MONSTER WORLD</span>
+        <h2>공부를 따라오는<br>몬스터.</h2>
+        <p class="lead">아이는 오늘 할 일을 자기 화면에서 확인하고, 몬스터는 그 기록만큼 자랍니다. 하루 1–2분, 앱 설치 없이.</p>
+        <div class="facts">
+          <div class="fact"><b>201종</b><span>67가문 × 3단계</span></div>
+          <div class="fact"><b>1,000 XP</b><span>1레벨 · 최고 50</span></div>
+          <div class="fact"><b>5개 마을</b><span>레벨마다 열림</span></div>
         </div>
-
-        <div class="plan reco">
-          <div class="ph"><span class="pn">스탠다드<span class="badge">추천</span></span><span class="pe">Standard</span></div>
-          <p class="cap2">활성 원생 100명까지</p>
-          <div class="price"><span class="v num">49,000</span><span class="u">원 / 월</span></div>
-          <p class="list-price"><s>69,000원</s><span class="btag">베타가 · 3개월</span></p>
-          <ul>
-            <li>라이트의 모든 기능</li>
-            <li>활성 원생 100명까지</li>
-            <li>세금계산서 · 계좌이체</li>
-            <li>학부모 안내문 · 가이드 인쇄물</li>
-          </ul>
-          <div class="pact"><button class="link" type="button" data-plan="standard">이 요금제로 문의 <span class="ar">→</span></button></div>
-        </div>
-
-        <div class="plan">
-          <div class="ph"><span class="pn">프로</span><span class="pe">Pro</span></div>
-          <p class="cap2">활성 원생 200명까지</p>
-          <div class="price"><span class="v num">79,000</span><span class="u">원 / 월</span></div>
-          <p class="list-price"><s>109,000원</s><span class="btag">베타가 · 3개월</span></p>
-          <ul>
-            <li>스탠다드의 모든 기능</li>
-            <li>활성 원생 200명까지</li>
-            <li>200명 초과는 협의</li>
-            <li>데이터 백업 · 기능 업데이트</li>
-          </ul>
-          <div class="pact"><button class="link" type="button" data-plan="pro">이 요금제로 문의 <span class="ar">→</span></button></div>
-        </div>
-      </div>
-
-      <div class="single rv">
-        <div class="s-head">
-          <span class="k">Single · Report Only</span>
-          <h3>리포트 하나만 필요하다면</h3>
-        </div>
-        <div class="s-body">MONSTER WORLD 없이 성취테스트 리포트만 쓰는 단품입니다. 파일 하나로 설치 없이 돌아가고, 1학원 1라이선스입니다.</div>
-        <div class="s-act">
-          <span class="v num">39,000</span>
-          <span class="u">1회 결제 · 부가세 별도</span>
-          <a class="btn btn-solid" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">단품 구매 <span class="ar">→</span></a>
-        </div>
-      </div>
-
-      <div class="terms rv">
-        <p>14일 무료 체험 · 카드 등록 없음 · 해지 수수료와 위약금 없음 · 월 중간에 시작하면 다음 결제일까지 일할 계산(30일 기준). 베타가는 3개월 적용 후 정가로 전환되며, 전환 전에 안내드립니다.</p>
-        <p class="v">표시된 금액은 모두 부가세 별도입니다.<br>결제는 상담 후 진행됩니다.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ 08 FAQ ══════════ -->
-  <section class="sec" id="faq">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">08</span>
-        <span class="label en-label">Questions</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">자주 묻는 질문</span>
-      </div>
-
-      <div class="g">
-        <div class="faq-head rv">
-          <h2 class="h2">여섯 가지만<br>확인하세요</h2>
-          <p class="body-sm" style="margin-top:1.2em;color:var(--ink-3)">더 궁금한 점은 인스타그램 DM으로 물어보세요. 하루 안에 답장드립니다.</p>
-        </div>
-
-        <div class="faq-list rv">
-          <details open>
-            <summary><span class="qn">01</span><span>설치가 필요한가요?</span><span class="pm" aria-hidden="true"></span></summary>
-            <div class="a">아니요. 휴대폰·태블릿·PC 브라우저에서 주소로 열면 됩니다. 홈 화면에 추가해 두면 아이콘으로 바로 들어오고, <b>리포트·워크북 도구는 파일 하나로 동작해 인터넷이 없어도 인쇄까지</b> 됩니다.</div>
-          </details>
-          <details>
-            <summary><span class="qn">02</span><span>학생 개인정보는 어떻게 되나요?</span><span class="pm" aria-hidden="true"></span></summary>
-            <div class="a">MONSTER WORLD가 받는 정보는 <b>학생 이름(화면 표시용), 아이디, 학습 기록</b> 세 가지입니다. 연락처·생년월일·주소·사진은 받지 않고, 학원별로 데이터를 분리합니다. 리포트 생성기는 입력한 내용을 어디에도 보내지 않습니다.</div>
-          </details>
-          <details>
-            <summary><span class="qn">03</span><span>요금제에 따라 기능이 다른가요?</span><span class="pm" aria-hidden="true"></span></summary>
-            <div class="a">아니요. <b>달라지는 것은 활성 원생 정원뿐</b>입니다. 학부모 안내문·가이드 인쇄물, 데이터 백업, 기능 업데이트는 모든 요금제에 포함됩니다. 정원은 프로그램에서 실제로 제한되고, 넘으면 학생 활성화가 되지 않습니다.</div>
-          </details>
-          <details>
-            <summary><span class="qn">04</span><span>그만두고 싶으면 어떻게 하나요?</span><span class="pm" aria-hidden="true"></span></summary>
-            <div class="a">해지 수수료나 위약금은 없습니다. 첫 14일은 무료이고 카드 등록도 필요 없습니다. 월 단위로 청구하며, 월 중간에 시작하시면 다음 결제일까지 일할 계산합니다.</div>
-          </details>
-          <details>
-            <summary><span class="qn">05</span><span>휴대폰이 없는 학생도 쓸 수 있나요?</span><span class="pm" aria-hidden="true"></span></summary>
-            <div class="a">학원 태블릿이나 PC 브라우저로 열면 됩니다. 한 기기에서는 한 명씩 로그인하고, 형제가 같이 써도 아이디가 다르면 기록이 따로 쌓입니다.</div>
-          </details>
-          <details>
-            <summary><span class="qn">06</span><span>지금 바로 도입할 수 있나요?</span><span class="pm" aria-hidden="true"></span></summary>
-            <div class="a">MONSTER WORLD는 지금 <b>베타 학원</b>을 받고 있습니다. 학원명·원생 수·원하시는 요금제를 알려 주시면 학원 코드를 만들어 드리고, 14일 동안 선생님 계정과 학생 몇 명으로 먼저 써 보실 수 있습니다. 리포트 단품은 리틀리에서 바로 구매하실 수 있습니다.</div>
-          </details>
+        <div class="feature__cta">
+          <a class="btn btn--ink" href="https://litt.ly/eplenglish" target="_blank" rel="noopener" style="background:#fff;color:#15161A">베타 사전 신청
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="btn btn--ghost" data-full="assets/monster-dex.webp" data-cap="MONSTER WORLD · 도감">도감 엿보기</button>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════ 09 START ══════════ -->
-  <section class="sec start" id="start">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="no">09</span>
-        <span class="label en-label">Start</span>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="label-ko">문의</span>
-      </div>
+<section class="feature sec" id="workbook">
+  <div class="wrap">
+    <div class="feature__grid feature__grid--rev">
+      <div class="feature__media fade">
+        <div class="wb-scene">
+          <div class="wb-back b1" aria-hidden="true"></div>
+          <div class="wb-back b2" aria-hidden="true"></div>
+          <span class="chip wb-chip">50권 · 60문항 · 답지</span>
+          <div class="wb-viewport">
+            <div class="wb-track" id="wbTrack">
 
-      <div class="g">
-        <div class="rv start-h">
-          <h2 class="start-h2">우리 학원에 맞는지,<br>14일 먼저 써 보세요.</h2>
-        </div>
-        <div class="rv start-lead-col">
-          <p class="start-lead">학원명과 원생 수만 알려 주시면 학원 코드를 만들어 드립니다. 체험 기간에는 결제 정보를 받지 않습니다.</p>
-        </div>
-      </div>
+              <div class="wb-slide">
+                <div class="paper">
+                  <div class="p-brand">EPL Workbook · Vol. 12</div>
+                  <h4>Word List — A Day at the Shore</h4>
+                  <div class="p-meta">Unit 05 · 10 words · 이름 ______</div>
+                  <div class="p-rule"></div>
+                  <div class="p-words">
+                    <div class="p-word"><b>shore</b><span>해안</span></div>
+                    <div class="p-word"><b>gentle</b><span>온화한</span></div>
+                    <div class="p-word"><b>gather</b><span>모으다</span></div>
+                    <div class="p-word"><b>shell</b><span>조개껍질</span></div>
+                    <div class="p-word"><b>whisper</b><span>속삭이다</span></div>
+                    <div class="p-word"><b>horizon</b><span>수평선</span></div>
+                    <div class="p-word"><b>tide</b><span>조수</span></div>
+                    <div class="p-word"><b>pebble</b><span>조약돌</span></div>
+                    <div class="p-word"><b>drift</b><span>떠돌다</span></div>
+                    <div class="p-word"><b>calm</b><span>고요한</span></div>
+                  </div>
+                  <div class="p-write"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="p-note"><span>Write each word twice</span><span>01 / 04</span></div>
+                </div>
+              </div>
 
-      <div class="start-grid">
-        <div class="start-l rv">
-          <div class="paths">
-            <div class="path">
-              <div>
-                <span class="pt">01 · 리틀리</span>
-                <h3>리포트 단품 구매</h3>
-                <p>39,000원 · 1회 결제 · 1학원 1라이선스. 결제 후 파일을 바로 내려받습니다.</p>
+              <div class="wb-slide">
+                <div class="paper">
+                  <div class="p-brand">EPL Worksheet · Vol. 12</div>
+                  <h4>Sentence Blocks</h4>
+                  <div class="p-meta">단어 블록을 눌러 문장을 완성하세요</div>
+                  <div class="p-rule"></div>
+                  <div class="p-sent">
+                    <span>The fox</span><span>finds</span><span>a seed</span><span>in an empty pot</span>
+                  </div>
+                  <div class="p-slot filled">The fox finds a seed</div>
+                  <div class="p-slot"></div>
+                  <div class="p-slot"></div>
+                  <div class="p-slot"></div>
+                  <div class="p-line"></div>
+                  <div class="p-note"><span>자동 채점 · 학습 배정</span><span>02 / 04</span></div>
+                </div>
               </div>
-              <a href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">구매하기 →</a>
-            </div>
-            <div class="path">
-              <div>
-                <span class="pt">02 · 리틀리</span>
-                <h3>MONSTER WORLD 베타 신청</h3>
-                <p>학원 규모와 지금 쓰시는 프로그램을 남겨 주시면 베타 오픈 소식을 먼저 보내드립니다.</p>
+
+              <div class="wb-slide">
+                <div class="paper">
+                  <div class="p-brand">EPL Worksheet · Vol. 12</div>
+                  <h4>Reading Questions</h4>
+                  <div class="p-meta">Read the passage, then answer.</div>
+                  <div class="p-rule"></div>
+                  <p class="p-pass">The fox lives alone in the woods. One morning he finds a seed in an empty pot. He waters it every day, and slowly the woods begin to change.</p>
+                  <div class="p-q">
+                    <div><b>1</b><span>Where does the fox live?</span></div>
+                    <div><b>2</b><span>What does he find in the pot?</span></div>
+                    <div><b>3</b><span>Why do the woods begin to change?</span></div>
+                  </div>
+                  <div class="p-blank"></div>
+                  <div class="p-note"><span>3 questions</span><span>03 / 04</span></div>
+                </div>
               </div>
-              <a href="https://litt.ly/eplenglish" target="_blank" rel="noopener">신청하기 →</a>
-            </div>
-            <div class="path">
-              <div>
-                <span class="pt">03 · 인스타그램</span>
-                <h3>@ahyoung.notes DM</h3>
-                <p>요금·도입 상담은 DM으로 받습니다. 하루 안에 답장드립니다.</p>
+
+              <div class="wb-slide">
+                <div class="paper">
+                  <div class="p-brand">Weekly Test · Vol. 12</div>
+                  <h4>Weekly Check</h4>
+                  <div class="p-meta">10 questions · 만점 100점 · 이름 ______</div>
+                  <div class="p-rule"></div>
+                  <div class="p-test">
+                    <div><span>01 · shore</span><span>______</span></div>
+                    <div><span>02 · gentle</span><span>______</span></div>
+                    <div><span>03 · gather</span><span>______</span></div>
+                    <div><span>04 · whisper</span><span>______</span></div>
+                    <div><span>05 · horizon</span><span>______</span></div>
+                    <div><span>06 · pebble</span><span>______</span></div>
+                    <div><span>07 · tide</span><span>______</span></div>
+                  </div>
+                  <div class="p-blank"></div>
+                  <div class="p-note"><span>Score ____ / 100</span><span>04 / 04</span></div>
+                </div>
               </div>
-              <a href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">DM 보내기 →</a>
+
             </div>
           </div>
-          <p class="start-note">체험 14일 동안 네 가지 도구가 모두 열립니다. 학원 코드와 원생 등록, 리포트·안내문 양식까지 포함입니다.</p>
         </div>
+        <div class="wb-ui">
+          <div class="wb-tabs" role="tablist" aria-label="워크시트 종류">
+            <button role="tab" aria-selected="true" data-wb="0">단어장</button>
+            <button role="tab" aria-selected="false" data-wb="1">문장 배열</button>
+            <button role="tab" aria-selected="false" data-wb="2">독해 질문</button>
+            <button role="tab" aria-selected="false" data-wb="3">주간 테스트</button>
+          </div>
+          <div class="wb-arrows">
+            <button type="button" id="wbPrev" aria-label="이전 워크시트">←</button>
+            <button type="button" id="wbNext" aria-label="다음 워크시트">→</button>
+          </div>
+        </div>
+      </div>
 
-        <div class="start-r rv">
-          <form class="form-card" id="inq" autocomplete="off" novalidate>
-            <div class="fh"><span class="t">문의문 만들기</span><span class="s">30초</span></div>
-
-            <div class="field">
-              <label for="f-school">학원명 <span class="req">*</span></label>
-              <input id="f-school" name="school" type="text" placeholder="예) OO영어학원" required>
-            </div>
-            <div class="field">
-              <label for="f-name">성함</label>
-              <input id="f-name" name="name" type="text" placeholder="원장님 성함">
-            </div>
-            <div class="field">
-              <label for="f-size">원생 수</label>
-              <input id="f-size" name="size" type="text" inputmode="numeric" placeholder="예) 76명">
-            </div>
-            <div class="field">
-              <label for="f-plan">관심 요금제</label>
-              <select id="f-plan" name="plan">
-                <option value="">아직 모르겠어요</option>
-                <option value="light">라이트 · 29,000원/월 (원생 50명까지)</option>
-                <option value="standard">스탠다드 · 49,000원/월 (원생 100명까지)</option>
-                <option value="pro">프로 · 79,000원/월 (원생 200명까지)</option>
-                <option value="single">리포트 생성기 단품 · 39,000원</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>관심 있는 도구</label>
-              <div class="checks">
-                <label><input type="checkbox" name="tool" value="MONSTER WORLD"> MONSTER WORLD</label>
-                <label><input type="checkbox" name="tool" value="리포트 생성기"> 리포트</label>
-                <label><input type="checkbox" name="tool" value="워크북 출제기"> 워크북</label>
-                <label><input type="checkbox" name="tool" value="로직 라이팅"> 로직 라이팅</label>
-              </div>
-            </div>
-            <div class="field">
-              <label for="f-q">궁금한 점</label>
-              <textarea id="f-q" name="q" rows="2" placeholder="짧게 적어 주세요"></textarea>
-            </div>
-
-            <div class="form-act">
-              <button class="btn btn-fill" type="submit">문의문 만들기 <span class="ar">→</span></button>
-              <span class="form-msg" id="f-msg">입력한 내용은 이 브라우저 밖으로 나가지 않습니다</span>
-            </div>
-
-            <div class="out" id="f-out" aria-live="polite">
-              <pre id="f-text"></pre>
-              <div class="acts">
-                <button class="btn btn-light btn-sm" type="button" id="f-copy">복사하기</button>
-                <a class="btn btn-fill btn-sm" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">인스타 DM 열고 붙여넣기 <span class="ar">→</span></a>
-                <span class="stat2" id="f-status"></span>
-              </div>
-            </div>
-          </form>
+      <div class="feature__text fade">
+        <span class="eyebrow"><i style="background:#C79A45"></i>03 · 원서 워크북 · 워크시트</span>
+        <h2>권 번호만 누르면,<br>인쇄까지 한 번에.</h2>
+        <p class="lead">EPL 50권. 권을 누르면 응원 문구와 워크시트, 답지가 채워집니다. 같은 권을 다시 눌러도 새 조합이 나옵니다.</p>
+        <div class="facts">
+          <div class="fact"><b>50권</b><span>레벨별 원서 풀</span></div>
+          <div class="fact"><b>60문항</b><span>1권 기준</span></div>
+          <div class="fact"><b>답지 포함</b><span>바로 인쇄</span></div>
+        </div>
+        <div class="feature__cta">
+          <a class="btn btn--ink" href="https://litt.ly/eplenglish" target="_blank" rel="noopener">베타로 먼저 쓰기
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="btn btn--ghost" data-full="assets/workbook-app.webp" data-cap="원서 워크북 출제기 · 실제 화면">출제 화면 보기</button>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 푸터 -->
-  <footer class="ft">
-    <div class="wrap">
-      <div class="ft-top">
-        <div class="ft-brand">
-          <div class="w">EPL</div>
-          <div class="s">The Quiet Practice</div>
-          <p>원서 영어학원을 운영하는 원장이 자기 학원의 필요로 만든 도구를, 다른 학원도 함께 쓸 수 있도록 정리했습니다.</p>
+<section class="feature sec" id="writing">
+  <div class="wrap">
+    <div class="feature__grid">
+      <div class="feature__text fade">
+        <span class="eyebrow"><i style="background:#4C7A5B"></i>04 · 로직 라이팅</span>
+        <h2>문장 하나가<br>한 편의 글이 될 때까지.</h2>
+        <p class="lead">여섯 유닛. 문장의 뼈대에서 시작해 주제문과 에세이까지, 한 유닛씩 씁니다. 초등 고학년부터 중등까지.</p>
+        <div class="facts">
+          <div class="fact"><b>6 유닛</b><span>뼈대 → 에세이</span></div>
+          <div class="fact"><b>쓰기 틀</b><span>유닛마다 한 줄</span></div>
+          <div class="fact"><b>표지 빌더</b><span>학원 이름으로</span></div>
         </div>
-        <div class="ft-col">
-          <h4>Tools</h4>
-          <ul>
-            <li><a href="#report">성취테스트 리포트</a></li>
-            <li><a href="#monster">MONSTER WORLD</a></li>
-            <li><a href="#workbook">워크북 · 워크시트</a></li>
-            <li><a href="#logic">로직 라이팅</a></li>
-          </ul>
-        </div>
-        <div class="ft-col">
-          <h4>More</h4>
-          <ul>
-            <li><a href="#week">운영 흐름</a></li>
-            <li><a href="#pricing">요금</a></li>
-            <li><a href="#faq">자주 묻는 질문</a></li>
-            <li><a href="#start">도입 문의</a></li>
-          </ul>
-        </div>
-        <div class="ft-col">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">인스타그램 DM</a></li>
-            <li><a href="https://litt.ly/eplenglish" target="_blank" rel="noopener">리틀리 스토어</a></li>
-            <li><a href="https://ahyoungkim0802-web.github.io/epl-lab/" target="_blank" rel="noopener">EPL LAB</a></li>
-          </ul>
+        <div class="feature__cta">
+          <a class="link-arrow" href="https://litt.ly/eplenglish" target="_blank" rel="noopener">구독에 포함 — 베타 신청 →</a>
         </div>
       </div>
-      <div class="ft-bot">
-        <span class="lg">© 2026 EPL · THE QUIET PRACTICE. 표시된 금액은 부가세 별도이며, 베타 기간에는 달라질 수 있습니다. 결제는 상담 후 진행됩니다.</span>
-        <span>EPL English · 동백 · 백현</span>
+
+      <div class="feature__media fade">
+        <div class="wr">
+          <div class="wr-steps" role="tablist" aria-label="로직 라이팅 유닛">
+            <button role="tab" aria-selected="true" data-wr="0"><span class="n">01</span><span class="wlb">뼈대</span></button>
+            <button role="tab" aria-selected="false" data-wr="1"><span class="n">02</span><span class="wlb">목적어</span></button>
+            <button role="tab" aria-selected="false" data-wr="2"><span class="n">03</span><span class="wlb">수식어</span></button>
+            <button role="tab" aria-selected="false" data-wr="3"><span class="n">04</span><span class="wlb">연결</span></button>
+            <button role="tab" aria-selected="false" data-wr="4"><span class="n">05</span><span class="wlb">주제문</span></button>
+            <button role="tab" aria-selected="false" data-wr="5"><span class="n">06</span><span class="wlb">다듬기</span></button>
+          </div>
+          <div class="wr-board" id="wrBoard">
+            <span class="ghost" id="wrGhost" aria-hidden="true">01</span>
+            <div class="wb-k" id="wrK">UNIT 01 · 뼈대 — Subject + Verb</div>
+            <div class="wb-s" id="wrS">The fox <em>runs</em>.</div>
+            <div class="wb-desc" id="wrD">주어와 동사만 있으면 문장이 됩니다. 여섯 유닛의 출발점. 여기서 “무엇이, 어떻게 하는가”를 먼저 봅니다.</div>
+            <div class="wb-frame">쓰기 틀 <code id="wrF">The fox ______.</code></div>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<section class="sec flow" id="flow">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <span class="eyebrow"><i style="background:#4B4A8F"></i>한 주의 흐름</span>
+      <h2>한 주가 끊기지 않게.</h2>
+      <p class="lead">학생은 매일 남기고, 선생님은 금요일에 한 번 확인합니다. 도구가 바뀌어도 흐름은 하나입니다.</p>
+    </div>
+    <div class="flow-grid fade">
+      <div class="fcell">
+        <div class="day">월 — 목</div>
+        <h4>학생이 남깁니다</h4>
+        <p>수업이 끝나면 ‘다 했어요’ 한 번. 하루 1–2분.</p>
+        <div class="viz">
+          <div class="rowv"><span class="av">하</span><span class="nm">김하늘</span><b class="ok">다 했어요</b></div>
+          <div class="rowv"><span class="av">서</span><span class="nm">이서아</span><b class="ok">다 했어요</b></div>
+          <div class="rowv"><span class="av">준</span><span class="nm">박준</span><b class="wait">아직</b></div>
+        </div>
+      </div>
+      <div class="fcell">
+        <div class="day">금</div>
+        <h4>선생님이 한 번에</h4>
+        <p>여러 건을 골라 승인·반려. 바로 주는 항목은 버튼 한 번.</p>
+        <div class="viz">
+          <div class="rowv"><span class="nm">단어 테스트</span><b>+50</b></div>
+          <div class="rowv"><span class="nm">독해책 1권</span><b>+200</b></div>
+          <div class="btnv">3건 승인</div>
+        </div>
+      </div>
+      <div class="fcell">
+        <div class="day">토</div>
+        <h4>정산표 한 장</h4>
+        <p>입력할 포인트만 모아서. 지급은 지금 방식 그대로.</p>
+        <div class="viz">
+          <div class="rowv"><span class="nm">김하늘</span><b>120</b></div>
+          <div class="rowv"><span class="nm">이서아</span><b>90</b></div>
+          <div class="rowv total"><span class="nm">합계</span><b>270</b></div>
+        </div>
+      </div>
+      <div class="fcell">
+        <div class="day">시험 후</div>
+        <h4>성적표가 나옵니다</h4>
+        <p>A4 한 장. 인쇄하거나 카톡으로 바로 보냅니다.</p>
+        <div class="viz">
+          <div class="minsheet"><div class="g"><span>C</span></div><div class="lns"><i></i><i></i><i></i></div></div>
+          <div class="rowv"><span class="nm">어휘 91%</span><span>독해 86%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec pricing" id="pricing">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <span class="eyebrow"><i style="background:#15161A"></i>요금</span>
+      <h2>원생 수로 정하고,<br>기능은 같습니다.</h2>
+      <p class="lead">요금제에 따라 달라지는 것은 활성 원생 정원뿐입니다. 작은 학원이 기능이 부족해지는 일은 없습니다.</p>
+    </div>
+
+    <div class="plans fade">
+      <div class="plan">
+        <h3>라이트</h3>
+        <div class="cap">활성 원생 50명까지</div>
+        <div class="amt"><b>29,000</b><span>원 / 월</span></div>
+        <div class="was"><s>39,000원</s> · 베타가 3개월</div>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>네 가지 도구 모두 사용</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>A4 리포트 · PDF · JPG</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>학부모 안내문 · 가이드 인쇄물</li>
+        </ul>
+        <a class="btn btn--ghost" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">이 요금제로 문의</a>
+      </div>
+
+      <div class="plan plan--pick">
+        <span class="plan__pick">추천</span>
+        <h3>스탠다드</h3>
+        <div class="cap">활성 원생 100명까지</div>
+        <div class="amt"><b>49,000</b><span>원 / 월</span></div>
+        <div class="was"><s>69,000원</s> · 베타가 3개월</div>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>라이트의 모든 기능</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>세금계산서 · 계좌이체</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>활성 원생 100명까지</li>
+        </ul>
+        <a class="btn btn--ink" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">이 요금제로 문의</a>
+      </div>
+
+      <div class="plan">
+        <h3>프로</h3>
+        <div class="cap">활성 원생 200명까지</div>
+        <div class="amt"><b>79,000</b><span>원 / 월</span></div>
+        <div class="was"><s>109,000원</s> · 베타가 3개월</div>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>스탠다드의 모든 기능</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>활성 원생 200명까지</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.5 12 13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>200명 초과는 협의</li>
+        </ul>
+        <a class="btn btn--ghost" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">이 요금제로 문의</a>
+      </div>
+    </div>
+
+    <div class="single fade">
+      <div class="txt">
+        <h3>리포트 하나만 필요하다면</h3>
+        <p>MONSTER WORLD 없이 성취테스트 리포트만 쓰는 단품. 파일 하나로 설치 없이 돌아갑니다.</p>
+      </div>
+      <div class="amt"><b>39,000</b><span>원 · 1회 결제</span></div>
+      <a class="btn btn--ink" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">단품 구매</a>
+    </div>
+
+    <p class="fine">14일 무료 체험 · 카드 등록 없음 · 해지 수수료와 위약금 없음 · 월 중간에 시작하면 다음 결제일까지 일할 계산(30일 기준) · 베타가는 3개월 적용 후 정가로 전환되며, 전환 전에 안내드립니다.<br>표시된 금액은 모두 부가세 별도입니다. 결제는 상담 후 진행됩니다. 개별진도 OS는 학원마다 운영 방식이 달라 도구 묶음에 넣지 않았습니다.</p>
+  </div>
+</section>
+
+<section class="sec faq" id="faq">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <span class="eyebrow"><i style="background:#8C8F99"></i>묻는 것</span>
+      <h2>여섯 가지만.</h2>
+    </div>
+    <div class="faq-grid fade">
+      <details class="q"><summary>설치가 필요한가요?</summary><div class="a">아니요. 휴대폰·태블릿·PC 브라우저에서 주소로 열면 됩니다. 리포트와 워크북 도구는 파일 하나로 동작해 인터넷이 없어도 인쇄까지 됩니다.</div></details>
+      <details class="q"><summary>학생 개인정보는 어떻게 되나요?</summary><div class="a">MONSTER WORLD가 받는 정보는 학생 이름(화면 표시용), 아이디, 학습 기록 세 가지입니다. 연락처·생년월일·주소·사진은 받지 않고, 학원별로 데이터를 분리합니다. 리포트 생성기는 입력한 내용을 어디에도 보내지 않습니다.</div></details>
+      <details class="q"><summary>요금제에 따라 기능이 다른가요?</summary><div class="a">아니요. 달라지는 것은 활성 원생 정원뿐입니다. 학부모 안내문·가이드 인쇄물, 데이터 백업, 기능 업데이트는 모든 요금제에 포함됩니다.</div></details>
+      <details class="q"><summary>그만두고 싶으면 어떻게 하나요?</summary><div class="a">해지 수수료나 위약금은 없습니다. 첫 14일은 무료이고 카드 등록도 필요 없습니다. 월 단위로 청구하며, 월 중간에 시작하시면 다음 결제일까지 일할 계산합니다.</div></details>
+      <details class="q"><summary>휴대폰이 없는 학생도 쓸 수 있나요?</summary><div class="a">학원 태블릿이나 PC 브라우저로 열면 됩니다. 한 기기에서는 한 명씩 로그인하고, 형제가 같이 써도 아이디가 다르면 기록이 따로 쌓입니다.</div></details>
+      <details class="q"><summary>지금 바로 도입할 수 있나요?</summary><div class="a">MONSTER WORLD는 지금 베타 학원을 받고 있습니다. 학원명·원생 수·원하시는 요금제를 알려 주시면 학원 코드를 만들어 드리고, 14일 동안 선생님 계정과 학생 몇 명으로 먼저 써 보실 수 있습니다. 리포트 단품은 리틀리에서 바로 구매하실 수 있습니다.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <span class="eyebrow"><i style="background:#B8583A"></i>시작</span>
+      <h2>오늘 학원에 붙여 보세요.</h2>
+      <p class="lead">리포트는 바로 받으실 수 있고, MONSTER WORLD는 14일 동안 먼저 써 보실 수 있습니다.</p>
+    </div>
+
+    <div class="contact-grid fade">
+      <div class="stack">
+        <a class="ccard" href="https://litt.ly/eplenglish/sale/jtu5KW9" target="_blank" rel="noopener">
+          <span class="ccard__art" aria-hidden="true"></span>
+          <span class="k">리틀리 · 단품</span>
+          <h3>성취테스트 리포트 · 39,000원</h3>
+          <p>결제하면 파일을 바로 내려받습니다. 1학원 1라이선스, 설치 없이.</p>
+          <span class="go">바로 받기 →</span>
+        </a>
+        <a class="ccard ccard--dark" href="https://litt.ly/eplenglish" target="_blank" rel="noopener">
+          <span class="ccard__art" aria-hidden="true"></span>
+          <span class="k">리틀리 · 베타</span>
+          <h3>MONSTER WORLD 베타 신청</h3>
+          <p>학원 규모와 지금 쓰시는 프로그램을 남겨 주시면 학원 코드를 만들어 드립니다.</p>
+          <span class="go">신청하기 →</span>
+        </a>
+        <a class="ccard" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">
+          <span class="ccard__art" aria-hidden="true"></span>
+          <span class="k">인스타그램</span>
+          <h3>@ahyoung.notes DM</h3>
+          <p>요금·도입 상담은 DM으로. 하루 안에 답장드립니다.</p>
+          <span class="go">DM 보내기 →</span>
+        </a>
+      </div>
+
+      <div class="composer">
+        <h3>문의문 만들기</h3>
+        <div class="sub">30초면 끝납니다. 입력한 내용은 이 브라우저 밖으로 나가지 않습니다.</div>
+        <div class="field">
+          <label for="cName">학원명</label>
+          <input id="cName" type="text" placeholder="예) EPL 영어학원">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="cWho">성함</label>
+            <input id="cWho" type="text" placeholder="원장님 성함">
+          </div>
+          <div class="field">
+            <label for="cNum">원생 수</label>
+            <input id="cNum" type="text" inputmode="numeric" placeholder="예) 80명">
+          </div>
+        </div>
+        <div class="field">
+          <label for="cPlan">관심 요금제</label>
+          <select id="cPlan">
+            <option>아직 모르겠어요</option>
+            <option>라이트 · 29,000원/월 (원생 50명까지)</option>
+            <option>스탠다드 · 49,000원/월 (원생 100명까지)</option>
+            <option>프로 · 79,000원/월 (원생 200명까지)</option>
+            <option>리포트 생성기 단품 · 39,000원</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cAsk">궁금한 점</label>
+          <textarea id="cAsk" rows="2" placeholder="예) 지금 쓰는 프로그램에서 옮기기 쉬운가요?"></textarea>
+        </div>
+        <div class="act">
+          <button class="btn btn--ink" id="makeMsg" type="button">문의문 만들기</button>
+          <button class="btn btn--ghost" id="copyMsg" type="button">복사</button>
+        </div>
+        <div class="out" id="msgOut"></div>
+        <div class="act"><a class="btn btn--ghost btn--wide" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">인스타 DM 열고 붙여넣기 →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band__in">
+    <div>
+      <h2>설명 없이 쓸 수 있는 것만 남겼습니다.</h2>
+      <p>원서 영어학원을 운영하며 만든 도구를, 같은 일을 하는 원장님께 그대로 엽니다.</p>
+    </div>
+    <div class="hero__cta" style="margin:0">
+      <a class="btn btn--ink" href="#pricing">14일 먼저 써 보기</a>
+      <a class="btn btn--ghost" href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">DM으로 문의</a>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="ft__in">
+    <div>
+      <strong style="color:#15161A">EPL LAB</strong> · EPL English 동백 · 백현<br>
+      © 2026 EPL. 표시된 금액은 부가세 별도이며, 베타 기간에는 달라질 수 있습니다.
+    </div>
+    <div class="ft__nav">
+      <a href="#things">받는 것</a>
+      <a href="#report">리포트</a>
+      <a href="#monster">MONSTER WORLD</a>
+      <a href="#pricing">요금</a>
+      <a href="https://ig.me/m/ahyoung.notes" target="_blank" rel="noopener">인스타 DM</a>
+    </div>
+  </div>
+</footer>
+
 </main>
 
-<dialog class="lb" id="lb" aria-label="화면 크게 보기">
-  <div class="lb-in">
-    <button class="lb-close" type="button" id="lb-close">닫기</button>
-    <img id="lb-img" alt="">
-    <p class="lb-cap" id="lb-cap"></p>
-  </div>
-</dialog>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="미리보기">
+  <button class="lb__close" id="lbClose" aria-label="닫기">✕</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb__cap" id="lbCap"></div>
+</div>
 
 <script>
 (function(){
   "use strict";
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 헤더 상태 + 진행선 */
+  /* header */
   var hdr = document.getElementById('hdr');
-  var bar = document.querySelector('.prog i');
-  function onScroll(){
-    var y = window.scrollY || document.documentElement.scrollTop;
-    if (hdr) hdr.classList.toggle('scrolled', y > 8);
-    if (bar) {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (h > 0 ? Math.min(100, (y / h) * 100) : 0) + '%';
-    }
+  var onScroll = function(){ hdr.classList.toggle('is-solid', window.scrollY > 10); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* hero showcase */
+  var stage = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(stage.querySelectorAll('.slide'));
+  var thumbs = Array.prototype.slice.call(document.querySelectorAll('.thumbs button'));
+  var cur = 0, timer = null, paused = false;
+
+  function show(i){
+    i = (i + slides.length) % slides.length;
+    cur = i;
+    stage.setAttribute('data-i', String(i));
+    slides.forEach(function(s, k){ s.classList.toggle('is-on', k === i); });
+    thumbs.forEach(function(t, k){ t.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    paused = true;
+    clearTimeout(timer);
+    timer = setTimeout(function(){ paused = false; next(); }, 6200);
   }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
+  function next(){ if(!paused) show(cur + 1); }
 
-  /* 탭 */
-  document.querySelectorAll('[data-tabs]').forEach(function(root){
-    var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
-    var panels = Array.prototype.slice.call(root.querySelectorAll('[role="tabpanel"]'));
-    if (!tabs.length) return;
-    function select(tab, focus){
-      tabs.forEach(function(t){
-        var on = t === tab;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-      });
-      panels.forEach(function(p){
-        p.hidden = p.id !== tab.getAttribute('aria-controls');
-      });
-      if (focus) tab.focus();
-    }
-    tabs.forEach(function(tab, i){
-      tab.addEventListener('click', function(){ select(tab, false); });
-      tab.addEventListener('keydown', function(e){
-        var k = e.key, n = null;
-        if (k === 'ArrowRight' || k === 'ArrowDown') n = tabs[(i + 1) % tabs.length];
-        else if (k === 'ArrowLeft' || k === 'ArrowUp') n = tabs[(i - 1 + tabs.length) % tabs.length];
-        else if (k === 'Home') n = tabs[0];
-        else if (k === 'End') n = tabs[tabs.length - 1];
-        if (n) { e.preventDefault(); select(n, true); }
-      });
-    });
+  thumbs.forEach(function(t){
+    t.addEventListener('click', function(){ show(parseInt(t.getAttribute('data-i'), 10)); });
   });
+  stage.addEventListener('mouseenter', function(){ paused = true; clearTimeout(timer); });
+  stage.addEventListener('mouseleave', function(){ paused = false; clearTimeout(timer); timer = setTimeout(function(){ show(cur+1); }, 1800); });
+  stage.addEventListener('focusin', function(){ paused = true; clearTimeout(timer); });
 
-  /* 외부에서 특정 탭 열기 (학부모 안내문 견본) */
-  document.querySelectorAll('[data-open-tab]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var id = btn.getAttribute('data-open-tab');
-      var tab = document.getElementById(id);
-      if (!tab) return;
-      tab.click();
-      var root = tab.closest('[data-tabs]') || tab;
-      root.scrollIntoView({behavior:'smooth', block:'center'});
-      tab.focus({preventScroll:true});
-    });
-  });
+  /* swipe */
+  var sx = 0, sy = 0;
+  stage.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy)) show(cur + (dx < 0 ? 1 : -1));
+  }, {passive:true});
 
-  /* 라이트박스 */
-  var lb = document.getElementById('lb');
-  var lbImg = document.getElementById('lb-img');
-  var lbCap = document.getElementById('lb-cap');
-  document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-lb]');
-    if (!t) return;
-    e.preventDefault();
-    if (!lb || typeof lb.showModal !== 'function') return;
-    lbImg.src = t.getAttribute('data-lb');
-    lbImg.alt = t.getAttribute('data-cap') || '화면 크게 보기';
-    lbCap.textContent = t.getAttribute('data-cap') || '';
-    lb.showModal();
-  });
-  if (lb) {
-    var closeBtn = document.getElementById('lb-close');
-    if (closeBtn) closeBtn.addEventListener('click', function(){ lb.close(); });
-    lb.addEventListener('click', function(e){
-      if (e.target === lb || e.target.classList.contains('lb-in')) lb.close();
-    });
-    lb.addEventListener('close', function(){ lbImg.src = ''; });
-  }
+  /* autoplay kick-off */
+  if (!reduce) timer = setTimeout(next, 5200);
 
-  /* 문의 폼 */
-  var form = document.getElementById('inq');
-  var out = document.getElementById('f-out');
-  var outText = document.getElementById('f-text');
-  var msg = document.getElementById('f-msg');
-  var status = document.getElementById('f-status');
-  var planLabels = {light:'라이트 (원생 50명까지) · 29,000원/월', standard:'스탠다드 (원생 100명까지) · 49,000원/월', pro:'프로 (원생 200명까지) · 79,000원/월', single:'리포트 생성기 단품 · 39,000원'};
-
-  if (form) {
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var school = form.school.value.trim();
-      var name = form.name.value.trim();
-      var size = form.size.value.trim();
-      var plan = form.plan.value;
-      var q = form.q.value.trim();
-      var tools = Array.prototype.slice.call(form.querySelectorAll('input[name="tool"]:checked')).map(function(c){ return c.value; });
-
-      if (!school) {
-        msg.textContent = '학원명을 먼저 적어 주세요';
-        msg.style.color = '#E6C7A8';
-        form.school.focus();
-        return;
-      }
-      msg.textContent = '입력한 내용은 이 브라우저 밖으로 나가지 않습니다';
-      msg.style.color = '';
-
-      var lines = ['안녕하세요, EPL 도구 문의드립니다.', ''];
-      lines.push('· 학원명: ' + school);
-      if (name) lines.push('· 성함: ' + name);
-      if (size) lines.push('· 원생 수: ' + size);
-      if (plan) lines.push('· 관심 요금제: ' + planLabels[plan]);
-      if (tools.length) lines.push('· 관심 도구: ' + tools.join(', '));
-      if (q) lines.push('· 궁금한 점: ' + q);
-      lines.push('', '잘 부탁드립니다.');
-
-      outText.textContent = lines.join('\n');
-      out.classList.add('on');
-      status.textContent = '';
-      out.scrollIntoView({behavior:'smooth', block:'nearest'});
-    });
-
-    var copyBtn = document.getElementById('f-copy');
-    if (copyBtn) copyBtn.addEventListener('click', function(){
-      var text = outText.textContent;
-      function done(){ status.textContent = '복사되었습니다'; }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function(){ status.textContent = '복사가 막혔습니다 — 직접 선택해 주세요'; });
-      } else {
-        var r = document.createRange(); r.selectNodeContents(outText);
-        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-        try { document.execCommand('copy'); done(); } catch(err){ status.textContent = '직접 선택해 주세요'; }
-      }
-    });
-  }
-
-  /* 요금 카드 → 문의 폼 */
-  document.querySelectorAll('[data-plan]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var sel = document.getElementById('f-plan');
-      if (sel) sel.value = btn.getAttribute('data-plan');
-      var start = document.getElementById('start');
-      if (start) start.scrollIntoView({behavior:'smooth', block:'start'});
-      var school = document.getElementById('f-school');
-      if (school) setTimeout(function(){ school.focus({preventScroll:true}); }, 650);
-    });
-  });
-
-  /* 등장 모션 */
-  var items = document.querySelectorAll('.rv');
-  if ('IntersectionObserver' in window) {
+  /* reveal */
+  if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, {threshold:0.08, rootMargin:'0px 0px -6% 0px'});
-    items.forEach(function(el){ io.observe(el); });
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
+    document.querySelectorAll('.fade').forEach(function(el){ io.observe(el); });
   } else {
-    items.forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('.fade').forEach(function(el){ el.classList.add('in'); });
   }
+
+  /* report demo */
+  var paste = document.getElementById('paste');
+  var lines = Array.prototype.slice.call(paste.querySelectorAll('.pl'));
+  var buildBtn = document.getElementById('buildBtn');
+  var hint = document.getElementById('buildHint');
+  var a4out = document.getElementById('a4out');
+  var scan = document.getElementById('scan');
+  var building = false;
+
+  lines.forEach(function(l){ l.classList.add('on'); });
+
+  function build(){
+    if (building) return;
+    building = true;
+    a4out.classList.remove('on');
+    a4out.classList.add('a4out--empty');
+    lines.forEach(function(l){ l.classList.remove('on'); });
+    buildBtn.textContent = '만드는 중…';
+    hint.textContent = '붙여넣은 내용을 계산합니다';
+    setTimeout(function(){ scan.classList.add('run'); }, 80);
+
+    var step = 0;
+    (function tick(){
+      if (step < lines.length){
+        lines[step].classList.add('on');
+        step++;
+        setTimeout(tick, 190);
+      } else {
+        setTimeout(function(){
+          scan.classList.remove('run');
+          a4out.classList.remove('a4out--empty');
+          a4out.classList.add('on');
+          buildBtn.textContent = '다시 만들기';
+          hint.textContent = 'A4 한 장 · 인쇄 / PDF / JPG';
+          building = false;
+        }, 860);
+      }
+    })();
+  }
+  buildBtn.addEventListener('click', build);
+
+  /* monster xp demo */
+  var xp = 640, level = 5, xpBar = document.getElementById('xpBar'),
+      lvNum = document.getElementById('lvNum'), xpText = document.getElementById('xpText'),
+      xpLeft = document.getElementById('xpLeft'), toast = document.getElementById('xpToast'),
+      toastTimer = null;
+
+  function renderXp(){
+    var pct = Math.min(100, (xp / 1000) * 100);
+    xpBar.style.width = pct + '%';
+    lvNum.textContent = 'Lv.' + level;
+    xpText.textContent = xp.toLocaleString('en-US') + ' / 1,000 XP';
+    xpLeft.textContent = Math.max(0, 1000 - xp).toLocaleString('en-US');
+  }
+  document.querySelectorAll('.xpchips button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var add = parseInt(b.getAttribute('data-xp'), 10);
+      xp += add;
+      var up = false;
+      while (xp >= 1000 && level < 50){ xp -= 1000; level++; up = true; }
+      renderXp();
+      toast.textContent = up ? ('레벨 업! Lv.' + level + ' · 몬스터가 자랐습니다') : ('승인되었습니다 · +' + add + ' XP');
+      toast.classList.add('on');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('on'); }, 2200);
+    });
+  });
+  renderXp();
+
+  /* workbook slider */
+  var track = document.getElementById('wbTrack');
+  var wbTabs = Array.prototype.slice.call(document.querySelectorAll('.wb-tabs button'));
+  var wbIndex = 0, wbCount = track.children.length;
+  function goWb(i){
+    wbIndex = (i + wbCount) % wbCount;
+    track.style.transform = 'translateX(-' + (wbIndex * 100) + '%)';
+    wbTabs.forEach(function(t, k){ t.setAttribute('aria-selected', k === wbIndex ? 'true' : 'false'); });
+  }
+  wbTabs.forEach(function(t){ t.addEventListener('click', function(){ goWb(parseInt(t.getAttribute('data-wb'), 10)); }); });
+  document.getElementById('wbPrev').addEventListener('click', function(){ goWb(wbIndex - 1); });
+  document.getElementById('wbNext').addEventListener('click', function(){ goWb(wbIndex + 1); });
+
+  /* writing steps */
+  var steps = [
+    {k:'UNIT 01 · 뼈대 — Subject + Verb', s:'The fox <em>runs</em>.', d:'주어와 동사만 있으면 문장이 됩니다. 여섯 유닛의 출발점.', f:'The fox ______.'},
+    {k:'UNIT 02 · 목적어 — Object', s:'The fox finds <em>a seed</em>.', d:'동사가 향하는 대상을 붙입니다. 문장이 한 걸음 길어집니다.', f:'The fox finds ______.'},
+    {k:'UNIT 03 · 수식어 — Modifier', s:'One morning, the fox finds a seed <em>in an empty pot</em>.', d:'언제, 어디서, 어떻게를 더합니다. 장면이 보이기 시작합니다.', f:'______, the fox finds a seed ______.'},
+    {k:'UNIT 04 · 연결 — Connector', s:'He waters it every day, <em>and</em> slowly the woods begin to change.', d:'두 문장을 이어 하나의 흐름으로 만듭니다. 원인과 결과를 잇습니다.', f:'연결어 — and · but · so · because'},
+    {k:'UNIT 05 · 주제문 — Topic Sentence', s:'<em>A small habit</em> changes the whole woods.', d:'문단의 첫 문장이 무엇을 약속할지 정합니다. 나머지는 그 약속을 지킵니다.', f:'주제문 + 근거 2 + 맺음'},
+    {k:'UNIT 06 · 다듬기 — Final Essay', s:'A fox lives alone in the woods. One morning he finds a seed in an empty pot. He waters it every day, and slowly the woods begin to change.', d:'군더더기를 덜어내고 한 편으로 완성합니다. 손에 에세이가 남습니다.', f:'한 편의 에세이 — 6 units'}
+  ];
+  var wrK = document.getElementById('wrK'), wrS = document.getElementById('wrS'),
+      wrD = document.getElementById('wrD'), wrF = document.getElementById('wrF'),
+      wrGhost = document.getElementById('wrGhost'),
+      wrBoard = document.getElementById('wrBoard');
+  document.querySelectorAll('.wr-steps button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var i = parseInt(b.getAttribute('data-wr'), 10), d = steps[i];
+      document.querySelectorAll('.wr-steps button').forEach(function(x){ x.setAttribute('aria-selected','false'); });
+      b.setAttribute('aria-selected','true');
+      wrK.textContent = d.k; wrS.innerHTML = d.s; wrD.textContent = d.d; wrF.textContent = d.f;
+      wrGhost.textContent = ('0' + (i + 1)).slice(-2);
+      wrBoard.classList.remove('swap'); void wrBoard.offsetWidth; wrBoard.classList.add('swap');
+    });
+  });
+
+  /* lightbox */
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+  function openLb(src, cap){
+    lbImg.src = src; lbImg.alt = cap || ''; lbCap.textContent = cap || '';
+    lb.classList.add('on'); document.body.style.overflow = 'hidden';
+  }
+  function closeLb(){ lb.classList.remove('on'); document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-full]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      openLb(el.getAttribute('data-full'), el.getAttribute('data-cap'));
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && lb.classList.contains('on')) closeLb();
+    if (e.key === 'ArrowRight' && document.activeElement && document.activeElement.classList.contains('thumbs')) show(cur+1);
+  });
+
+  /* composer */
+  var out = document.getElementById('msgOut');
+  document.getElementById('makeMsg').addEventListener('click', function(){
+    var name = document.getElementById('cName').value.trim() || 'OO 영어학원';
+    var who = document.getElementById('cWho').value.trim();
+    var num = document.getElementById('cNum').value.trim() || 'OO명';
+    var plan = document.getElementById('cPlan').value;
+    var ask = document.getElementById('cAsk').value.trim();
+    var msg = '안녕하세요, EPL LAB 도입 문의드립니다.\n' +
+      '· 학원명: ' + name + '\n' +
+      (who ? '· 성함: ' + who + '\n' : '') +
+      '· 원생 수: ' + num + '\n' +
+      '· 관심 요금제: ' + plan +
+      (ask ? '\n· 궁금한 점: ' + ask : '');
+    out.textContent = msg;
+    out.classList.add('on');
+  });
+  document.getElementById('copyMsg').addEventListener('click', function(){
+    var btn = this, text = out.textContent;
+    if (!text){ btn.textContent = '먼저 만들어 주세요'; setTimeout(function(){ btn.textContent = '복사'; }, 1600); return; }
+    var done = function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '복사'; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+      ta.select(); try{ document.execCommand('copy'); done(); }catch(err){ btn.textContent = '복사 실패'; }
+      document.body.removeChild(ta);
+    }
+  });
 })();
 </script>
 </body>
